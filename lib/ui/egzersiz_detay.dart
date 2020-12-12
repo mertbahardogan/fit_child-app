@@ -28,13 +28,13 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
           title: Text(secilenEgzersiz.egzersizAdi + " Hakkında"),
           centerTitle: true,
           backgroundColor:
-              widget.gelenIndex % 2 == 0 ? Colors.grey[400] : Colors.brown[100],
+              widget.gelenIndex % 2 == 0 ? Colors.grey[500] : Colors.brown[100],
           expandedHeight: 200,
           flexibleSpace: FlexibleSpaceBar(
             background: Image.asset(
               "assets/images/" + secilenEgzersiz.egzersizResim,
               fit: BoxFit.scaleDown,
-              cacheHeight: 150,
+              cacheHeight: 130,
               alignment: Alignment.bottomCenter,
             ),
           ),

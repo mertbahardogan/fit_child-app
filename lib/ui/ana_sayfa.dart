@@ -15,7 +15,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
         SliverAppBar(
           title: Text(
             "Çocuklar için Spor App",
-            style: TextStyle(fontSize: 23,color: Colors.white),
+            style: TextStyle(fontSize: 23),
           ),
           centerTitle: true,
           backgroundColor: Colors.grey,

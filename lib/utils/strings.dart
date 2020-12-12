@@ -69,13 +69,30 @@ class Strings{
     "\t3-Daha sonra başlangıç pozisyonuna dönün. Bu sefer diğer tarafınıza aynı hareketi uygulayın.\n\n",
 
 
+    "\t1-Koşuya başlamadan önce ısınma egzersizlerini uygulayın.\n\n"
+    "\t2-Nefes kontrolünü doğru ayarlayın.\n\n"
+    "\t3-Belirli bir tempo yakalayın ve koşu sonuna kadar korumaya özen gösterin.\n\n",
    
-    "Tüm vücut",
-    "Bacak Bölgesi",
-    "Tüm vücut",
-    "Tüm vücut"
+   
+    "\t1-Bacak ve omuzlarınız aynı hizada olacak şekilde squat pozisyonunu alın.\n\n"
+    "\t2-Dizlerinizin ayak hizasını geçmemesine dikkat edin ve başınızı doğal pozisyonda tutun.\n\n"
+    "\t3-Pozisyonu koruyarak karnınızın sıkı, belinizin düz olduğundan emin olup sadece kalça bölgenizin dışarı çıkararak eğilin.\n\n"
+    "\t4-Daha sonra başlangıç pozisyonuna gelerek bu hareketi tekrarlayın.\n\n",
+   
+    "\t1-Kol çevirme hareketi, Ayaklarınızı omuz genişliğinde açmış ve kollarınız yanınızda olacak şekilde ayakta durun.\n\n"
+    "\tKollarınızı yavaşça öne doğru dairesel hareketlerle sallayın. Bunu yaparken, omuzlarını ısınıyor hissetmelisiniz.\n\n"
+    "\t2-Dizi yukarı çekme hareketi, Yerinizde sayarak hafif tempoda koşmaya başlayın. Kollarınız sabit kalmalı.\n\n"
+    "\t3-Lunge hareketi, Ayakta duruş pozisyonundayken bir adım öne atın. Öne attığınız bacağınızı diz bölümünden bükün. \n\n"
+    "\tArdından bacak değiştirip hareketi tekrarlayın.\n\n",
+    
+    "\tSeçenek 1: Sırtüstü uzanın.\n\n"
+    "\tİki ayağınızın arasındaki mesafeyi omuz genişliğinize göre ayarlayın ve ayaklarınızı kendinize doğru çekin\n\n"
+    "\tEllerinizle yerden destek alarak kalçanızı havaya kaldırın.\n\n"
+    "\tSeçenek 2: Ayağa kalkın.\n\n"
+    "\tDizlerinizi bükmeden öne doğru eğilin ve başınızı olabildiğince bacaklarınıza yaklaştırın. \n\n"
+    "\tBu sırada ellerinizle arkadan ayak bileklerinizi tutabilirsiniz.\n\n"
+    "\tSeçenek 3: Son olarak bedeninizi dinlendirmek ve ona tamamladığı yoga hareketleri için teşekkür etmek üzere sırt üstü uzanın\n\n"
+    "\tKollarınızı iki yana bırakın. Tüm bedeninizin ağırlığını yere verin ve gözlerinizi kapatarak bir süre kıpırdamadan uzanın.\n\n"
+   
   ];
-
-
-
 }
