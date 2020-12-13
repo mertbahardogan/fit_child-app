@@ -1,3 +1,4 @@
+import 'package:cocuklar_icin_spor_app/main.dart';
 import 'package:flutter/material.dart';
 
 class GirisSayfasi extends StatefulWidget {
@@ -99,7 +100,9 @@ class _GirisSayfasiState extends State<GirisSayfasi> {
                   height: 25,
                 ),
                 RaisedButton.icon(
-                  onPressed: _girisBilgileriniOnayla,
+                  onPressed: () {
+                    _girisBilgileriniOnayla();
+                  },
                   icon: Icon(
                     Icons.save,
                     color: Colors.white,
@@ -121,6 +124,8 @@ class _GirisSayfasiState extends State<GirisSayfasi> {
   void _girisBilgileriniOnayla() {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
+      MaterialPageRoute(builder: (context) => MyHomePage());
+
       debugPrint(
           "Girilen adsoyad: $_adSoyad\n spor: $_favoriSpor\n yaş: $_yas ");
     } else {

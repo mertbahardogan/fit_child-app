@@ -11,7 +11,7 @@ class EgzersizSayfasi extends StatelessWidget {
     return Scaffold(
       body: listeyiHazirla(),
       appBar: AppBar(
-        title: Text("Tüm Hareketler"),
+        title: Text("Tüm Hareketler",style: TextStyle(color: Colors.white),),
         centerTitle: true,
       ),
     );
