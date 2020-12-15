@@ -3,12 +3,7 @@ import 'package:cocuklar_icin_spor_app/utils/program.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class ProgramSayfasi extends StatefulWidget {
-  @override
-  _ProgramSayfasiState createState() => _ProgramSayfasiState();
-}
-
-class _ProgramSayfasiState extends State<ProgramSayfasi> {
+class ProgramSayfasi extends StatelessWidget {
   static List<Haftalik> tumHaftalar;
   @override
   Widget build(BuildContext context) {

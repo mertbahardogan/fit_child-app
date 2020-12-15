@@ -27,7 +27,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
         ),
         SliverFixedExtentList(
             delegate: SliverChildListDelegate(sabitCardElemanlari()),
-            itemExtent: 1000),
+            itemExtent: MediaQuery.of(context).size.height),
         // SliverGridDelegateWithFixedCrossAxisCount(),
       ],
     );
@@ -51,7 +51,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
           Divider(),
           Card(
             shape: RoundedRectangleBorder(
-                side: BorderSide(color: Colors.red, width: 2),
+                side: BorderSide(color: Colors.white38, width: 2),
                 borderRadius: BorderRadius.circular(6)),
             margin: EdgeInsets.fromLTRB(8, 10, 8, 0),
             elevation: 20,
@@ -123,10 +123,6 @@ class _AnaSayfaState extends State<AnaSayfa> {
                   )
                 ],
               ),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AnaSayfa()));
-              },
             ),
           ),
           Card(

@@ -1,4 +1,5 @@
 import 'package:cocuklar_icin_spor_app/ui/ana_sayfa.dart';
+import 'package:cocuklar_icin_spor_app/ui/program_detay.dart';
 import 'package:cocuklar_icin_spor_app/ui/program_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/ui/egzersiz_detay.dart';
 import 'package:cocuklar_icin_spor_app/ui/egzersiz_sayfasi.dart';
@@ -7,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 void main() => runApp(MyApp());
-String adSoyad="Mert";
-String favSpor="Basketbol";
-int yas=(10.2).toInt();
+String adSoyad = "Mert";
+String favSpor = "Basketbol";
+int yas = (10.2).toInt();
 
 class MyApp extends StatelessWidget {
   @override
@@ -30,6 +31,10 @@ class MyApp extends StatelessWidget {
           return MaterialPageRoute(
               builder: (context) =>
                   EgzersizDetay(int.parse(pathElemanlari[2])));
+        }
+        if (pathElemanlari[1] == "programDetay") {
+          return MaterialPageRoute(
+              builder: (context) => ProgramDetay(int.parse(pathElemanlari[2])));
         } else
           return null;
       },
@@ -42,13 +47,13 @@ class Splash extends StatelessWidget {
   Widget build(BuildContext context) {
     return SplashScreen(
       seconds: 4,
-      navigateAfterSeconds: adSoyad == null?GirisSayfasi():MyHomePage(),
+      navigateAfterSeconds: adSoyad == null ? GirisSayfasi() : MyHomePage(),
       title: new Text(
         'Çocuklar için Spor App',
         textScaleFactor: 2,
       ),
       image: Image.asset("assets/images/fitness.png"),
-      loadingText: Text("Hoşgeldiniz!"),
+      // loadingText: Text("Hoşgeldiniz!"),
       photoSize: 100.0,
       loaderColor: Colors.red,
     );
@@ -95,11 +100,11 @@ class _MyHomePageState extends State<MyHomePage> {
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: "Ana Sayfa",
-          backgroundColor: Colors.deepOrangeAccent.shade700,
+          backgroundColor: Colors.grey,
         ),
         BottomNavigationBarItem(
-            icon: Icon(Icons.psychology),
-            label: "Haftalık Program",
+            icon: Icon(Icons.date_range),
+            label: "Program",
             backgroundColor: Colors.grey),
       ],
       type: BottomNavigationBarType.shifting,
