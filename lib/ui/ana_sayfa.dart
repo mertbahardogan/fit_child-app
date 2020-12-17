@@ -43,7 +43,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
             width: 70,
             height: 70,
           ),
-          Text("Hoşgeldin " + adSoyad,
+          Text("Hoşgeldin " ,
               style: TextStyle(
                   color: Colors.grey.shade800,
                   fontSize: 35,
@@ -68,11 +68,11 @@ class _AnaSayfaState extends State<AnaSayfa> {
               subtitle: Column(
                 children: [
                   Text(
-                    "En sevdiğim spor: " + favSpor,
+                    "En sevdiğim spor: ",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                   Text(
-                    "Yaşım: " + yas.toString(),
+                    "Yaşım: ",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                   Text("Bilgilerini güncellemek için tıkla.",

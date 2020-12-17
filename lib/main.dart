@@ -8,13 +8,17 @@ import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 void main() => runApp(MyApp());
-String adSoyad = "Mert";
-String favSpor = "Basketbol";
-int yas = (10.2).toInt();
+// String adSoyad = "Mert";
+// String favSpor = "Basketbol";
+// int yas = (10.2).toInt();
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+
+
+    
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -23,7 +27,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Splash(),
+      home: Splash(), //buna veri göndermem lazım varsa
+      
       onGenerateRoute: (RouteSettings settings) {
         List<String> pathElemanlari = settings.name.split("/");
         //egzersizDetay/$index
@@ -47,7 +52,8 @@ class Splash extends StatelessWidget {
   Widget build(BuildContext context) {
     return SplashScreen(
       seconds: 4,
-      navigateAfterSeconds: adSoyad == null ? GirisSayfasi() : MyHomePage(),
+      // navigateAfterSeconds: adSoyad == null ? GirisSayfasi() : MyHomePage(),
+      navigateAfterSeconds:GirisSayfasi(),
       title: new Text(
         'Çocuklar için Spor App',
         textScaleFactor: 2,
@@ -95,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
         BottomNavigationBarItem(
           icon: Icon(Icons.fitness_center),
           label: "Egzersizler",
-          backgroundColor: Colors.grey,
+          backgroundColor: Colors.grey, //tüm renkleri theme colordan çek
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.home),

@@ -93,12 +93,12 @@ class _ProgramDetayState extends State<ProgramDetay> {
       initiallyExpanded: tumGunler[index].expanded,
       children: [
         Container(
-          height: MediaQuery.of(context).size.height / 7,
+          height: MediaQuery.of(context).size.height / 13,
           width: double.infinity,
           decoration: BoxDecoration(
-              color: Colors.blueGrey.shade200,
+              color: Colors.blueGrey.shade100,
               border: Border.all(
-                color: Colors.grey,
+                color: Colors.grey.shade300,
                 width: 3,
               ),
               borderRadius: BorderRadius.all(Radius.circular(14))),

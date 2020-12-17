@@ -1,4 +1,6 @@
 import 'package:cocuklar_icin_spor_app/main.dart';
+import 'package:cocuklar_icin_spor_app/models/kisisel.dart';
+import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
 import 'package:flutter/material.dart';
 
 class GirisSayfasi extends StatefulWidget {
@@ -7,13 +9,29 @@ class GirisSayfasi extends StatefulWidget {
 }
 
 class _GirisSayfasiState extends State<GirisSayfasi> {
-  String _adSoyad, _favoriSpor = "Basketbol";
-  double _yas = 7;
-  List<String> sporlar = ["Basketbol", "Futbol", "Voleybol", "Tenis", "Boks"];
-
+  // String _adSoyad;
+  double _yasForm = 7;
   var otomatikKontrol = AutovalidateMode.disabled;
+  var _formKey = GlobalKey<FormState>();
 
-  final formKey = GlobalKey<FormState>();
+  DatabaseHelper _databaseHelper;
+  List<Kisisel> tumKisiselVerilerListesi;
+  var _controller = TextEditingController();
+  // var _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    tumKisiselVerilerListesi = List<Kisisel>();
+    _databaseHelper = DatabaseHelper();
+    _databaseHelper.tumKayitlar().then((tumKayitlariTutanMapList) {
+      for (Map okunanKayitListesi in tumKayitlariTutanMapList) {
+        tumKisiselVerilerListesi
+            .add(Kisisel.dbdenOkudugunDegeriObjeyeDonustur(okunanKayitListesi));
+      }
+      setState(() {});
+    }).catchError((hata) => print("İnit state hata fonk: " + hata));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +49,7 @@ class _GirisSayfasiState extends State<GirisSayfasi> {
               left: ekranWidth / 10,
               right: ekranWidth / 10),
           child: Form(
-            key: formKey,
+            key: _formKey,
             autovalidateMode: otomatikKontrol,
             child: ListView(
               children: [
@@ -41,42 +59,10 @@ class _GirisSayfasiState extends State<GirisSayfasi> {
                     labelText: "Ad Soyad",
                     border: OutlineInputBorder(),
                   ),
+                  autofocus: false,
+                  controller: _controller,
                   validator: _isimKontrol,
-                  onSaved: (deger) => _adSoyad = deger,
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                Text("Favori Sporunuzu Seçiniz:"),
-                Container(
-                  margin: EdgeInsets.only(top: 4),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    border: Border.all(
-                        color: Colors.grey[500],
-                        style: BorderStyle.solid,
-                        width: 1),
-                  ),
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton(
-                      icon: Icon(Icons.sports_basketball_outlined),
-                      items: sporlar.map((oankiSpor) {
-                        return DropdownMenuItem<String>(
-                          child: Text(
-                            oankiSpor,
-                            textAlign: TextAlign.center,
-                          ),
-                          value: oankiSpor,
-                        );
-                      }).toList(),
-                      onChanged: (secilen) {
-                        setState(() {
-                          _favoriSpor = secilen;
-                        });
-                      },
-                      value: _favoriSpor,
-                    ),
-                  ),
+                  // onSaved: (deger) => _adSoyad = deger,
                 ),
                 SizedBox(
                   height: 25,
@@ -87,13 +73,13 @@ class _GirisSayfasiState extends State<GirisSayfasi> {
                     max: 17,
                     divisions: 10,
                     activeColor: Colors.red,
-                    label: _yas.toInt().toString(),
+                    label: _yasForm.toInt().toString(),
                     inactiveColor: Colors.grey,
-                    value: _yas,
+                    value: _yasForm,
                     onChanged: (secilen) {
                       setState(() {
-                        _yas = secilen;
-                        debugPrint("Girilen yaş değeri: $_yas");
+                        _yasForm = secilen;
+                        debugPrint("Girilen yaş değeri: $_yasForm");
                       });
                     }),
                 SizedBox(
@@ -101,11 +87,14 @@ class _GirisSayfasiState extends State<GirisSayfasi> {
                 ),
                 RaisedButton.icon(
                   onPressed: () {
-                    _girisBilgileriniOnayla();
+                    // if (_formKey.currentState.validate()) {
+                    //   _kayitEkle(Kisisel(_controller.text, _yasForm.toInt()));
+                    // }
+                    _kayitEkle(Kisisel(_controller.text, _yasForm.toInt()));
                   },
                   icon: Icon(
                     Icons.save,
-                    color: Colors.white,
+                    color: Colors.red,
                   ),
                   color: Colors.red,
                   label: Text(
@@ -121,13 +110,13 @@ class _GirisSayfasiState extends State<GirisSayfasi> {
     );
   }
 
-  void _girisBilgileriniOnayla() {
-    if (formKey.currentState.validate()) {
-      formKey.currentState.save();
-      MaterialPageRoute(builder: (context) => MyHomePage());
-
-      debugPrint(
-          "Girilen adsoyad: $_adSoyad\n spor: $_favoriSpor\n yaş: $_yas ");
+  void _kayitEkle(Kisisel kisisel) async {
+    if (_formKey.currentState.validate()) {
+      // _formKey.currentState.save();
+      var eklenenKayitID = await _databaseHelper.kayitEkle(kisisel);
+      kisisel.id = eklenenKayitID;
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context) => MyHomePage()));
     } else {
       setState(() {
         otomatikKontrol = AutovalidateMode.always;
@@ -142,4 +131,20 @@ class _GirisSayfasiState extends State<GirisSayfasi> {
     else
       return null;
   }
+
+  // void _kayitEkle(Kisisel kisisel) async {
+  //   var eklenenKayitID = await _databaseHelper.kayitEkle(kisisel);
+  //   kisisel.id = eklenenKayitID;
+  //   // MaterialPageRoute(builder: (context) => MyHomePage());
+
+  //   // if (eklenenKayitID > 0) {
+  //   //   setState(() {
+  //   //     tumKisiselVerilerListesi.insert(0, kisisel);
+  //   //   });
+  //   // } else {
+  //   //   setState(() {
+  //   //     otomatikKontrol = AutovalidateMode.always;
+  //   //   });
+  // }
+  // }
 }
