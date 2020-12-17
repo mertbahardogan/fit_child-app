@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:cocuklar_icin_spor_app/models/kisisel.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
-
 import 'package:sqflite/sqflite.dart';
 
 
@@ -72,7 +71,7 @@ class DatabaseHelper {
     return sonuc;
   }
 
-  Future<int> kayitGuncelle(Kisisel kisisel) async {
+  Future<int> kayitGuncelle(Kisisel kisisel) async { //sonuc sıfır
     var db = await _getDatabase();
     var sonuc = await db.update(
         _kisiselTablo, kisisel.dbyeYazmakIcinMapeDonustur(),

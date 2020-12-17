@@ -1,5 +1,7 @@
 import 'package:cocuklar_icin_spor_app/main.dart';
-import 'package:cocuklar_icin_spor_app/ui/giris_sayfasi.dart';
+import 'package:cocuklar_icin_spor_app/models/kisisel.dart';
+import 'package:cocuklar_icin_spor_app/ui/bilgileri_guncelle.dart';
+import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
 import 'package:flutter/material.dart';
 
 class AnaSayfa extends StatefulWidget {
@@ -8,6 +10,23 @@ class AnaSayfa extends StatefulWidget {
 }
 
 class _AnaSayfaState extends State<AnaSayfa> {
+  DatabaseHelper _databaseHelper;
+  List<Kisisel> tumKisiselVerilerListesi;
+
+  @override
+  void initState() {
+    super.initState();
+    tumKisiselVerilerListesi = List<Kisisel>();
+    _databaseHelper = DatabaseHelper();
+    _databaseHelper.tumKayitlar().then((tumKayitlariTutanMapList) {
+      for (Map okunanKayitListesi in tumKayitlariTutanMapList) {
+        tumKisiselVerilerListesi
+            .add(Kisisel.dbdenOkudugunDegeriObjeyeDonustur(okunanKayitListesi));
+      }
+      setState(() {});
+    }).catchError((hata) => print("Init state hata fonk: " + hata));
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -28,7 +47,6 @@ class _AnaSayfaState extends State<AnaSayfa> {
         SliverFixedExtentList(
             delegate: SliverChildListDelegate(sabitCardElemanlari()),
             itemExtent: MediaQuery.of(context).size.height),
-        // SliverGridDelegateWithFixedCrossAxisCount(),
       ],
     );
   }
@@ -43,7 +61,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
             width: 70,
             height: 70,
           ),
-          Text("Hoşgeldin " ,
+          Text("Ana Sayfa",
               style: TextStyle(
                   color: Colors.grey.shade800,
                   fontSize: 35,
@@ -51,16 +69,16 @@ class _AnaSayfaState extends State<AnaSayfa> {
           Divider(),
           Card(
             shape: RoundedRectangleBorder(
-                side: BorderSide(color: Colors.white38, width: 2),
+                side: BorderSide(color: Colors.deepOrange, width: 2),
                 borderRadius: BorderRadius.circular(6)),
             margin: EdgeInsets.fromLTRB(8, 10, 8, 0),
             elevation: 20,
             color: Colors.blueGrey.shade700,
             child: ListTile(
               title: Text(
-                "Bilgilerim",
+                "Kişisel Bilgiler",
                 style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.deepOrange,
                     fontSize: 30,
                     fontWeight: FontWeight.w500),
                 textAlign: TextAlign.center,
@@ -68,11 +86,9 @@ class _AnaSayfaState extends State<AnaSayfa> {
               subtitle: Column(
                 children: [
                   Text(
-                    "En sevdiğim spor: ",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                  Text(
-                    "Yaşım: ",
+                    tumKisiselVerilerListesi.length == 0
+                        ? " "
+                        : tumKisiselVerilerListesi[0].adSoyad, //hata var
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                   Text("Bilgilerini güncellemek için tıkla.",
@@ -81,8 +97,10 @@ class _AnaSayfaState extends State<AnaSayfa> {
                 ],
               ),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => GirisSayfasi()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BilgileriGuncelle()));
               },
             ),
           ),
@@ -96,17 +114,17 @@ class _AnaSayfaState extends State<AnaSayfa> {
           Card(
             margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
             elevation: 10,
-            color: Colors.blueGrey.shade300,
+            color: Colors.blueGrey.shade500,
             child: ListTile(
               leading: Icon(
                 Icons.water_damage_outlined,
-                color: Colors.grey.shade700,
+                color: Colors.orange,
                 size: 36,
               ),
               title: Text(
                 "Su Tüketimi",
                 style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.orange,
                     fontSize: 22,
                     fontWeight: FontWeight.w500),
                 textAlign: TextAlign.center,
@@ -119,7 +137,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                   ),
                   Text(
                     "Düzenli olarak her 25 kg için 1 L su içmeniz önerilir.",
-                    style: TextStyle(color: Colors.grey.shade700, fontSize: 10),
+                    style: TextStyle(color: Colors.grey.shade400, fontSize: 10),
                   )
                 ],
               ),
@@ -128,17 +146,17 @@ class _AnaSayfaState extends State<AnaSayfa> {
           Card(
             margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
             elevation: 10,
-            color: Colors.blueGrey.shade200,
+            color: Colors.blueGrey.shade500,
             child: ListTile(
               leading: Icon(
                 Icons.food_bank_outlined,
-                color: Colors.grey.shade700,
+                color: Colors.orange,
                 size: 36,
               ),
               title: Text(
                 "Beslenme",
                 style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.orange,
                     fontSize: 22,
                     fontWeight: FontWeight.w500),
                 textAlign: TextAlign.center,
@@ -156,7 +174,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                   ),
                   Text(
                     "Sporun büyük bir kısmı beslenmeden oluşur.",
-                    style: TextStyle(color: Colors.grey.shade700, fontSize: 10),
+                    style: TextStyle(color: Colors.grey.shade400, fontSize: 10),
                   )
                 ],
               ),
@@ -165,17 +183,17 @@ class _AnaSayfaState extends State<AnaSayfa> {
           Card(
             margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
             elevation: 10,
-            color: Colors.blueGrey.shade100,
+            color: Colors.blueGrey.shade500,
             child: ListTile(
               leading: Icon(
                 Icons.single_bed_outlined,
-                color: Colors.grey.shade700,
+                color: Colors.orange,
                 size: 36,
               ),
               title: Text(
                 "Uyku Düzeni",
                 style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.orange,
                     fontSize: 22,
                     fontWeight: FontWeight.w500),
                 textAlign: TextAlign.center,
@@ -188,7 +206,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                   ),
                   Text(
                     "Yaptığımız sporun verimli olması için 8 saat uyumalıyız.",
-                    style: TextStyle(color: Colors.grey.shade700, fontSize: 10),
+                    style: TextStyle(color: Colors.grey.shade400, fontSize: 10),
                   )
                 ],
               ),

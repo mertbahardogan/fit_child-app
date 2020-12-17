@@ -1,14 +1,16 @@
 import 'package:cocuklar_icin_spor_app/main.dart';
 import 'package:cocuklar_icin_spor_app/models/kisisel.dart';
+import 'package:cocuklar_icin_spor_app/ui/ana_sayfa.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
 import 'package:flutter/material.dart';
 
-class GirisSayfasi extends StatefulWidget {
+class BilgileriGuncelle extends StatefulWidget {
   @override
-  _GirisSayfasiState createState() => _GirisSayfasiState();
+  _BilgileriGuncelleState createState() => _BilgileriGuncelleState();
 }
 
-class _GirisSayfasiState extends State<GirisSayfasi> {
+class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
+  // String _adSoyad;
   double _yasForm = 7;
   var otomatikKontrol = AutovalidateMode.disabled;
   var _formKey = GlobalKey<FormState>();
@@ -27,7 +29,9 @@ class _GirisSayfasiState extends State<GirisSayfasi> {
         tumKisiselVerilerListesi
             .add(Kisisel.dbdenOkudugunDegeriObjeyeDonustur(okunanKayitListesi));
       }
-      setState(() {});
+      setState(() {
+        _controller.text=tumKisiselVerilerListesi[0].adSoyad;
+      });
     }).catchError((hata) => print("İnit state hata fonk: " + hata));
   }
 
@@ -39,7 +43,7 @@ class _GirisSayfasiState extends State<GirisSayfasi> {
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: AppBar(
-        title: Text("Bilgilerinizi Giriniz"),
+        title: Text("Bilgileri Güncelle"),
         centerTitle: true,
       ),
       body: Padding(
@@ -52,7 +56,7 @@ class _GirisSayfasiState extends State<GirisSayfasi> {
             autovalidateMode: otomatikKontrol,
             child: ListView(
               children: [
-                 Padding(
+                Padding(
                   child: Image.asset(
                     "assets/images/kullanici.png",
                     width: 100,
@@ -78,33 +82,28 @@ class _GirisSayfasiState extends State<GirisSayfasi> {
                     min: 7,
                     max: 17,
                     divisions: 10,
-                    activeColor: Colors.red,
+                    activeColor: Colors.orangeAccent,
                     label: _yasForm.toInt().toString(),
                     inactiveColor: Colors.grey,
                     value: _yasForm,
                     onChanged: (secilen) {
                       setState(() {
                         _yasForm = secilen;
-                        debugPrint("Girilen yaş değeri: $_yasForm");
                       });
                     }),
                 SizedBox(
                   height: 25,
                 ),
-                RaisedButton.icon(
+                RaisedButton(
                   onPressed: () {
-                    // if (_formKey.currentState.validate()) {
-                    //   _kayitEkle(Kisisel(_controller.text, _yasForm.toInt()));
-                    // }
-                    _kayitEkle(Kisisel(_controller.text, _yasForm.toInt()));
+                    if (_formKey.currentState.validate()) {
+                      _kayitGuncelle(Kisisel.withID(
+                          1, _controller.text, _yasForm.toInt()));
+                    }
                   },
-                  icon: Icon(
-                    Icons.save,
-                    color: Colors.red,
-                  ),
-                  color: Colors.red,
-                  label: Text(
-                    "Kaydet",
+                  color: Colors.deepOrange,
+                  child: Text(
+                    "Güncelle",
                     style: TextStyle(
                       color: Colors.white,
                     ),
@@ -116,24 +115,22 @@ class _GirisSayfasiState extends State<GirisSayfasi> {
     );
   }
 
-  void _kayitEkle(Kisisel kisisel) async {
-    if (_formKey.currentState.validate()) {
-      var eklenenKayitID = await _databaseHelper.kayitEkle(kisisel);
-      kisisel.id = eklenenKayitID;
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => MyHomePage()));
-    } else {
-      setState(() {
-        otomatikKontrol = AutovalidateMode.always;
-      });
-    }
-  }
-
   String _isimKontrol(String deger) {
     RegExp regex = RegExp("[a-zA-Z]+\$");
     if (!regex.hasMatch(deger))
       return 'Ad alanı numara içermemeli.';
     else
       return null;
+  }
+
+  void _kayitGuncelle(Kisisel kisisel) async {
+    var sonuc = await _databaseHelper.kayitGuncelle(kisisel);
+    debugPrint(sonuc.toString());
+    if (sonuc == 1) {
+      setState(() {
+        tumKisiselVerilerListesi[0] = kisisel;
+      });
+      Navigator.of(context).pop();
+    }
   }
 }

@@ -4,21 +4,22 @@ import 'package:cocuklar_icin_spor_app/ui/program_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/ui/egzersiz_detay.dart';
 import 'package:cocuklar_icin_spor_app/ui/egzersiz_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/ui/giris_sayfasi.dart';
+import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 
+import 'models/kisisel.dart';
+
 void main() => runApp(MyApp());
-// String adSoyad = "Mert";
-// String favSpor = "Basketbol";
-// int yas = (10.2).toInt();
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
 
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-
-
-    
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Splash(), //buna veri göndermem lazım varsa
-      
+
       onGenerateRoute: (RouteSettings settings) {
         List<String> pathElemanlari = settings.name.split("/");
         //egzersizDetay/$index
@@ -47,19 +48,44 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Splash extends StatelessWidget {
+class Splash extends StatefulWidget {
+  @override
+  _SplashState createState() => _SplashState();
+}
+
+class _SplashState extends State<Splash> {
+  DatabaseHelper _databaseHelper;
+  List<Kisisel> tumKisiselVerilerListesi;
+
+  @override
+  void initState() {
+    super.initState();
+    tumKisiselVerilerListesi = List<Kisisel>();
+    _databaseHelper = DatabaseHelper();
+    _databaseHelper.tumKayitlar().then((tumKayitlariTutanMapList) {
+      for (Map okunanKayitListesi in tumKayitlariTutanMapList) {
+        tumKisiselVerilerListesi
+            .add(Kisisel.dbdenOkudugunDegeriObjeyeDonustur(okunanKayitListesi));
+      }
+      setState(() {});
+    }).catchError((hata) => print("Init state hata fonk: " + hata));
+  }
+
   @override
   Widget build(BuildContext context) {
+    // String kayitAd=tumKisiselVerilerListesi[0].adSoyad;
     return SplashScreen(
       seconds: 4,
-      // navigateAfterSeconds: adSoyad == null ? GirisSayfasi() : MyHomePage(),
-      navigateAfterSeconds:GirisSayfasi(),
+      navigateAfterSeconds:
+          tumKisiselVerilerListesi.length == 0 ? GirisSayfasi() : MyHomePage(),
       title: new Text(
         'Çocuklar için Spor App',
         textScaleFactor: 2,
       ),
       image: Image.asset("assets/images/fitness.png"),
-      // loadingText: Text("Hoşgeldiniz!"),
+      loadingText: Text(tumKisiselVerilerListesi.length == 0
+          ? "Hoşgeldiniz"
+          : "Hoşgeldiniz " + tumKisiselVerilerListesi[0].adSoyad),
       photoSize: 100.0,
       loaderColor: Colors.red,
     );
