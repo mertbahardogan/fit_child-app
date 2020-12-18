@@ -46,7 +46,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
         ),
         SliverFixedExtentList(
             delegate: SliverChildListDelegate(sabitCardElemanlari()),
-            itemExtent: MediaQuery.of(context).size.height),
+            itemExtent: MediaQuery.of(context).size.height + 100),
       ],
     );
   }
@@ -66,7 +66,9 @@ class _AnaSayfaState extends State<AnaSayfa> {
                   color: Colors.grey.shade800,
                   fontSize: 35,
                   fontWeight: FontWeight.w500)),
-          Divider(),
+          Divider(
+            color: Colors.black87,
+          ),
           Card(
             shape: RoundedRectangleBorder(
                 side: BorderSide(color: Colors.deepOrange, width: 2),
@@ -107,24 +109,31 @@ class _AnaSayfaState extends State<AnaSayfa> {
           Padding(padding: EdgeInsets.only(top: 45)),
           Text("Sizin İçin Öneriler",
               style: TextStyle(
-                  color: Colors.black54,
+                  color: Colors.black87,
                   fontSize: 25,
                   fontWeight: FontWeight.w500)),
-          Divider(),
-          Card(
+          Divider(
+            color: Colors.black,
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.teal,
+              borderRadius: BorderRadius.all(Radius.circular(2)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade700,
+                  offset: Offset(0.2, 0.2), //(x,y)
+                  blurRadius: 6.0,
+                ),
+              ],
+            ),
             margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
-            elevation: 10,
-            color: Colors.blueGrey.shade500,
             child: ListTile(
-              leading: Icon(
-                Icons.water_damage_outlined,
-                color: Colors.orange,
-                size: 36,
-              ),
+              leading: Image.asset("assets/images/su.png"),
               title: Text(
                 "Su Tüketimi",
                 style: TextStyle(
-                    color: Colors.orange,
+                    color: Colors.white,
                     fontSize: 22,
                     fontWeight: FontWeight.w500),
                 textAlign: TextAlign.center,
@@ -143,20 +152,25 @@ class _AnaSayfaState extends State<AnaSayfa> {
               ),
             ),
           ),
-          Card(
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.teal,
+              borderRadius: BorderRadius.all(Radius.circular(2)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade700,
+                  offset: Offset(0.2, 0.2), //(x,y)
+                  blurRadius: 6.0,
+                ),
+              ],
+            ),
             margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
-            elevation: 10,
-            color: Colors.blueGrey.shade500,
             child: ListTile(
-              leading: Icon(
-                Icons.food_bank_outlined,
-                color: Colors.orange,
-                size: 36,
-              ),
+              leading: Image.asset("assets/images/beslenme.png"),
               title: Text(
                 "Beslenme",
                 style: TextStyle(
-                    color: Colors.orange,
+                    color: Colors.white,
                     fontSize: 22,
                     fontWeight: FontWeight.w500),
                 textAlign: TextAlign.center,
@@ -180,20 +194,25 @@ class _AnaSayfaState extends State<AnaSayfa> {
               ),
             ),
           ),
-          Card(
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.teal,
+              borderRadius: BorderRadius.all(Radius.circular(2)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.shade700,
+                  offset: Offset(0.2, 0.2), //(x,y)
+                  blurRadius: 6.0,
+                ),
+              ],
+            ),
             margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
-            elevation: 10,
-            color: Colors.blueGrey.shade500,
             child: ListTile(
-              leading: Icon(
-                Icons.single_bed_outlined,
-                color: Colors.orange,
-                size: 36,
-              ),
+              leading: Image.asset("assets/images/sleep.png"),
               title: Text(
                 "Uyku Düzeni",
                 style: TextStyle(
-                    color: Colors.orange,
+                    color: Colors.white,
                     fontSize: 22,
                     fontWeight: FontWeight.w500),
                 textAlign: TextAlign.center,
@@ -212,6 +231,50 @@ class _AnaSayfaState extends State<AnaSayfa> {
               ),
             ),
           ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => BilgileriGuncelle()));
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.teal,
+                borderRadius: BorderRadius.all(Radius.circular(2)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade700,
+                    offset: Offset(0.2, 0.2), //(x,y)
+                    blurRadius: 6.0,
+                  ),
+                ],
+              ),
+              margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
+              child: ListTile(
+                leading: Image.asset("assets/images/sleep.png"),
+                title: Text(
+                  "Uyku Düzeni",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.center,
+                ),
+                subtitle: Column(
+                  children: [
+                    Text(
+                      "Her gün yeteri kadar uyumalısın.",
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                    Text(
+                      "Yaptığımız sporun verimli olması için 8 saat uyumalıyız.",
+                      style:
+                          TextStyle(color: Colors.grey.shade400, fontSize: 10),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          )
         ],
       ),
     ];

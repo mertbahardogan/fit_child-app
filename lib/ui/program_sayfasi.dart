@@ -54,7 +54,6 @@ class ProgramSayfasi extends StatelessWidget {
         alignment: Alignment.center,
         width: MediaQuery.of(context).size.width / 4,
         height: MediaQuery.of(context).size.height / 4,
-        // color: Colors.blueGrey.shade300,
         decoration: BoxDecoration(
             color: Colors.blueGrey.shade300,
             border: Border.all(
