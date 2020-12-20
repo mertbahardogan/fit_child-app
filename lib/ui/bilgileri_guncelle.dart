@@ -1,6 +1,4 @@
-import 'package:cocuklar_icin_spor_app/main.dart';
 import 'package:cocuklar_icin_spor_app/models/kisisel.dart';
-import 'package:cocuklar_icin_spor_app/ui/ana_sayfa.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +8,6 @@ class BilgileriGuncelle extends StatefulWidget {
 }
 
 class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
-  // String _adSoyad;
   double _yasForm = 7;
   var otomatikKontrol = AutovalidateMode.disabled;
   var _formKey = GlobalKey<FormState>();

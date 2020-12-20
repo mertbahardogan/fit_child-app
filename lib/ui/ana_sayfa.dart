@@ -1,6 +1,6 @@
-import 'package:cocuklar_icin_spor_app/main.dart';
 import 'package:cocuklar_icin_spor_app/models/kisisel.dart';
 import 'package:cocuklar_icin_spor_app/ui/bilgileri_guncelle.dart';
+import 'package:cocuklar_icin_spor_app/ui/vucut_kitle_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
 import 'package:flutter/material.dart';
 
@@ -29,6 +29,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
 
   @override
   Widget build(BuildContext context) {
+    var ekranHeight = MediaQuery.of(context).size.height;
+
     return CustomScrollView(
       scrollDirection: Axis.vertical,
       slivers: [
@@ -45,8 +47,9 @@ class _AnaSayfaState extends State<AnaSayfa> {
           expandedHeight: 65,
         ),
         SliverFixedExtentList(
-            delegate: SliverChildListDelegate(sabitCardElemanlari()),
-            itemExtent: MediaQuery.of(context).size.height + 100),
+          delegate: SliverChildListDelegate(sabitCardElemanlari()),
+          itemExtent: ekranHeight + 300,
+        ),
       ],
     );
   }
@@ -68,19 +71,21 @@ class _AnaSayfaState extends State<AnaSayfa> {
                   fontWeight: FontWeight.w500)),
           Divider(
             color: Colors.black87,
+            indent: 15,
+            endIndent: 15,
           ),
           Card(
             shape: RoundedRectangleBorder(
-                side: BorderSide(color: Colors.deepOrange, width: 2),
+                side: BorderSide(color: Colors.red, width: 0),
                 borderRadius: BorderRadius.circular(6)),
             margin: EdgeInsets.fromLTRB(8, 10, 8, 0),
             elevation: 20,
-            color: Colors.blueGrey.shade700,
+            color: Colors.grey.shade700,
             child: ListTile(
               title: Text(
                 "Kişisel Bilgiler",
                 style: TextStyle(
-                    color: Colors.deepOrange,
+                    color: Colors.white,
                     fontSize: 30,
                     fontWeight: FontWeight.w500),
                 textAlign: TextAlign.center,
@@ -106,6 +111,110 @@ class _AnaSayfaState extends State<AnaSayfa> {
               },
             ),
           ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => BilgileriGuncelle()));
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: Colors.green.shade200,
+                borderRadius: BorderRadius.all(Radius.circular(2)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade700,
+                    offset: Offset(0.2, 0.2),
+                    blurRadius: 6.0,
+                  ),
+                ],
+              ),
+              margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
+              child: Column(children: [
+                Image.asset(
+                  "assets/images/liste.png",
+                  width: 60,
+                  height: 60,
+                ),
+                Text(
+                  "Anteman Programı",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  "Tekrar Sayılarınızı Kaydedin",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  "Listeye gitmek için tıklayınız.",
+                  style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.center,
+                ),
+              ]),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => VucutKitleSayfasi()));
+            },
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: Colors.brown.shade200,
+                borderRadius: BorderRadius.all(Radius.circular(2)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade700,
+                    offset: Offset(0.2, 0.2),
+                    blurRadius: 6.0,
+                  ),
+                ],
+              ),
+              margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
+              child: Column(children: [
+                Image.asset(
+                  "assets/images/yag.png",
+                  width: 60,
+                  height: 60,
+                ),
+                Text(
+                  "Vücut Kitle Endeksi",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  "Oranınızı Öğrenin",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  "Hesaplayıcıya gitmek için tıklayınız.",
+                  style: TextStyle(
+                      color: Colors.grey.shade600,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.center,
+                ),
+              ]),
+            ),
+          ),
           Padding(padding: EdgeInsets.only(top: 45)),
           Text("Sizin İçin Öneriler",
               style: TextStyle(
@@ -113,7 +222,9 @@ class _AnaSayfaState extends State<AnaSayfa> {
                   fontSize: 25,
                   fontWeight: FontWeight.w500)),
           Divider(
-            color: Colors.black,
+            color: Colors.black87,
+            indent: 100,
+            endIndent: 100,
           ),
           Container(
             decoration: BoxDecoration(
@@ -231,52 +342,10 @@ class _AnaSayfaState extends State<AnaSayfa> {
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => BilgileriGuncelle()));
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.teal,
-                borderRadius: BorderRadius.all(Radius.circular(2)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.shade700,
-                    offset: Offset(0.2, 0.2), //(x,y)
-                    blurRadius: 6.0,
-                  ),
-                ],
-              ),
-              margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
-              child: ListTile(
-                leading: Image.asset("assets/images/sleep.png"),
-                title: Text(
-                  "Uyku Düzeni",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w500),
-                  textAlign: TextAlign.center,
-                ),
-                subtitle: Column(
-                  children: [
-                    Text(
-                      "Her gün yeteri kadar uyumalısın.",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                    Text(
-                      "Yaptığımız sporun verimli olması için 8 saat uyumalıyız.",
-                      style:
-                          TextStyle(color: Colors.grey.shade400, fontSize: 10),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          )
         ],
       ),
     ];
   }
 }
+
+//yan çevirilince hata alıyoruz itemextende yan çevrildiğinde diye değer alıp üstüne sayı ekleyebilir veya 2 ile çarpabiliriz
