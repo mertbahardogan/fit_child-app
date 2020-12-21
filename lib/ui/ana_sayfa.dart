@@ -1,5 +1,6 @@
 import 'package:cocuklar_icin_spor_app/models/kisisel.dart';
 import 'package:cocuklar_icin_spor_app/ui/bilgileri_guncelle.dart';
+import 'package:cocuklar_icin_spor_app/ui/tekrar_kaydedici_liste.dart';
 import 'package:cocuklar_icin_spor_app/ui/vucut_kitle_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
       slivers: [
         SliverAppBar(
           title: Text(
-            "Çocuklar için Spor App",
+            "Çocuklar için Spor",
             style: TextStyle(
                 fontSize: 23, color: Colors.white, fontWeight: FontWeight.w700),
           ),
@@ -114,7 +115,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
           GestureDetector(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => BilgileriGuncelle()));
+                  MaterialPageRoute(builder: (context) => HareketKaydediciSayfasi()));
             },
             child: Container(
               width: MediaQuery.of(context).size.width,

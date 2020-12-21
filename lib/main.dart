@@ -79,8 +79,9 @@ class _SplashState extends State<Splash> {
       navigateAfterSeconds:
           tumKisiselVerilerListesi.length == 0 ? GirisSayfasi() : MyHomePage(),
       title: new Text(
-        'Çocuklar için Spor App',
+        'Çocuklar için Spor',
         textScaleFactor: 2,
+        style: TextStyle(fontWeight: FontWeight.w500),
       ),
       image: Image.asset("assets/images/fitness.png"),
       loadingText: Text(tumKisiselVerilerListesi.length == 0
