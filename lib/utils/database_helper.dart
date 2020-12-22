@@ -69,36 +69,6 @@ class DatabaseHelper {
         "CREATE TABLE $_hareketTablo($_columnHareketID INTEGER PRIMARY KEY AUTOINCREMENT,$_columnHareketAd TEXT,$_columnHareketTarih TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,$_columnHareketTekrarSayisi TEXT)");
   }
 
-  // //
-  // Future<Database> _getHareketDatabase() async {
-  //   if (_databaseHareket == null) {
-  //     print("DB HAREKET NULL İDİ Oluşturulacak!!");
-  //     _databaseHareket = await _initializeHareketDatabase();
-  //     return _databaseHareket;
-  //   } else {
-  //     print("DB HAREKET NULL DEĞİL İDİ VAR OLAN KULLANILACAK");
-  //     return _databaseHareket;
-  //   }
-  // }
-
-  // //
-  // _initializeHareketDatabase() async {
-  //   Directory klasor = await getApplicationDocumentsDirectory();
-  //   String dbHareketPath = join(klasor.path, "hareket.db");
-  //   print("DB Path: " + dbHareketPath);
-  //   var hareketDB =
-  //       openDatabase(dbHareketPath, version: 1, onCreate: _createHareketDB);
-
-  //   return hareketDB;
-  // }
-
-  // //
-  // FutureOr<void> _createHareketDB(Database db, int version) async {
-  //   print("CREATE YENİ DB METOT ÇALIŞTI TABLO OLUŞTURULACAK!!");
-  //   await db.execute(
-  //       "CREATE TABLE $_hareketTablo($_columnHareketID INTEGER PRIMARY KEY AUTOINCREMENT,$_columnHareketAd TEXT,$_columnHareketTarih TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,$_columnHareketTekrarSayisi TEXT)");
-  // }
-
   Future<int> kayitEkle(Kisisel kisisel) async {
     var db = await _getDatabase();
     var sonuc = await db.insert(
@@ -136,6 +106,26 @@ class DatabaseHelper {
     var db = await _getDatabase();
     var sonuc =
         await db.query(_hareketTablo, orderBy: "$_columnHareketID DESC");
+    return sonuc;
+  }
+
+  Future<int> hareketGuncelle(Hareket hareket) async {
+    var db = await _getDatabase();
+    var sonuc = await db.update(_hareketTablo, hareket.forWritingDbConvertMap(),
+        where: "$_columnHareketID=?", whereArgs: [hareket.hareketID]);
+    return sonuc;
+  }
+
+  Future<int> hareketSil(int id) async {
+    var db = await _getDatabase();
+    var sonuc = await db
+        .delete(_hareketTablo, where: "$_columnHareketID=?", whereArgs: [id]);
+    return sonuc;
+  }
+
+  Future<int> tumHareketTablosunuSil() async {
+    var db = await _getDatabase();
+    var sonuc = await db.delete(_hareketTablo);
     return sonuc;
   }
 }

@@ -14,9 +14,11 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
   var otomatikKontrol = AutovalidateMode.disabled;
   DatabaseHelper _databaseHelper;
   var _controller = TextEditingController();
+  var _scaffoldKey = GlobalKey<ScaffoldState>();
 
   List<Hareket> tumKaydedilenlerListesi;
   DateTime suan = DateTime.now();
+  DateTime once = DateTime(2020,DateTime.now().month,DateTime.now().day - 7);
   List<String> tumEgzersizler = [
     "Şınav",
     "Mekik",
@@ -47,10 +49,8 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
 
   @override
   Widget build(BuildContext context) {
-    DateTime once = DateTime(2020, suan.month - 3);
-    DateTime sonra = DateTime(2020, 12, suan.day + 20);
-
     return Scaffold(
+      key: _scaffoldKey,
       resizeToAvoidBottomPadding: true,
       appBar: AppBar(
         title: Text("Hareket Hatırlatıcı"),
@@ -125,13 +125,6 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                     ),
                     Column(
                       children: [
-                        // Text(
-                        //   "Şu andan farklı bir tarih seçmek için:",
-                        //   style: TextStyle(
-                        //       fontSize: 15,
-                        //       color: Colors.black,
-                        //       fontWeight: FontWeight.w400),
-                        // ),
                         FlatButton(
                           color: Colors.grey.shade300,
                           child: Text(
@@ -146,11 +139,12 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                                     context: context,
                                     initialDate: suan,
                                     firstDate: once,
-                                    lastDate: sonra)
+                                    lastDate: suan)
                                 .then(
                               (secilenTarih) {
                                 debugPrint(secilenTarih.toString());
                                 suan = secilenTarih;
+                                print(once.toString());
                               },
                             );
                           },
@@ -180,17 +174,28 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                     ),
                   ),
                   RaisedButton(
-                    onPressed: () {},
-                    color: Colors.black,
-                    child: Text(
-                      "Güncelle",
-                      style: TextStyle(
-                        color: Colors.white,
+                      color: Colors.black,
+                      child: Text(
+                        "Güncelle",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                  ),
+                      onPressed: tiklanilanCardID == null
+                          ? null
+                          : () {
+                              if (_formKey.currentState.validate()) {
+                                _hareketGuncelle(Hareket.withID(
+                                    tiklanilanCardID,
+                                    secilenEgzersiz,
+                                    suan.toString(),
+                                    _controller.text));
+                              }
+                            }),
                   RaisedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _tumTabloyuTemizle();
+                    },
                     color: Colors.black,
                     child: Text(
                       "Tüm Verileri Sil",
@@ -252,13 +257,13 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                                 [dd, '-', mm, '-', yyyy]),
                           ),
                           trailing: GestureDetector(
-                            child: Icon(
-                              Icons.delete,
-                              size: 20,
-                            ),
+                            child: Icon(Icons.delete,
+                                size: 25, color: Colors.grey.shade600),
                             onTap: () {
-                              // _ogrenciSil(
-                              //     tumOgrencilerListesi[index].id, index);
+                              //Bir methoda bu şekilde değer gönderilir,incele!!
+                              _hareketSil(
+                                  tumKaydedilenlerListesi[index].hareketID,
+                                  index);
                             },
                           ),
                         ),
@@ -282,11 +287,61 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
     if (_formKey.currentState.validate()) {
       var eklenenHareketID = await _databaseHelper.hareketEkle(hareket);
       hareket.hareketID = eklenenHareketID;
-    } else {
       setState(() {
-        otomatikKontrol = AutovalidateMode.always;
+        tumKaydedilenlerListesi.insert(0, hareket);
+      });
+    } else {
+      otomatikKontrol = AutovalidateMode.always;
+    }
+  }
+
+  void _hareketGuncelle(Hareket hareket) async {
+    var sonuc = await _databaseHelper.hareketGuncelle(hareket);
+    if (sonuc == 1) {
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content:
+            Text("$tiklanilanCardID ID numaralı hareket notu güncellendi."),
+        duration: Duration(seconds: 3),
+      ));
+      setState(() {
+        tumKaydedilenlerListesi[tiklanilanCardIndex] = hareket;
+        //bir listeye index göndermeden bu şekilde atama ya da alma yapabiliyoruz demek ki, incele!!
       });
     }
+  }
+
+  void _hareketSil(int forDBtoDeleteID, int forListtoDeleteIndex) async {
+    var sonuc = await _databaseHelper.hareketSil(forDBtoDeleteID);
+    if (sonuc == 1) {
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text("$forDBtoDeleteID ID numaralı hareket notu silindi."),
+        duration: Duration(seconds: 3),
+      ));
+      setState(() {
+        tumKaydedilenlerListesi.removeAt(forListtoDeleteIndex);
+      });
+    } else {
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text("Silme işlemi sırasında hata oluştu."),
+        duration: Duration(seconds: 3),
+      ));
+    }
+    tiklanilanCardID = null;
+  }
+
+  void _tumTabloyuTemizle() async {
+    var silinenElemanSayisi = await _databaseHelper.tumHareketTablosunuSil();
+    if (silinenElemanSayisi > 0) {
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        duration: Duration(seconds: 3),
+        content: Text(
+            silinenElemanSayisi.toString() + " adet hareket notu silindi."),
+      ));
+      setState(() {
+        tumKaydedilenlerListesi.clear();
+      });
+    }
+    tiklanilanCardID = null;
   }
 }
 
