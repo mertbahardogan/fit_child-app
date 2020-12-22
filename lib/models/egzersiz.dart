@@ -15,6 +15,10 @@ class Egzersiz {
     this._egzersizResim,
   );
 
+  Egzersiz.kaydediciOzel(
+    this._egzersizAdi,
+  );
+
   String get egzersizAdi => _egzersizAdi;
 
   set egzersizAdi(String value) => _egzersizAdi = value;
