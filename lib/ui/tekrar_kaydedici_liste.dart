@@ -18,7 +18,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
 
   List<Hareket> tumKaydedilenlerListesi;
   DateTime suan = DateTime.now();
-  DateTime once = DateTime(2020,DateTime.now().month,DateTime.now().day - 7);
+  DateTime once = DateTime(2020, DateTime.now().month, DateTime.now().day - 7);
   List<String> tumEgzersizler = [
     "Şınav",
     "Mekik",
@@ -305,7 +305,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
       ));
       setState(() {
         tumKaydedilenlerListesi[tiklanilanCardIndex] = hareket;
-        //bir listeye index göndermeden bu şekilde atama ya da alma yapabiliyoruz demek ki, incele!!
+        //Demekki böyke index atılabiliyor, incele!!
       });
     }
   }

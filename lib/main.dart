@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.grey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Splash(), //buna veri göndermem lazım varsa
+      home: Splash(),
 
       onGenerateRoute: (RouteSettings settings) {
         List<String> pathElemanlari = settings.name.split("/");
@@ -133,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
         BottomNavigationBarItem(
           icon: Icon(Icons.fitness_center),
           label: "Egzersizler",
-          backgroundColor: Colors.grey, //tüm renkleri theme colordan çek
+          backgroundColor: Colors.grey, 
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
@@ -155,3 +155,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+//tüm renkleri theme colordan çek

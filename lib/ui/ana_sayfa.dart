@@ -19,13 +19,15 @@ class _AnaSayfaState extends State<AnaSayfa> {
     super.initState();
     tumKisiselVerilerListesi = List<Kisisel>();
     _databaseHelper = DatabaseHelper();
-    _databaseHelper.tumKayitlar().then((tumKayitlariTutanMapList) {
-      for (Map okunanKayitListesi in tumKayitlariTutanMapList) {
-        tumKisiselVerilerListesi
-            .add(Kisisel.dbdenOkudugunDegeriObjeyeDonustur(okunanKayitListesi));
-      }
-      setState(() {});
-    }).catchError((hata) => print("Init state hata fonk: " + hata));
+    // _databaseHelper.tumKayitlar().then((tumKayitlariTutanMapList) {
+    //   for (Map okunanKayitListesi in tumKayitlariTutanMapList) {
+    //     tumKisiselVerilerListesi
+    //         .add(Kisisel.dbdenOkudugunDegeriObjeyeDonustur(okunanKayitListesi));
+    //   }
+    //   setState(() {});
+    // }).catchError((hata) => print("Init state hata fonk: " + hata));
+
+    //Bu doldurma olayını artık hep methoddan çağırmayı her sayfada deneyelim!!!!
   }
 
   @override
@@ -93,12 +95,21 @@ class _AnaSayfaState extends State<AnaSayfa> {
               ),
               subtitle: Column(
                 children: [
-                  Text(
-                    tumKisiselVerilerListesi.length == 0
-                        ? " "
-                        : tumKisiselVerilerListesi[0].adSoyad, //hata var
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
+                  FutureBuilder(
+                      //Yaş ve diğer bilgiler eklenebilir.
+                      future: _databaseHelper.kisiselListesiniGetir(),
+                      builder:
+                          (context, AsyncSnapshot<List<Kisisel>> snapShot) {
+                        if (snapShot.connectionState == ConnectionState.done) {
+                          tumKisiselVerilerListesi = snapShot.data;
+                          return Text(
+                            tumKisiselVerilerListesi[0].adSoyad,
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          );
+                        } else {
+                          return Text("ad soyad");
+                        }
+                      }),
                   Text("Bilgilerini güncellemek için tıkla.",
                       style:
                           TextStyle(color: Colors.grey.shade400, fontSize: 15)),
@@ -106,16 +117,21 @@ class _AnaSayfaState extends State<AnaSayfa> {
               ),
               onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BilgileriGuncelle()));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BilgileriGuncelle()))
+                    .then((value) {
+                  setState(() {});
+                });
               },
             ),
           ),
           GestureDetector(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HareketKaydediciSayfasi()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HareketKaydediciSayfasi()));
             },
             child: Container(
               width: MediaQuery.of(context).size.width,
@@ -349,4 +365,3 @@ class _AnaSayfaState extends State<AnaSayfa> {
   }
 }
 
-//yan çevirilince hata alıyoruz itemextende yan çevrildiğinde diye değer alıp üstüne sayı ekleyebilir veya 2 ile çarpabiliriz

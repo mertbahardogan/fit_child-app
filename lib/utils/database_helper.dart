@@ -10,15 +10,11 @@ class DatabaseHelper {
   static DatabaseHelper _databaseHelper;
   static Database _database;
 
-  //
-  // static Database _databaseHareket;
-
   String _kisiselTablo = "kisisel";
   String _columnID = "id";
   String _columnAdSoyad = "adSoyad";
   String _columnYas = "yas";
 
-  //
   String _hareketTablo = "hareket";
   String _columnHareketID = "hareketID";
   String _columnHareketAd = "hareketAd";
@@ -93,6 +89,15 @@ class DatabaseHelper {
   }
 
   //
+  Future<List<Kisisel>> kisiselListesiniGetir() async{
+    var kisiselMapListesi=await tumKayitlar();
+    var kisiselListesi=List<Kisisel>();
+    for(Map map in kisiselMapListesi){
+      kisiselListesi.add(Kisisel.dbdenOkudugunDegeriObjeyeDonustur(map));
+    }
+    return kisiselListesi;
+  }
+
   Future<int> hareketEkle(Hareket hareket) async {
     var db = await _getDatabase();
     var sonuc = await db.insert(_hareketTablo, hareket.forWritingDbConvertMap(),
@@ -101,7 +106,6 @@ class DatabaseHelper {
     return sonuc;
   }
 
-  //
   Future<List<Map<String, dynamic>>> tumHareketler() async {
     var db = await _getDatabase();
     var sonuc =

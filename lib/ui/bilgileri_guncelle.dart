@@ -8,7 +8,7 @@ class BilgileriGuncelle extends StatefulWidget {
 }
 
 class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
-  double _yasForm = 7;
+  double _yasForm=7;
   var otomatikKontrol = AutovalidateMode.disabled;
   var _formKey = GlobalKey<FormState>();
 
@@ -28,6 +28,7 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
       }
       setState(() {
         _controller.text=tumKisiselVerilerListesi[0].adSoyad;
+        _yasForm=tumKisiselVerilerListesi[0].yas.toDouble();
       });
     }).catchError((hata) => print("İnit state hata fonk: " + hata));
   }

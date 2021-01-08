@@ -141,4 +141,4 @@ class _VucutKitleSayfasiState extends State<VucutKitleSayfasi> {
     }
   }
 }
-//yan çevirilince hata alıyoruz
+
