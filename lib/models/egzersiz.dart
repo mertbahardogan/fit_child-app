@@ -1,12 +1,16 @@
 class Egzersiz {
+  //Properties
   String _egzersizAdi;
   String _egzersizDosya;
   String _egzersizBolge;
   String _egzersizOneri;
   String _egzersizDetay;
   String _egzersizResim;
+  //Değişkenler Bu Değerlerde Saklanır, Dışarda Kullanılması İçin GET SET Oluşturulur
+  //Değişkenler Private Türdedir, Direk Erişilemez
 
-  Egzersiz(
+  Egzersiz( 
+    //Default Constructor
     this._egzersizAdi,
     this._egzersizDosya,
     this._egzersizBolge,
@@ -16,30 +20,39 @@ class Egzersiz {
   );
 
   Egzersiz.kaydediciOzel(
+    //Named Constructor
     this._egzersizAdi,
   );
 
-  String get egzersizAdi => _egzersizAdi;
+  //Var Olan Değeri Geri Döndürür
+  String get egzersizAdi => this._egzersizAdi;
 
+  //Yeni Değer Atamak İçin, Değer Döndürmez, Burada fatArrow kullanmadan if else koşullarına göre atama yapabiliriz.
   set egzersizAdi(String value) => _egzersizAdi = value;
 
-  String get egzersizDosya => _egzersizDosya;
+  String get egzersizDosya => this._egzersizDosya;
 
   set egzersizDosya(String value) => _egzersizDosya = value;
 
-  String get egzersizBolge => _egzersizBolge;
+  String get egzersizBolge => this._egzersizBolge;
 
   set egzersizBolge(String value) => _egzersizBolge = value;
 
-  String get egzersizOneri => _egzersizOneri;
+  String get egzersizOneri => this._egzersizOneri;
 
   set egzersizOneri(String value) => _egzersizOneri = value;
 
-  String get egzersizDetay => _egzersizDetay;
+  String get egzersizDetay => this._egzersizDetay;
 
   set egzersizDetay(String value) => _egzersizDetay = value;
 
-  String get egzersizResim => _egzersizResim;
+  String get egzersizResim => this._egzersizResim;
 
   set egzersizResim(String value) => _egzersizResim = value;
+
+
+  // void denemeYap(){
+
+  //   print("Ben çalıştım");
+  // }
 }

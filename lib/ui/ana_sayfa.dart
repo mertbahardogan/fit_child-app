@@ -39,15 +39,16 @@ class _AnaSayfaState extends State<AnaSayfa> {
       slivers: [
         SliverAppBar(
           title: Text(
-            "Çocuklar için Spor",
+            "Fit Child",
             style: TextStyle(
-                fontSize: 23, color: Colors.white, fontWeight: FontWeight.w700),
+                fontSize: 30, color: Colors.black,fontFamily: "Sansita",fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
-          backgroundColor: Colors.grey,
+          backgroundColor: Colors.grey.shade200,
           pinned: true,
           primary: true,
-          expandedHeight: 65,
+          expandedHeight: 55,
+          elevation: 4,
         ),
         SliverFixedExtentList(
           delegate: SliverChildListDelegate(sabitCardElemanlari()),
@@ -62,21 +63,21 @@ class _AnaSayfaState extends State<AnaSayfa> {
       Column(
         children: [
           Padding(padding: EdgeInsets.only(top: 10)),
-          Image.asset(
-            "assets/images/fitness.png",
-            width: 70,
-            height: 70,
-          ),
-          Text("Ana Sayfa",
-              style: TextStyle(
-                  color: Colors.grey.shade800,
-                  fontSize: 35,
-                  fontWeight: FontWeight.w500)),
-          Divider(
-            color: Colors.black87,
-            indent: 15,
-            endIndent: 15,
-          ),
+          // Image.asset(
+          //   "assets/images/fitness.png",
+          //   width: 70,
+          //   height: 70,
+          // ),
+          // Text("Ana Sayfa",
+          //     style: TextStyle(
+          //         color: Colors.grey.shade800,
+          //         fontSize: 35,
+          //         fontWeight: FontWeight.w500)),
+          // Divider(
+          //   color: Colors.black87,
+          //   indent: 15,
+          //   endIndent: 15,
+          // ),
           Card(
             shape: RoundedRectangleBorder(
                 side: BorderSide(color: Colors.red, width: 0),
@@ -107,7 +108,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                             style: TextStyle(color: Colors.white, fontSize: 20),
                           );
                         } else {
-                          return Text("ad soyad");
+                          return Text("Yükleniyor...");
                         }
                       }),
                   Text("Bilgilerini güncellemek için tıkla.",

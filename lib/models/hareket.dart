@@ -4,19 +4,19 @@ class Hareket {
   String _hareketTarih;
   String _hareketTekrarSayisi;
   
- int get hareketID => _hareketID;
+ int get hareketID =>  this._hareketID;
 
  set hareketID(int value) => _hareketID = value;
 
- String get hareketAd => _hareketAd;
+ String get hareketAd =>  this._hareketAd;
 
  set hareketAd(String value) => _hareketAd = value;
 
- String get hareketTarih => _hareketTarih;
+ String get hareketTarih =>  this._hareketTarih;
 
  set hareketTarih(String value) => _hareketTarih = value;
 
- String get hareketTekrarSayisi => _hareketTekrarSayisi;
+ String get hareketTekrarSayisi =>  this._hareketTekrarSayisi;
 
  set hareketTekrarSayisi(String value) => _hareketTekrarSayisi = value;
 

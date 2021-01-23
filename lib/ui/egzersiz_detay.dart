@@ -32,7 +32,7 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
           expandedHeight: 200,
           flexibleSpace: FlexibleSpaceBar(
             background: Image.asset(
-              "assets/images/" + secilenEgzersiz.egzersizResim,
+              "assets/images/exercises/" + secilenEgzersiz.egzersizResim,
               fit: BoxFit.scaleDown,
               cacheHeight: 130,
               alignment: Alignment.bottomCenter,

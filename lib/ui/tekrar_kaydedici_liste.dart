@@ -263,7 +263,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                               //Bir methoda bu şekilde değer gönderilir,incele!!
                               _hareketSil(
                                   tumKaydedilenlerListesi[index].hareketID,
-                                  index);
+                                  index); //buna tıklanınca bir popup açılsın eminse silsin değilse silmesin
                             },
                           ),
                         ),
@@ -278,7 +278,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
   String _alanKontrol(String deger) {
     RegExp regex = RegExp("[a-zA-Z]");
     if (!regex.hasMatch(deger))
-      return 'Boş değer girmemelisiniz.';
+      return 'Boş değer veya sadece sayı girmemelisiniz.';
     else
       return null;
   }
@@ -300,12 +300,12 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
     if (sonuc == 1) {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         content:
-            Text("$tiklanilanCardID ID numaralı hareket notu güncellendi."),
-        duration: Duration(seconds: 3),
+            Text("$tiklanilanCardID numaralı hareket notu güncellendi."),
+        duration: Duration(seconds: 2),
       ));
       setState(() {
         tumKaydedilenlerListesi[tiklanilanCardIndex] = hareket;
-        //Demekki böyke index atılabiliyor, incele!!
+        //Demekki böyle index atılabiliyor, incele!!
       });
     }
   }
@@ -314,8 +314,8 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
     var sonuc = await _databaseHelper.hareketSil(forDBtoDeleteID);
     if (sonuc == 1) {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text("$forDBtoDeleteID ID numaralı hareket notu silindi."),
-        duration: Duration(seconds: 3),
+        content: Text("$forDBtoDeleteID numaralı hareket notu silindi."),
+        duration: Duration(seconds: 2),
       ));
       setState(() {
         tumKaydedilenlerListesi.removeAt(forListtoDeleteIndex);
@@ -323,7 +323,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
     } else {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text("Silme işlemi sırasında hata oluştu."),
-        duration: Duration(seconds: 3),
+        duration: Duration(seconds: 2),
       ));
     }
     tiklanilanCardID = null;
@@ -333,7 +333,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
     var silinenElemanSayisi = await _databaseHelper.tumHareketTablosunuSil();
     if (silinenElemanSayisi > 0) {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
-        duration: Duration(seconds: 3),
+        duration: Duration(seconds: 2),
         content: Text(
             silinenElemanSayisi.toString() + " adet hareket notu silindi."),
       ));

@@ -10,9 +10,10 @@ class ProgramSayfasi extends StatelessWidget {
     tumHaftalar = verileriHazirla();
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text(
           "Spor Programınız",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black,fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
       ),
@@ -65,7 +66,7 @@ class ProgramSayfasi extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Image.asset(
-              "assets/images/" + oAnEklenecek.haftalikResim,
+              "assets/images/levels/" + oAnEklenecek.haftalikResim,
               width: 100,
               height: 100,
               alignment: Alignment.topCenter,

@@ -27,14 +27,13 @@ class _MyAppState extends State<MyApp> {
     ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Flutter First App',
       theme: ThemeData(
         fontFamily: "Quicksand",
-        primarySwatch: Colors.grey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        accentColor: Colors.black54,
       ),
       home: Splash(),
-
       onGenerateRoute: (RouteSettings settings) {
         List<String> pathElemanlari = settings.name.split("/");
         //egzersizDetay/$index
@@ -78,23 +77,31 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    // String kayitAd=tumKisiselVerilerListesi[0].adSoyad;
     return SplashScreen(
-      seconds: 4,
-      navigateAfterSeconds:
-          tumKisiselVerilerListesi.length == 0 ? GirisSayfasi() : MyHomePage(),
-      title: new Text(
-        'Çocuklar için Spor',
-        textScaleFactor: 2,
-        style: TextStyle(fontWeight: FontWeight.w500),
-      ),
-      image: Image.asset("assets/images/fitness.png"),
-      loadingText: Text(tumKisiselVerilerListesi.length == 0
-          ? "Hoşgeldiniz"
-          : "Hoşgeldiniz " + tumKisiselVerilerListesi[0].adSoyad),
-      photoSize: 100.0,
-      loaderColor: Colors.red,
-    );
+        seconds: 2,
+        navigateAfterSeconds: tumKisiselVerilerListesi.length == 0
+            ? GirisSayfasi()
+            : MyHomePage(),
+        title: Text(
+          'Fit Child',
+          textAlign: TextAlign.end,
+          textScaleFactor: 3,
+          style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontFamily: "Sansita",
+              color: Colors.white),
+        ),
+        image: Image.asset("assets/images/fitness.png"),
+        // loadingText: Text(
+        //   // tumKisiselVerilerListesi.length == 0? "Hoşgeldiniz": "Hoşgeldiniz " + tumKisiselVerilerListesi[0].adSoyad,style: TextStyle(fontWeight: FontWeight.bold),
+        // ),
+        loadingText: Text(
+          "Version 0.0.1",
+          style: TextStyle(color: Colors.white),
+        ),
+        photoSize: 50.0,
+        useLoader: false,
+        backgroundColor: Colors.blueGrey.shade900);
   }
 }
 
@@ -129,23 +136,33 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget bottomNavMenu() {
     return BottomNavigationBar(
+      elevation: 4,
+      backgroundColor: Colors.white,
+      showUnselectedLabels: true,
+      iconSize: 27,
+      selectedItemColor: Colors.black,
+      unselectedItemColor: Colors.grey,
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.fitness_center),
+          icon: Icon(
+            Icons.fitness_center,
+          ),
           label: "Egzersizler",
-          backgroundColor: Colors.grey, 
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon: Icon(
+            Icons.home,
+          ),
           label: "Ana Sayfa",
-          backgroundColor: Colors.grey,
         ),
         BottomNavigationBarItem(
-            icon: Icon(Icons.date_range),
-            label: "Program",
-            backgroundColor: Colors.grey),
+          icon: Icon(
+            Icons.date_range,
+          ),
+          label: "Program",
+        ),
       ],
-      type: BottomNavigationBarType.shifting,
+      type: BottomNavigationBarType.fixed,
       currentIndex: secilenBarItem,
       onTap: (secilenIndex) {
         setState(() {
@@ -155,4 +172,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-//tüm renkleri theme colordan çek

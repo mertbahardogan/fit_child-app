@@ -11,8 +11,12 @@ class EgzersizSayfasi extends StatelessWidget {
     return Scaffold(
       body: listeyiHazirla(),
       appBar: AppBar(
-        title: Text("Tüm Hareketler",style: TextStyle(color: Colors.white),),
+        title: Text(
+          "Tüm Hareketler",
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+        ),
         centerTitle: true,
+        backgroundColor: Colors.white,
       ),
     );
   }
@@ -46,7 +50,8 @@ class EgzersizSayfasi extends StatelessWidget {
   }
 
   Widget tekSatirCard(BuildContext context, int index) {
-    Egzersiz oAnEklenecek = tumEgzersizler[index];
+    Egzersiz oAnEklenecek = tumEgzersizler[index]; //object
+
     return Card(
       shape: RoundedRectangleBorder(
           side: BorderSide(color: Colors.white, width: 3),
@@ -60,22 +65,23 @@ class EgzersizSayfasi extends StatelessWidget {
             Navigator.pushNamed(context, "/egzersizDetay/$index");
           },
           leading: Image.asset(
-            "assets/images/" + oAnEklenecek.egzersizResim,
+            "assets/images/exercises/" + oAnEklenecek.egzersizResim,
             width: 90,
             height: 90,
           ),
           title: Text(
             oAnEklenecek.egzersizAdi,
-            style: TextStyle(fontSize: 22, color: Colors.black,fontWeight: FontWeight.w500),
+            style: TextStyle(
+                fontSize: 22, color: Colors.black, fontWeight: FontWeight.w500),
           ),
           subtitle: Padding(
             padding: EdgeInsets.symmetric(vertical: 8),
             child: Text(
               "Detaylar için tıklayın.",
               style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black38,
-                  ),
+                fontSize: 15,
+                color: Colors.black38,
+              ),
             ),
           ),
           trailing: Icon(Icons.arrow_forward_ios, color: Colors.red),
