@@ -67,16 +67,16 @@ class ProgramSayfasi extends StatelessWidget {
                   color: Colors.black12, blurRadius: 10, offset: Offset(0, 10))
             ]),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Image.asset(
               "assets/images/levels/" + oAnEklenecek.haftalikResim,
-              width: 150,
-              height: 150,
+              width: 130,
+              height: 130,
               alignment: Alignment.topCenter,
             ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
                   oAnEklenecek.haftalikAd + " Seviye",
@@ -87,13 +87,13 @@ class ProgramSayfasi extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text(
-                      " Hafta " + (index + 1).toString(),
-                      style: TextStyle(
-                          color: Colors.deepOrange.shade600,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w500),
-                    ),
+                    // Text(
+                    //   " Hafta " + (index + 1).toString(),
+                    //   style: TextStyle(
+                    //       color: Colors.white,
+                    //       fontSize: 17,
+                    //       fontWeight: FontWeight.w500),
+                    // ),
                   ],
                 ),
                 Row(
@@ -105,7 +105,7 @@ class ProgramSayfasi extends StatelessWidget {
                     ),
                     Text(" " + oAnEklenecek.haftalikAciklama,
                         style: TextStyle(
-                            color: Colors.blueGrey.shade800, fontSize: 11))
+                            color: Colors.deepOrange.shade200, fontSize: 11))
                   ],
                 )
               ],
@@ -120,11 +120,11 @@ class ProgramSayfasi extends StatelessWidget {
   }
 
   Color renkUret(int index) {
-    if (index == 0) return Colors.blueGrey.shade600;
-    if (index == 1) return Colors.blueGrey.shade400;
-    if (index == 2) return Colors.blueGrey.shade200;
+    if (index == 0) return Colors.blueGrey.shade400;
+    if (index == 1) return Colors.blueGrey.shade600;
+    if (index == 2) return Colors.blueGrey.shade700;
     if (index == 3)
-      return Colors.blueGrey.shade100;
+      return Colors.blueGrey.shade900;
     else
       return Colors.blueGrey;
   }

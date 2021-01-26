@@ -11,6 +11,7 @@ class EgzersizDetay extends StatefulWidget {
 
 class _EgzersizDetayState extends State<EgzersizDetay> {
   Egzersiz secilenEgzersiz;
+  IconData iconMod = Icons.favorite_border;
   @override
   void initState() {
     secilenEgzersiz = EgzersizSayfasi.tumEgzersizler[widget.gelenIndex];
@@ -25,11 +26,31 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
         SliverAppBar(
           primary: true,
           pinned: true,
-          title: Text(secilenEgzersiz.egzersizAdi + " Hakkında"),
+          title: Text(secilenEgzersiz.egzersizAdi),
           centerTitle: true,
-          backgroundColor:
-              widget.gelenIndex % 2 == 0 ? Colors.grey[500] : Colors.brown[100],
+          // backgroundColor:
+          //     widget.gelenIndex % 2 == 0 ? Colors.grey[500] : Colors.brown[100],
+          backgroundColor: Colors.blueGrey.shade900,
           expandedHeight: 200,
+          actions: [
+            IconButton(
+              icon: Icon(
+                iconMod,
+                size: 26,
+              ),
+              onPressed: () {
+                print(widget.gelenIndex);
+                print(secilenEgzersiz.egzersizAdi);
+                setState(() {
+                  if (iconMod == Icons.favorite_border) {
+                    iconMod = Icons.favorite;
+                  } else {
+                    iconMod = Icons.favorite_border;
+                  }
+                });
+              },
+            )
+          ],
           flexibleSpace: FlexibleSpaceBar(
             background: Image.asset(
               "assets/images/exercises/" + secilenEgzersiz.egzersizResim,

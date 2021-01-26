@@ -74,7 +74,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
         ),
         SliverFixedExtentList(
           delegate: SliverChildListDelegate(sabitCardElemanlari()),
-          itemExtent: ekranHeight + 300,
+          itemExtent: ekranHeight + 500,
         ),
       ],
     );
@@ -100,55 +100,55 @@ class _AnaSayfaState extends State<AnaSayfa> {
           //   indent: 15,
           //   endIndent: 15,
           // ),
-          // Card(
-          //   shape: RoundedRectangleBorder(
-          //       side: BorderSide(color: Colors.red, width: 0),
-          //       borderRadius: BorderRadius.circular(6)),
-          //   margin: EdgeInsets.fromLTRB(8, 10, 8, 0),
-          //   elevation: 20,
-          //   color: Colors.grey.shade700,
-          //   child: ListTile(
-          //     title: Text(
-          //       "Kişisel Bilgiler",
-          //       style: TextStyle(
-          //           color: Colors.white,
-          //           fontSize: 30,
-          //           fontWeight: FontWeight.w500),
-          //       textAlign: TextAlign.center,
-          //     ),
-          //     subtitle: Column(
-          //       children: [
-          //         FutureBuilder(
-          //             //Yaş ve diğer bilgiler eklenebilir.
-          //             future: _databaseHelper.kisiselListesiniGetir(),
-          //             builder:
-          //                 (context, AsyncSnapshot<List<Kisisel>> snapShot) {
-          //               if (snapShot.connectionState == ConnectionState.done) {
-          //                 tumKisiselVerilerListesi = snapShot.data;
-          //                 return Text(
-          //                   tumKisiselVerilerListesi[0].adSoyad,
-          //                   style: TextStyle(color: Colors.white, fontSize: 20),
-          //                 );
-          //               } else {
-          //                 return Text("Yükleniyor...");
-          //               }
-          //             }),
-          //         Text("Bilgilerini güncellemek için tıkla.",
-          //             style:
-          //                 TextStyle(color: Colors.grey.shade400, fontSize: 15)),
-          //       ],
-          //     ),
-          //     onTap: () {
-          //       Navigator.push(
-          //               context,
-          //               MaterialPageRoute(
-          //                   builder: (context) => BilgileriGuncelle()))
-          //           .then((value) {
-          //         setState(() {});
-          //       });
-          //     },
-          //   ),
-          // ),
+          Card(
+            shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.red, width: 0),
+                borderRadius: BorderRadius.circular(6)),
+            margin: EdgeInsets.fromLTRB(8, 10, 8, 0),
+            elevation: 20,
+            color: Colors.grey.shade700,
+            child: ListTile(
+              title: Text(
+                "Kişisel Bilgiler",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w500),
+                textAlign: TextAlign.center,
+              ),
+              subtitle: Column(
+                children: [
+                  FutureBuilder(
+                      //Yaş ve diğer bilgiler eklenebilir.
+                      future: _databaseHelper.kisiselListesiniGetir(),
+                      builder:
+                          (context, AsyncSnapshot<List<Kisisel>> snapShot) {
+                        if (snapShot.connectionState == ConnectionState.done) {
+                          tumKisiselVerilerListesi = snapShot.data;
+                          return Text(
+                            tumKisiselVerilerListesi[0].adSoyad,
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          );
+                        } else {
+                          return Text("Yükleniyor...");
+                        }
+                      }),
+                  Text("Bilgilerini güncellemek için tıkla.",
+                      style:
+                          TextStyle(color: Colors.grey.shade400, fontSize: 15)),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BilgileriGuncelle()))
+                    .then((value) {
+                  setState(() {});
+                });
+              },
+            ),
+          ),
           GestureDetector(
             onTap: () {
               Navigator.push(

@@ -117,7 +117,7 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
   String _isimKontrol(String deger) {
     RegExp regex = RegExp("[a-zA-Z]+\$");
     if (!regex.hasMatch(deger))
-      return 'Ad alanı numara içermemeli.';
+      return 'Ad alanı geçersiz değer içermemeli.\n(Boşluk, Sayı vb.)';
     else
       return null;
   }
