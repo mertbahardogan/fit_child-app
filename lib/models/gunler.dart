@@ -4,6 +4,7 @@ class Gunler {
   String icerik;
   bool gunCheck;
   String hareketResim;
+  String hareketDetay;
 
   String get getBaslik => baslik;
 
@@ -25,6 +26,10 @@ class Gunler {
 
   set sethareketResim(String hareketResim) => this.hareketResim = hareketResim;
 
+  String get gethareketDetay => hareketDetay;
+
+  set sethareketDetay(String hareketDetay) => this.hareketDetay = hareketDetay;
+
   Gunler(this.baslik, this.icerik, this.expanded, this.gunCheck,
-      this.hareketResim);
+      this.hareketResim, this.hareketDetay);
 }

@@ -132,7 +132,7 @@ class _GirisSayfasiState extends State<GirisSayfasi> {
   String _isimKontrol(String deger) {
     RegExp regex = RegExp("[a-zA-Z]+\$");
     if (!regex.hasMatch(deger))
-      return 'Ad alanı numara içermemeli.';
+      return 'Ad alanı sayısal değer içermemeli.';
     else
       return null;
   }

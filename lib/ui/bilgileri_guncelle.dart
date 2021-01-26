@@ -8,7 +8,7 @@ class BilgileriGuncelle extends StatefulWidget {
 }
 
 class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
-  double _yasForm=7;
+  double _yasForm = 7;
   var otomatikKontrol = AutovalidateMode.disabled;
   var _formKey = GlobalKey<FormState>();
 
@@ -27,8 +27,8 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
             .add(Kisisel.dbdenOkudugunDegeriObjeyeDonustur(okunanKayitListesi));
       }
       setState(() {
-        _controller.text=tumKisiselVerilerListesi[0].adSoyad;
-        _yasForm=tumKisiselVerilerListesi[0].yas.toDouble();
+        _controller.text = tumKisiselVerilerListesi[0].adSoyad;
+        _yasForm = tumKisiselVerilerListesi[0].yas.toDouble();
       });
     }).catchError((hata) => print("İnit state hata fonk: " + hata));
   }
@@ -41,6 +41,7 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: AppBar(
+        backgroundColor: Colors.blueGrey.shade900,
         title: Text("Bilgileri Güncelle"),
         centerTitle: true,
       ),

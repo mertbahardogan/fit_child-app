@@ -29,9 +29,10 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Flutter First App',
       theme: ThemeData(
-        fontFamily: "Quicksand",
+        fontFamily: "Poppins",
         visualDensity: VisualDensity.adaptivePlatformDensity,
         accentColor: Colors.black54,
+        primaryColor: Colors.blueGrey.shade900,
       ),
       home: Splash(),
       onGenerateRoute: (RouteSettings settings) {
@@ -136,11 +137,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget bottomNavMenu() {
     return BottomNavigationBar(
-      elevation: 4,
+      elevation: 15,
       backgroundColor: Colors.white,
       showUnselectedLabels: true,
-      iconSize: 27,
-      selectedItemColor: Colors.black,
+      iconSize: 24,
+      selectedItemColor: Colors.blueGrey.shade900,
+      selectedFontSize: 13,
+      unselectedFontSize: 13,
       unselectedItemColor: Colors.grey,
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(

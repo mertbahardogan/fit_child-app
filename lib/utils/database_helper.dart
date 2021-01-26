@@ -21,6 +21,10 @@ class DatabaseHelper {
   String _columnHareketTarih = "hareketTarih";
   String _columnHareketTekrarSayisi = "hareketTekrarSayisi";
 
+  // String _programTablo = "program";
+  // String _columnProgramID = "programID";
+  // String _columnProgramDurum = "programCheck";
+
   factory DatabaseHelper() {
     if (_databaseHelper == null) {
       _databaseHelper = DatabaseHelper._internal();
@@ -63,6 +67,9 @@ class DatabaseHelper {
 
     await db.execute(
         "CREATE TABLE $_hareketTablo($_columnHareketID INTEGER PRIMARY KEY AUTOINCREMENT,$_columnHareketAd TEXT,$_columnHareketTarih TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,$_columnHareketTekrarSayisi TEXT)");
+
+    // await db.execute(
+    //     "CREATE TABLE $_programTablo($_columnProgramID INTEGER PRIMARY KEY AUTOINCREMENT, $_columnProgramDurum TEXT)");
   }
 
   Future<int> kayitEkle(Kisisel kisisel) async {
@@ -89,10 +96,10 @@ class DatabaseHelper {
   }
 
   //
-  Future<List<Kisisel>> kisiselListesiniGetir() async{
-    var kisiselMapListesi=await tumKayitlar();
-    var kisiselListesi=List<Kisisel>();
-    for(Map map in kisiselMapListesi){
+  Future<List<Kisisel>> kisiselListesiniGetir() async {
+    var kisiselMapListesi = await tumKayitlar();
+    var kisiselListesi = List<Kisisel>();
+    for (Map map in kisiselMapListesi) {
       kisiselListesi.add(Kisisel.dbdenOkudugunDegeriObjeyeDonustur(map));
     }
     return kisiselListesi;

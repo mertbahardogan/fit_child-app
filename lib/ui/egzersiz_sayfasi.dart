@@ -13,7 +13,8 @@ class EgzersizSayfasi extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Tüm Hareketler",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+          style: TextStyle(
+              color: Colors.blueGrey.shade900, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
@@ -24,7 +25,7 @@ class EgzersizSayfasi extends StatelessWidget {
   List<Egzersiz> verileriHazirla() {
     List<Egzersiz> egzersizler = [];
 
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 9; i++) {
       String resim = Strings.EGZERSIZ_DOSYA_ADLARI[i] + "${i + 1}.png";
 
       Egzersiz eklenecekEgzersiz = Egzersiz(
@@ -40,8 +41,19 @@ class EgzersizSayfasi extends StatelessWidget {
     return egzersizler;
   }
 
+  // Widget listeyiHazirla() {
+  //   return ListView.builder(
+  //     itemBuilder: (BuildContext context, int index) {
+  //       return tekSatirCard(context, index);
+  //     },
+  //     itemCount: tumEgzersizler.length,
+  //   );
+  // }
+
   Widget listeyiHazirla() {
-    return ListView.builder(
+    return GridView.builder(
+      gridDelegate:
+          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
       itemBuilder: (BuildContext context, int index) {
         return tekSatirCard(context, index);
       },
@@ -52,39 +64,51 @@ class EgzersizSayfasi extends StatelessWidget {
   Widget tekSatirCard(BuildContext context, int index) {
     Egzersiz oAnEklenecek = tumEgzersizler[index]; //object
 
-    return Card(
-      shape: RoundedRectangleBorder(
-          side: BorderSide(color: Colors.white, width: 3),
-          borderRadius: BorderRadius.circular(6)),
-      elevation: 10,
-      color: Colors.grey[100],
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: ListTile(
-          onTap: () {
-            Navigator.pushNamed(context, "/egzersizDetay/$index");
-          },
-          leading: Image.asset(
-            "assets/images/exercises/" + oAnEklenecek.egzersizResim,
-            width: 90,
-            height: 90,
-          ),
-          title: Text(
-            oAnEklenecek.egzersizAdi,
-            style: TextStyle(
-                fontSize: 22, color: Colors.black, fontWeight: FontWeight.w500),
-          ),
-          subtitle: Padding(
-            padding: EdgeInsets.symmetric(vertical: 8),
-            child: Text(
-              "Detaylar için tıklayın.",
-              style: TextStyle(
-                fontSize: 15,
-                color: Colors.black38,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        width: 60,
+        height: 60,
+        decoration: BoxDecoration(
+          // color: Colors.cyan.shade100,
+          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.cyan.shade100,
+                offset: Offset(1.0, 1.0),
+                blurRadius: 1.0),
+          ],
+          color: Colors.deepOrange[200 * (index % 3)],
+          image: DecorationImage(
+              image: AssetImage(
+                "assets/images/exercises/" + oAnEklenecek.egzersizResim,
               ),
-            ),
+              fit: BoxFit.cover,
+              alignment: Alignment.topRight),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, "/egzersizDetay/$index");
+            },
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Opacity(
+                opacity: 0.4,
+                child: Container(
+                  color: Colors.white,
+                  child: Text(
+                    oAnEklenecek.egzersizAdi,
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.blueGrey.shade900,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
+            ]),
           ),
-          trailing: Icon(Icons.arrow_forward_ios, color: Colors.red),
         ),
       ),
     );

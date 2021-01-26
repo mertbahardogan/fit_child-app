@@ -7,7 +7,8 @@ class Strings {
     "Koşu",
     "Squad",
     "Isınma Hareketleri",
-    "Yoga"
+    "Yoga",
+    "Dinlenme"
   ];
 
   static const List<String> EGZERSIZ_DOSYA_ADLARI = [
@@ -18,7 +19,8 @@ class Strings {
     "kosu",
     "squad",
     "isinma",
-    "yoga"
+    "yoga",
+    "dinlenme"
   ];
 
   static const List<String> EGZERSIZ_CALISAN_BOLGELER = [
@@ -28,6 +30,7 @@ class Strings {
     "Yan Karın ve Kol",
     "Tüm Vücut",
     "Bacak",
+    "Tüm Vücut",
     "Tüm Vücut",
     "Tüm Vücut"
   ];
@@ -40,7 +43,8 @@ class Strings {
     "30-45 dakika yapılması önerilir.",
     "3 set 10 tekrar önerilir.",
     "5 hareket 10 tekrar, tüm bölgelerin ısındırılması önerilir.",
-    "İsteğe bağlıdır."
+    "İsteğe bağlıdır.",
+    "Tüm gün dinlenilmesi önerilir."
   ];
 
   static const List<String> EGZERSIZ_NASIL_YAPILIR = [
@@ -82,6 +86,8 @@ class Strings {
         "\tDizlerinizi bükmeden öne doğru eğilin ve başınızı olabildiğince bacaklarınıza yaklaştırın. \n\n"
         "\tBu sırada ellerinizle arkadan ayak bileklerinizi tutabilirsiniz.\n\n"
         "\tSeçenek 3: Son olarak bedeninizi dinlendirmek ve ona tamamladığı yoga hareketleri için teşekkür etmek üzere sırt üstü uzanın\n\n"
-        "\tKollarınızı iki yana bırakın. Tüm bedeninizin ağırlığını yere verin ve gözlerinizi kapatarak bir süre kıpırdamadan uzanın.\n\n"
+        "\tKollarınızı iki yana bırakın. Tüm bedeninizin ağırlığını yere verin ve gözlerinizi kapatarak bir süre kıpırdamadan uzanın.\n\n",
+    "\tSpor yapmak kadar dinlenmekte çok önemlidir.\n\n"
+    "\tVücudumuz spor yaparken gelişeceği gibi, dinlenirkende gelişir."
   ];
 }

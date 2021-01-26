@@ -38,16 +38,38 @@ class _AnaSayfaState extends State<AnaSayfa> {
       scrollDirection: Axis.vertical,
       slivers: [
         SliverAppBar(
-          title: Text(
-            "Fit Child",
-            style: TextStyle(
-                fontSize: 30, color: Colors.black,fontFamily: "Sansita",fontWeight: FontWeight.bold),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Center(
+                child: Text(
+                  "Fit Child",
+                  style: TextStyle(
+                      fontSize: 27,
+                      color: Colors.deepOrange.shade800,
+                      fontFamily: "Sansita",
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              IconButton(
+                icon: Icon(Icons.account_circle, size: 30, color: Colors.white),
+                onPressed: () {
+                  Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BilgileriGuncelle()))
+                      .then((value) {
+                    setState(() {});
+                  });
+                },
+              ),
+            ],
           ),
           centerTitle: true,
-          backgroundColor: Colors.grey.shade200,
+          backgroundColor: Colors.blueGrey.shade900,
           pinned: true,
           primary: true,
-          expandedHeight: 55,
+          expandedHeight: 60,
           elevation: 4,
         ),
         SliverFixedExtentList(
@@ -78,55 +100,55 @@ class _AnaSayfaState extends State<AnaSayfa> {
           //   indent: 15,
           //   endIndent: 15,
           // ),
-          Card(
-            shape: RoundedRectangleBorder(
-                side: BorderSide(color: Colors.red, width: 0),
-                borderRadius: BorderRadius.circular(6)),
-            margin: EdgeInsets.fromLTRB(8, 10, 8, 0),
-            elevation: 20,
-            color: Colors.grey.shade700,
-            child: ListTile(
-              title: Text(
-                "Kişisel Bilgiler",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.w500),
-                textAlign: TextAlign.center,
-              ),
-              subtitle: Column(
-                children: [
-                  FutureBuilder(
-                      //Yaş ve diğer bilgiler eklenebilir.
-                      future: _databaseHelper.kisiselListesiniGetir(),
-                      builder:
-                          (context, AsyncSnapshot<List<Kisisel>> snapShot) {
-                        if (snapShot.connectionState == ConnectionState.done) {
-                          tumKisiselVerilerListesi = snapShot.data;
-                          return Text(
-                            tumKisiselVerilerListesi[0].adSoyad,
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          );
-                        } else {
-                          return Text("Yükleniyor...");
-                        }
-                      }),
-                  Text("Bilgilerini güncellemek için tıkla.",
-                      style:
-                          TextStyle(color: Colors.grey.shade400, fontSize: 15)),
-                ],
-              ),
-              onTap: () {
-                Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => BilgileriGuncelle()))
-                    .then((value) {
-                  setState(() {});
-                });
-              },
-            ),
-          ),
+          // Card(
+          //   shape: RoundedRectangleBorder(
+          //       side: BorderSide(color: Colors.red, width: 0),
+          //       borderRadius: BorderRadius.circular(6)),
+          //   margin: EdgeInsets.fromLTRB(8, 10, 8, 0),
+          //   elevation: 20,
+          //   color: Colors.grey.shade700,
+          //   child: ListTile(
+          //     title: Text(
+          //       "Kişisel Bilgiler",
+          //       style: TextStyle(
+          //           color: Colors.white,
+          //           fontSize: 30,
+          //           fontWeight: FontWeight.w500),
+          //       textAlign: TextAlign.center,
+          //     ),
+          //     subtitle: Column(
+          //       children: [
+          //         FutureBuilder(
+          //             //Yaş ve diğer bilgiler eklenebilir.
+          //             future: _databaseHelper.kisiselListesiniGetir(),
+          //             builder:
+          //                 (context, AsyncSnapshot<List<Kisisel>> snapShot) {
+          //               if (snapShot.connectionState == ConnectionState.done) {
+          //                 tumKisiselVerilerListesi = snapShot.data;
+          //                 return Text(
+          //                   tumKisiselVerilerListesi[0].adSoyad,
+          //                   style: TextStyle(color: Colors.white, fontSize: 20),
+          //                 );
+          //               } else {
+          //                 return Text("Yükleniyor...");
+          //               }
+          //             }),
+          //         Text("Bilgilerini güncellemek için tıkla.",
+          //             style:
+          //                 TextStyle(color: Colors.grey.shade400, fontSize: 15)),
+          //       ],
+          //     ),
+          //     onTap: () {
+          //       Navigator.push(
+          //               context,
+          //               MaterialPageRoute(
+          //                   builder: (context) => BilgileriGuncelle()))
+          //           .then((value) {
+          //         setState(() {});
+          //       });
+          //     },
+          //   ),
+          // ),
           GestureDetector(
             onTap: () {
               Navigator.push(
@@ -365,4 +387,3 @@ class _AnaSayfaState extends State<AnaSayfa> {
     ];
   }
 }
-

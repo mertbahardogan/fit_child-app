@@ -12,8 +12,9 @@ class ProgramSayfasi extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          "Spor Programınız",
-          style: TextStyle(color: Colors.black,fontWeight: FontWeight.w600),
+          "Haftalık Spor Programı",
+          style: TextStyle(
+              color: Colors.blueGrey.shade900, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
       ),
@@ -49,34 +50,65 @@ class ProgramSayfasi extends StatelessWidget {
 
   Widget tekSatirContainer(BuildContext context, int index) {
     Haftalik oAnEklenecek = tumHaftalar[index];
+
     return GestureDetector(
       child: Container(
         margin: EdgeInsets.all(10),
         alignment: Alignment.center,
         width: MediaQuery.of(context).size.width / 4,
-        height: MediaQuery.of(context).size.height / 4,
+        height: MediaQuery.of(context).size.height / 5.5,
         decoration: BoxDecoration(
-            color: Colors.blueGrey.shade300,
-            border: Border.all(
-              color: Colors.deepOrange.shade400,
-              width: 3,
+            color: renkUret(index),
+            borderRadius: BorderRadius.all(
+              Radius.circular(14),
             ),
-            borderRadius: BorderRadius.all(Radius.circular(14))),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.black12, blurRadius: 10, offset: Offset(0, 10))
+            ]),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Image.asset(
               "assets/images/levels/" + oAnEklenecek.haftalikResim,
-              width: 100,
-              height: 100,
+              width: 150,
+              height: 150,
               alignment: Alignment.topCenter,
             ),
-            Text(
-              oAnEklenecek.haftalikAd + " Seviye",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.w500),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  oAnEklenecek.haftalikAd + " Seviye",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 23,
+                      fontWeight: FontWeight.w500),
+                ),
+                Row(
+                  children: [
+                    Text(
+                      " Hafta " + (index + 1).toString(),
+                      style: TextStyle(
+                          color: Colors.deepOrange.shade600,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.check,
+                      color: Colors.grey,
+                      size: 17,
+                    ),
+                    Text(" " + oAnEklenecek.haftalikAciklama,
+                        style: TextStyle(
+                            color: Colors.blueGrey.shade800, fontSize: 11))
+                  ],
+                )
+              ],
             )
           ],
         ),
@@ -85,5 +117,15 @@ class ProgramSayfasi extends StatelessWidget {
         Navigator.pushNamed(context, "/programDetay/$index");
       },
     );
+  }
+
+  Color renkUret(int index) {
+    if (index == 0) return Colors.blueGrey.shade600;
+    if (index == 1) return Colors.blueGrey.shade400;
+    if (index == 2) return Colors.blueGrey.shade200;
+    if (index == 3)
+      return Colors.blueGrey.shade100;
+    else
+      return Colors.blueGrey;
   }
 }
