@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:async';
 import 'package:cocuklar_icin_spor_app/models/hareket.dart';
 import 'package:cocuklar_icin_spor_app/models/kisisel.dart';
+import 'package:cocuklar_icin_spor_app/models/program_durum.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -21,9 +22,12 @@ class DatabaseHelper {
   String _columnHareketTarih = "hareketTarih";
   String _columnHareketTekrarSayisi = "hareketTekrarSayisi";
 
-  // String _programTablo = "program";
-  // String _columnProgramID = "programID";
-  // String _columnProgramDurum = "programCheck";
+  String _programTablo = "program";
+  String _columnProgramID = "programID"; //İşlem IDsi
+  String _columnProgramDurum =
+      "programDurum"; //Buna gerek yok çünkü tıklayınca ekle tıklayınca sil yapıcam
+  String _columnProgramHaftaID = "programHaftaID";
+  String _columnProgramGunID = "programGunID";
 
   factory DatabaseHelper() {
     if (_databaseHelper == null) {
@@ -68,8 +72,34 @@ class DatabaseHelper {
     await db.execute(
         "CREATE TABLE $_hareketTablo($_columnHareketID INTEGER PRIMARY KEY AUTOINCREMENT,$_columnHareketAd TEXT,$_columnHareketTarih TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,$_columnHareketTekrarSayisi TEXT)");
 
-    // await db.execute(
-    //     "CREATE TABLE $_programTablo($_columnProgramID INTEGER PRIMARY KEY AUTOINCREMENT, $_columnProgramDurum TEXT)");
+    await db.execute(
+        "CREATE TABLE $_programTablo($_columnProgramID INTEGER PRIMARY KEY AUTOINCREMENT,$_columnProgramDurum TEXT, $_columnProgramHaftaID TEXT,$_columnProgramGunID TEXT)");
+  }
+
+  //
+  Future<int> durumEkle(ProgramDurum programDurum) async {
+    var db = await _getDatabase();
+    var sonuc = await db.insert(
+        _programTablo, programDurum.dbyeYazmakIcinMapeDonustur(),
+        nullColumnHack: "$_columnProgramID");
+    print("Durum DB'ye Eklendi: " + sonuc.toString());
+    return sonuc;
+  }
+
+  //
+  Future<List<Map<String, dynamic>>> tumProgramDurumlar() async {
+    var db = await _getDatabase();
+    var sonuc = await db.query(_programTablo, orderBy: "$_columnProgramID");
+    return sonuc;
+  }
+
+  //
+  Future<int> programDurumSil(int id) async {
+    var db = await _getDatabase();
+    var sonuc = await db
+        .delete(_programTablo, where: "$_columnProgramID=?", whereArgs: [id]);
+    print("Durum DB'den Silindi: " + id.toString());
+    return sonuc;
   }
 
   Future<int> kayitEkle(Kisisel kisisel) async {
@@ -95,7 +125,6 @@ class DatabaseHelper {
     return sonuc;
   }
 
-  //
   Future<List<Kisisel>> kisiselListesiniGetir() async {
     var kisiselMapListesi = await tumKayitlar();
     var kisiselListesi = List<Kisisel>();
@@ -109,7 +138,7 @@ class DatabaseHelper {
     var db = await _getDatabase();
     var sonuc = await db.insert(_hareketTablo, hareket.forWritingDbConvertMap(),
         nullColumnHack: "$_columnHareketID");
-    print("Kayıt HAREKET DB ye Eklendi: " + sonuc.toString());
+    print("HAREKET DB ye Eklendi: " + sonuc.toString());
     return sonuc;
   }
 

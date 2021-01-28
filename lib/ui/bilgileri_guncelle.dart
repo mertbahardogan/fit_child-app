@@ -133,4 +133,3 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
     }
   }
 }
-//slidera yaş değeri seçili gelsin

@@ -96,17 +96,15 @@ class ProgramSayfasi extends StatelessWidget {
                     // ),
                   ],
                 ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.check,
-                      color: Colors.grey,
-                      size: 17,
-                    ),
-                    Text(" " + oAnEklenecek.haftalikAciklama,
-                        style: TextStyle(
-                            color: Colors.deepOrange.shade200, fontSize: 11))
-                  ],
+                Opacity(
+                  opacity: 0.9,
+                  child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white12,
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                      ),
+                      child: Text(oAnEklenecek.haftalikAciklama,
+                          style: TextStyle(color: Colors.white, fontSize: 11))),
                 )
               ],
             )

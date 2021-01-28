@@ -1,7 +1,9 @@
 import 'package:cocuklar_icin_spor_app/models/egzersiz.dart';
 import 'package:cocuklar_icin_spor_app/models/gunler.dart';
 import 'package:cocuklar_icin_spor_app/models/haftalik.dart';
+import 'package:cocuklar_icin_spor_app/models/program_durum.dart';
 import 'package:cocuklar_icin_spor_app/ui/program_sayfasi.dart';
+import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
 import 'package:cocuklar_icin_spor_app/utils/strings.dart';
 // import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,11 @@ class ProgramDetay extends StatefulWidget {
 }
 
 class _ProgramDetayState extends State<ProgramDetay> {
+  //
+  DatabaseHelper _databaseHelper;
+  List<ProgramDurum> tumKaydedilenlerListesi;
+  bool secilenDurum = false;
+
   bool deger = false;
   Color renk = Colors.grey.shade300;
   Haftalik secilenHafta;
@@ -29,12 +36,32 @@ class _ProgramDetayState extends State<ProgramDetay> {
     tumGunler = verileriDondur();
 
     super.initState();
+
+    tumKaydedilenlerListesi = List<ProgramDurum>();
+    _databaseHelper = DatabaseHelper();
+    _databaseHelper.tumProgramDurumlar().then((value) {
+      for (Map okunanHareketListesi in value) {
+        tumKaydedilenlerListesi.add(
+            ProgramDurum.dbdenOkudugunDegeriObjeyeDonustur(
+                okunanHareketListesi));
+      }
+      for (int i = 0; i < tumKaydedilenlerListesi.length; i++) { //b
+        if (tumKaydedilenlerListesi[i].haftaID ==
+            widget.gelenIndex.toString()) {
+          secilenDurum = true;
+          break;
+        }
+        // else {
+        //   secilenDurum = false;
+        // }
+      }
+      debugPrint(secilenDurum.toString());
+      setState(() {});
+    }).catchError((hata) => print("İnit state hata alındı: " + hata));
   }
 
   @override
   Widget build(BuildContext context) {
-    // var ekranHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
       body: CustomScrollView(
         scrollDirection: Axis.vertical,
@@ -43,10 +70,64 @@ class _ProgramDetayState extends State<ProgramDetay> {
             iconTheme: IconThemeData(
               color: Colors.black,
             ),
-            title: Text(
-              secilenHafta.haftalikAd + " Seviye",
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  secilenHafta.haftalikAd + " Seviye",
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.w600),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15),
+                  child: Checkbox(
+                    activeColor: Colors.yellow.shade800,
+                    value: secilenDurum,
+                    // value: valueDondur(widget.gelenIndex),
+                    onChanged: (value) {
+                      setState(() { //b
+                        while (secilenDurum == false) {
+                          _programDurumEkle(ProgramDurum(
+                              secilenDurum.toString(),
+                              widget.gelenIndex.toString(),
+                              "0"));
+                          secilenDurum = value;
+                          debugPrint("durumekle çalıştı");
+                          break;
+                        }
+                        debugPrint(widget.gelenIndex.toString());
+                        if (tumKaydedilenlerListesi.length == 0) {
+                          _programDurumEkle(ProgramDurum(
+                              secilenDurum.toString(),
+                              widget.gelenIndex.toString(),
+                              "0"));
+                          secilenDurum = value;
+                        }
+                        for (int i = 0;
+                            i < tumKaydedilenlerListesi.length;
+                            i++) {
+                          if (tumKaydedilenlerListesi[i].haftaID ==
+                              widget.gelenIndex.toString()) {
+                            debugPrint("DurumSil Çalıştı");
+                            _programDurumSil(tumKaydedilenlerListesi[i].id, i);
+                            secilenDurum = value;
+                            break;
+                          }
+                          // else {
+                          //   debugPrint("durumekle çalıştı");
+                          //   _programDurumEkle(ProgramDurum(
+                          //       secilenDurum.toString(),
+                          //       widget.gelenIndex.toString(),
+                          //       "0"));
+                          //   secilenDurum = value;
+                          //   break;
+                          // }
+                        }
+                      });
+                    },
+                  ),
+                )
+              ],
             ),
             centerTitle: true,
             backgroundColor: Colors.grey.shade200,
@@ -132,24 +213,18 @@ class _ProgramDetayState extends State<ProgramDetay> {
             ),
             textAlign: TextAlign.center,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Checkbox(
-              activeColor: Colors.yellow.shade800,
-              value: tumGunler[index].gunCheck,
-              onChanged: (value) {
-                setState(() {
-                  tumGunler[index].gunCheck == true
-                      ? tumGunler[index].gunCheck = false
-                      : tumGunler[index].gunCheck = true;
-
-                  // tumGunler[index].gunCheck == true
-                  //     ? renk = Colors.green.shade900
-                  //     : renk = Colors.blue.shade900;
-                });
-              },
-            ),
-          )
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 15),
+          //   child: Checkbox(
+          //     activeColor: Colors.yellow.shade800,
+          //     value: valueDondur(widget.gelenIndex, index),
+          //     onChanged: (value) {
+          //       setState(() {
+          //         checkDegistir(widget.gelenIndex, index);
+          //       });
+          //     },
+          //   ),
+          // )
         ],
       ),
       initiallyExpanded: tumGunler[index].expanded,
@@ -317,7 +392,9 @@ class _ProgramDetayState extends State<ProgramDetay> {
             Text(
               "Tüm egzersizlerden önce ısınma hareketleri yapılmalıdır.",
               style: TextStyle(
-                  color: Colors.blueGrey.shade900, fontWeight: FontWeight.w500,fontSize: 12),
+                  color: Colors.blueGrey.shade900,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12),
             )
           ],
         ),
@@ -362,4 +439,54 @@ class _ProgramDetayState extends State<ProgramDetay> {
           );
         });
   }
+
+  //int haftaIndex, int gunIndex
+  void _programDurumEkle(ProgramDurum programDurum) async {
+    var eklenenDurumID = await _databaseHelper.durumEkle(programDurum);
+    programDurum.id = eklenenDurumID;
+    setState(() {
+      tumKaydedilenlerListesi.insert(0, programDurum);
+    });
+    // debugPrint("Bana tıklandı Hafta Index: $haftaIndex Gün Index: $gunIndex");
+  }
+
+  //
+  void _programDurumSil(int forDBtoDeleteID, int forListtoDeleteIndex) async {
+    var sonuc = await _databaseHelper.programDurumSil(forDBtoDeleteID);
+    if (sonuc == 1) {
+      setState(() {
+        tumKaydedilenlerListesi.removeAt(forListtoDeleteIndex);
+      });
+    }
+  }
+
+//   bool valueDondur(int haftaIndex, int index) {
+//     bool sonuc = false;
+//     debugPrint("methoddan" + tumKaydedilenlerListesi.length.toString());
+//     for (int i = 0; i < tumKaydedilenlerListesi.length; i++) {
+//       if (int.parse(tumKaydedilenlerListesi[i].haftaID) == haftaIndex) {
+//         if (int.parse(tumKaydedilenlerListesi[i].gunID) == index) {
+//           sonuc = true;
+//           break;
+//         }
+//       }
+//     }
+//     return sonuc;
+//   }
+
+//   void checkDegistir(int haftaIndex, int index) {
+//     for (int i = 0; i < tumKaydedilenlerListesi.length; i++) {
+//       if (int.parse(tumKaydedilenlerListesi[i].haftaID) == haftaIndex) {
+//         if (int.parse(tumKaydedilenlerListesi[i].gunID) == index) {
+//           debugPrint("DurumSil Çalıştı");
+//           _programDurumSil(tumKaydedilenlerListesi[index].id, index);
+//           break;
+//         }
+//       } else {
+//         debugPrint("durumekle çalıştı");
+//         _programDurumEkle(ProgramDurum(secilenDurum.toString(),
+//             widget.gelenIndex.toString(), index.toString()));
+//       }
+//     }
+//   }
 }
