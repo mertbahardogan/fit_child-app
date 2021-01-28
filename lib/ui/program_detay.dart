@@ -45,15 +45,13 @@ class _ProgramDetayState extends State<ProgramDetay> {
             ProgramDurum.dbdenOkudugunDegeriObjeyeDonustur(
                 okunanHareketListesi));
       }
-      for (int i = 0; i < tumKaydedilenlerListesi.length; i++) { //b
+      for (int i = 0; i < tumKaydedilenlerListesi.length; i++) {
+        //b
         if (tumKaydedilenlerListesi[i].haftaID ==
             widget.gelenIndex.toString()) {
           secilenDurum = true;
           break;
         }
-        // else {
-        //   secilenDurum = false;
-        // }
       }
       debugPrint(secilenDurum.toString());
       setState(() {});
@@ -81,26 +79,25 @@ class _ProgramDetayState extends State<ProgramDetay> {
                 Padding(
                   padding: const EdgeInsets.only(left: 15),
                   child: Checkbox(
-                    activeColor: Colors.yellow.shade800,
+                    activeColor: Colors.deepOrange.shade800,
                     value: secilenDurum,
                     // value: valueDondur(widget.gelenIndex),
                     onChanged: (value) {
-                      setState(() { //b
+                      setState(() {
+                        //b
                         while (secilenDurum == false) {
                           _programDurumEkle(ProgramDurum(
                               secilenDurum.toString(),
-                              widget.gelenIndex.toString(),
-                              "0"));
+                              widget.gelenIndex.toString()));
                           secilenDurum = value;
-                          debugPrint("durumekle çalıştı");
+                          alertTebrikGoster(context, widget.gelenIndex);
                           break;
                         }
                         debugPrint(widget.gelenIndex.toString());
                         if (tumKaydedilenlerListesi.length == 0) {
                           _programDurumEkle(ProgramDurum(
                               secilenDurum.toString(),
-                              widget.gelenIndex.toString(),
-                              "0"));
+                              widget.gelenIndex.toString()));
                           secilenDurum = value;
                         }
                         for (int i = 0;
@@ -108,7 +105,6 @@ class _ProgramDetayState extends State<ProgramDetay> {
                             i++) {
                           if (tumKaydedilenlerListesi[i].haftaID ==
                               widget.gelenIndex.toString()) {
-                            debugPrint("DurumSil Çalıştı");
                             _programDurumSil(tumKaydedilenlerListesi[i].id, i);
                             secilenDurum = value;
                             break;
@@ -217,10 +213,9 @@ class _ProgramDetayState extends State<ProgramDetay> {
           //   padding: const EdgeInsets.only(left: 15),
           //   child: Checkbox(
           //     activeColor: Colors.yellow.shade800,
-          //     value: valueDondur(widget.gelenIndex, index),
+          //     value: valueDurum,
           //     onChanged: (value) {
           //       setState(() {
-          //         checkDegistir(widget.gelenIndex, index);
           //       });
           //     },
           //   ),
@@ -234,7 +229,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
             aciklamaAlertDialog(context, index);
           },
           child: Hero(
-            tag: 1,
+            tag: widget.gelenIndex,
             child: Container(
               height: MediaQuery.of(context).size.height / 13,
               width: double.infinity,
@@ -412,7 +407,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
         barrierDismissible: false,
         builder: (ctx) {
           return Hero(
-            tag: 1,
+            tag: widget.gelenIndex,
             child: AlertDialog(
               title: Center(
                 child: Text(
@@ -447,10 +442,8 @@ class _ProgramDetayState extends State<ProgramDetay> {
     setState(() {
       tumKaydedilenlerListesi.insert(0, programDurum);
     });
-    // debugPrint("Bana tıklandı Hafta Index: $haftaIndex Gün Index: $gunIndex");
   }
 
-  //
   void _programDurumSil(int forDBtoDeleteID, int forListtoDeleteIndex) async {
     var sonuc = await _databaseHelper.programDurumSil(forDBtoDeleteID);
     if (sonuc == 1) {
@@ -460,33 +453,59 @@ class _ProgramDetayState extends State<ProgramDetay> {
     }
   }
 
-//   bool valueDondur(int haftaIndex, int index) {
-//     bool sonuc = false;
-//     debugPrint("methoddan" + tumKaydedilenlerListesi.length.toString());
-//     for (int i = 0; i < tumKaydedilenlerListesi.length; i++) {
-//       if (int.parse(tumKaydedilenlerListesi[i].haftaID) == haftaIndex) {
-//         if (int.parse(tumKaydedilenlerListesi[i].gunID) == index) {
-//           sonuc = true;
-//           break;
-//         }
-//       }
-//     }
-//     return sonuc;
-//   }
-
-//   void checkDegistir(int haftaIndex, int index) {
-//     for (int i = 0; i < tumKaydedilenlerListesi.length; i++) {
-//       if (int.parse(tumKaydedilenlerListesi[i].haftaID) == haftaIndex) {
-//         if (int.parse(tumKaydedilenlerListesi[i].gunID) == index) {
-//           debugPrint("DurumSil Çalıştı");
-//           _programDurumSil(tumKaydedilenlerListesi[index].id, index);
-//           break;
-//         }
-//       } else {
-//         debugPrint("durumekle çalıştı");
-//         _programDurumEkle(ProgramDurum(secilenDurum.toString(),
-//             widget.gelenIndex.toString(), index.toString()));
-//       }
-//     }
-//   }
+  void alertTebrikGoster(BuildContext ctx, int gelenIndex) {
+    showDialog(
+        context: ctx,
+        barrierDismissible: false,
+        builder: (ctx) {
+          return AlertDialog(
+            title: Column(children: [
+              Text(
+                "Tebrikler!",
+                style: TextStyle(
+                    color: Colors.green.shade400,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold),
+              ),
+              Center(
+                child: Text(
+                  secilenHafta.haftalikAd + " Seviyesini tamamladın.",
+                  style: TextStyle(color: Colors.green.shade100, fontSize: 14),
+                ),
+              ),
+            ]),
+            backgroundColor: Colors.blueGrey.shade900,
+            content: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.only(top: 10, left: 45),
+                child: Row(
+                  children: [
+                    Text(
+                      "Sıradaki Seviye: ",
+                      style: TextStyle(color: Colors.white, fontSize: 14),
+                    ),
+                    Text(
+                      ProgramSayfasi.tumHaftalar[gelenIndex + 1].haftalikAd,
+                      style: TextStyle(
+                          color: Colors.green.shade100,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            actions: [
+              FlatButton(
+                child: Text(
+                  "Kapat",
+                  style: TextStyle(color: Colors.redAccent, fontSize: 10),
+                ),
+                onPressed: () => Navigator.of(ctx).pop(),
+              ),
+            ],
+          );
+        });
+  }
 }
+//0-2

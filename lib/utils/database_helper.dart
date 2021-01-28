@@ -23,11 +23,9 @@ class DatabaseHelper {
   String _columnHareketTekrarSayisi = "hareketTekrarSayisi";
 
   String _programTablo = "program";
-  String _columnProgramID = "programID"; //İşlem IDsi
-  String _columnProgramDurum =
-      "programDurum"; //Buna gerek yok çünkü tıklayınca ekle tıklayınca sil yapıcam
+  String _columnProgramID = "programID";
+  String _columnProgramDurum = "programDurum";
   String _columnProgramHaftaID = "programHaftaID";
-  String _columnProgramGunID = "programGunID";
 
   factory DatabaseHelper() {
     if (_databaseHelper == null) {
@@ -73,7 +71,7 @@ class DatabaseHelper {
         "CREATE TABLE $_hareketTablo($_columnHareketID INTEGER PRIMARY KEY AUTOINCREMENT,$_columnHareketAd TEXT,$_columnHareketTarih TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,$_columnHareketTekrarSayisi TEXT)");
 
     await db.execute(
-        "CREATE TABLE $_programTablo($_columnProgramID INTEGER PRIMARY KEY AUTOINCREMENT,$_columnProgramDurum TEXT, $_columnProgramHaftaID TEXT,$_columnProgramGunID TEXT)");
+        "CREATE TABLE $_programTablo($_columnProgramID INTEGER PRIMARY KEY AUTOINCREMENT,$_columnProgramDurum TEXT, $_columnProgramHaftaID TEXT)");
   }
 
   //
