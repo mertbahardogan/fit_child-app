@@ -45,14 +45,14 @@ class _AnaSayfaState extends State<AnaSayfa> {
                 child: Text(
                   "Fit Child",
                   style: TextStyle(
-                      fontSize: 27,
-                      color: Colors.deepOrange.shade800,
-                      fontFamily: "Sansita",
+                      fontSize: 30,
+                      color: Colors.white,
+                      fontFamily: "Indie",
                       fontWeight: FontWeight.bold),
                 ),
               ),
               IconButton(
-                icon: Icon(Icons.account_circle, size: 30, color: Colors.white),
+                icon: Icon(Icons.account_circle, size: 25, color: Colors.grey),
                 onPressed: () {
                   Navigator.push(
                           context,
@@ -69,7 +69,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
           backgroundColor: Colors.blueGrey.shade900,
           pinned: true,
           primary: true,
-          expandedHeight: 60,
+          expandedHeight: 65,
           elevation: 4,
         ),
         SliverFixedExtentList(

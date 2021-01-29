@@ -72,9 +72,9 @@ flutter:
       fonts:
         - asset: assets/fonts/Poppins.ttf
 
-    - family: Sansita
+    - family: Indie
       fonts:
-        - asset: assets/fonts/SansitaSwashed.ttf
+        - asset: assets/fonts/IndieFlower.ttf
         
   #
   # For details regarding fonts from package dependencies,

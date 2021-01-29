@@ -28,9 +28,7 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
           pinned: true,
           title: Text(secilenEgzersiz.egzersizAdi),
           centerTitle: true,
-          // backgroundColor:
-          //     widget.gelenIndex % 2 == 0 ? Colors.grey[500] : Colors.brown[100],
-          backgroundColor: Colors.blueGrey.shade900,
+          backgroundColor: Colors.deepOrange[200 * (widget.gelenIndex % 3)],
           expandedHeight: 200,
           actions: [
             IconButton(
@@ -39,8 +37,6 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
                 size: 26,
               ),
               onPressed: () {
-                print(widget.gelenIndex);
-                print(secilenEgzersiz.egzersizAdi);
                 setState(() {
                   if (iconMod == Icons.favorite_border) {
                     iconMod = Icons.favorite;
@@ -72,33 +68,62 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
                 children: [
                   Column(
                     children: [
-                      Icon(Icons.fitness_center),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Icon(
+                          Icons.fitness_center,
+                          size: 27,
+                          color: Colors.deepOrange.shade800,
+                        ),
+                      ),
                       Text(
                         secilenEgzersiz.egzersizBolge +
                             "  bölgelerini çalıştırır.",
-                        style: TextStyle(fontSize: 23),
+                        style: TextStyle(fontSize: 18),
                       ),
                       Divider(
                         height: 20,
                         thickness: 1,
                       ),
-                      Icon(Icons.repeat),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Icon(
+                          Icons.repeat,
+                          size: 27,
+                          color: Colors.deepOrange.shade800,
+                        ),
+                      ),
                       Text(secilenEgzersiz.egzersizOneri,
-                          style: TextStyle(fontSize: 23)),
+                          style: TextStyle(fontSize: 18)),
                       Divider(
                         height: 20,
                         thickness: 1,
                       ),
-                      Icon(Icons.question_answer),
-                      Text(
-                        "Nasıl Yapabilirim?",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 20),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom:10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: Icon(
+                                Icons.play_arrow,
+                                size: 27,
+                                color: Colors.deepOrange.shade800,
+                              ),
+                            ),
+                            Text(
+                              "Nasıl Yapabilirim?",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 20,color: Colors.deepOrange.shade800,),
+                            ),
+                          ],
+                        ),
                       ),
                       Text(
                         secilenEgzersiz.egzersizDetay,
                         style: TextStyle(
-                            fontWeight: FontWeight.w400, fontSize: 20),
+                            fontWeight: FontWeight.w400, fontSize: 18),
                       ),
                     ],
                   ),

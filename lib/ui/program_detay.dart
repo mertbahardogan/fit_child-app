@@ -79,9 +79,8 @@ class _ProgramDetayState extends State<ProgramDetay> {
                 Padding(
                   padding: const EdgeInsets.only(left: 15),
                   child: Checkbox(
-                    activeColor: Colors.deepOrange.shade800,
+                    activeColor: Colors.blueGrey.shade900,
                     value: secilenDurum,
-                    // value: valueDondur(widget.gelenIndex),
                     onChanged: (value) {
                       setState(() {
                         //b
@@ -371,9 +370,6 @@ class _ProgramDetayState extends State<ProgramDetay> {
             color: Colors.blueGrey.shade900,
             borderRadius: BorderRadius.circular(5),
             image: DecorationImage(
-                // colorFilter: new ColorFilter.mode(
-                //     Colors.blueGrey.shade900.withOpacity(0.6),
-                //     BlendMode.dstATop),
                 image: AssetImage(
                     "assets/images/programs/" + secilenHafta.haftalikResim),
                 fit: BoxFit.contain)),
@@ -387,7 +383,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
             Text(
               "Tüm egzersizlerden önce ısınma hareketleri yapılmalıdır.",
               style: TextStyle(
-                  color: Colors.blueGrey.shade900,
+                  color: Colors.white,
                   fontWeight: FontWeight.w500,
                   fontSize: 12),
             )
@@ -469,7 +465,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
               ),
               Center(
                 child: Text(
-                  secilenHafta.haftalikAd + " Seviyesini tamamladın.",
+                  secilenHafta.haftalikAd + " Seviyeyi tamamladın.",
                   style: TextStyle(color: Colors.green.shade100, fontSize: 14),
                 ),
               ),
@@ -480,12 +476,18 @@ class _ProgramDetayState extends State<ProgramDetay> {
                 padding: EdgeInsets.only(top: 10, left: 45),
                 child: Row(
                   children: [
+                    gelenIndex == 3
+                        ? Text("Katılımın için teşekkürler! :)",
+                            style: TextStyle(color: Colors.white, fontSize: 10))
+                        : Text(
+                            "Sıradaki Seviye: ",
+                            style: TextStyle(color: Colors.white, fontSize: 14),
+                          ),
                     Text(
-                      "Sıradaki Seviye: ",
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    ),
-                    Text(
-                      ProgramSayfasi.tumHaftalar[gelenIndex + 1].haftalikAd,
+                      gelenIndex == 3
+                          ? ""
+                          : ProgramSayfasi
+                              .tumHaftalar[gelenIndex + 1].haftalikAd,
                       style: TextStyle(
                           color: Colors.green.shade100,
                           fontWeight: FontWeight.bold,
@@ -508,4 +510,4 @@ class _ProgramDetayState extends State<ProgramDetay> {
         });
   }
 }
-//0-2
+//Geri almak istediğinizden emin misiniz?

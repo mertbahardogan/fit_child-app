@@ -87,20 +87,13 @@ class ProgramSayfasi extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    // Text(
-                    //   " Hafta " + (index + 1).toString(),
-                    //   style: TextStyle(
-                    //       color: Colors.white,
-                    //       fontSize: 17,
-                    //       fontWeight: FontWeight.w500),
-                    // ),
                   ],
                 ),
                 Opacity(
                   opacity: 0.9,
                   child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.white12,
+                        color: Colors.deepOrange.shade600,
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
                       child: Text(oAnEklenecek.haftalikAciklama,

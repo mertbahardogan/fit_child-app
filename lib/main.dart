@@ -89,7 +89,7 @@ class _SplashState extends State<Splash> {
           textScaleFactor: 3,
           style: TextStyle(
               fontWeight: FontWeight.w500,
-              fontFamily: "Sansita",
+              fontFamily: "Indie",
               color: Colors.white),
         ),
         image: Image.asset("assets/images/fitness.png"),

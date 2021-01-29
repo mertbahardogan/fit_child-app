@@ -73,7 +73,7 @@ class EgzersizSayfasi extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(5.0)),
         boxShadow: [
           BoxShadow(
-              color: Colors.cyan.shade100,
+              color: Colors.cyan.shade200,
               offset: Offset(1.0, 1.0),
               blurRadius: 1.0),
         ],
@@ -84,6 +84,7 @@ class EgzersizSayfasi extends StatelessWidget {
         child: InkWell(
           onTap: () {
             Navigator.pushNamed(context, "/egzersizDetay/$index");
+            print(Colors.deepOrange[200 * (index % 3)]);
           },
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -98,7 +99,7 @@ class EgzersizSayfasi extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 16,
                       color: Colors.blueGrey.shade900,
-                      fontWeight: FontWeight.w500),
+                      fontWeight: FontWeight.bold),
                 ),
               ]),
         ),
