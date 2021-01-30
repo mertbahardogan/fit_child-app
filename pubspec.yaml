@@ -54,6 +54,7 @@ flutter:
     - assets/images/levels/
     - assets/images/exercises/
     - assets/images/programs/
+    - assets/images/general/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

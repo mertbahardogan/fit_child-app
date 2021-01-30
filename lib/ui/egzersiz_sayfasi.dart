@@ -69,7 +69,6 @@ class EgzersizSayfasi extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(8),
       decoration: BoxDecoration(
-        // color: Colors.cyan.shade100,
         borderRadius: BorderRadius.all(Radius.circular(5.0)),
         boxShadow: [
           BoxShadow(

@@ -1,5 +1,7 @@
 import 'package:cocuklar_icin_spor_app/models/egzersiz.dart';
+import 'package:cocuklar_icin_spor_app/models/favori_durum.dart';
 import 'package:cocuklar_icin_spor_app/ui/egzersiz_sayfasi.dart';
+import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
 import 'package:flutter/material.dart';
 
 class EgzersizDetay extends StatefulWidget {
@@ -12,15 +14,41 @@ class EgzersizDetay extends StatefulWidget {
 class _EgzersizDetayState extends State<EgzersizDetay> {
   Egzersiz secilenEgzersiz;
   IconData iconMod = Icons.favorite_border;
+
+  //
+  var _scaffoldKey = GlobalKey<ScaffoldState>();
+  bool secilenDurum = false;
+  DatabaseHelper _databaseHelper;
+  List<FavoriDurum> tumKaydedilenlerListesi;
   @override
   void initState() {
     secilenEgzersiz = EgzersizSayfasi.tumEgzersizler[widget.gelenIndex];
     super.initState();
+
+    //
+    tumKaydedilenlerListesi = List<FavoriDurum>();
+    _databaseHelper = DatabaseHelper();
+    _databaseHelper.tumFavoriDurumlar().then((value) {
+      for (Map okunanListe in value) {
+        tumKaydedilenlerListesi
+            .add(FavoriDurum.dbdenObjeyeDonustur(okunanListe));
+      }
+      for (int i = 0; i < tumKaydedilenlerListesi.length; i++) {
+        if (tumKaydedilenlerListesi[i].hareketID ==
+            widget.gelenIndex.toString()) {
+          secilenDurum = true;
+          break;
+        }
+      }
+      debugPrint(secilenDurum.toString());
+      setState(() {});
+    }).catchError((hata) => print("İnit state hata alındı: " + hata));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       primary: true,
       body: CustomScrollView(slivers: [
         SliverAppBar(
@@ -33,16 +61,44 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
           actions: [
             IconButton(
               icon: Icon(
-                iconMod,
+                secilenDurum == true
+                    ? Icons.favorite
+                    : Icons.favorite_border_outlined,
                 size: 26,
               ),
               onPressed: () {
                 setState(() {
-                  if (iconMod == Icons.favorite_border) {
-                    iconMod = Icons.favorite;
-                  } else {
-                    iconMod = Icons.favorite_border;
+                  while (secilenDurum == false) {
+                    _favoriEkle(FavoriDurum(
+                        secilenDurum.toString(),
+                        widget.gelenIndex.toString(),
+                        secilenEgzersiz.egzersizAdi));
+                    secilenDurum = true;
+                    break;
                   }
+
+                  if (tumKaydedilenlerListesi.length == 0) {
+                    _favoriEkle(FavoriDurum(
+                        secilenDurum.toString(),
+                        widget.gelenIndex.toString(),
+                        secilenEgzersiz.egzersizAdi));
+                    secilenDurum = true;
+                  }
+
+                  for (int i = 0; i < tumKaydedilenlerListesi.length; i++) {
+                    if (tumKaydedilenlerListesi[i].hareketID ==
+                        widget.gelenIndex.toString()) {
+                      _favoriSil(tumKaydedilenlerListesi[i].id, i);
+                      secilenDurum = false;
+                      break;
+                    }
+                  }
+
+                  // if (iconMod == Icons.favorite_border) {
+                  //   iconMod = Icons.favorite;
+                  // } else {
+                  //   iconMod = Icons.favorite_border;
+                  // }
                 });
               },
             )
@@ -100,22 +156,25 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
                         thickness: 1,
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(bottom:10),
+                        padding: const EdgeInsets.only(bottom: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(right: 5),
                               child: Icon(
-                                Icons.play_arrow,
-                                size: 27,
+                                Icons.fiber_manual_record,
+                                size: 15,
                                 color: Colors.deepOrange.shade800,
                               ),
                             ),
                             Text(
                               "Nasıl Yapabilirim?",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 20,color: Colors.deepOrange.shade800,),
+                                fontWeight: FontWeight.w500,
+                                fontSize: 20,
+                                color: Colors.deepOrange.shade800,
+                              ),
                             ),
                           ],
                         ),
@@ -134,5 +193,35 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
         ),
       ]),
     );
+  }
+
+  //
+  void _favoriEkle(FavoriDurum favoriDurum) async {
+    var eklenenID = await _databaseHelper.favoriEkle(favoriDurum);
+    favoriDurum.id = eklenenID;
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      backgroundColor: Colors.green.shade600,
+      content: Text("${secilenEgzersiz.egzersizAdi} favori listesine eklendi."),
+      duration: Duration(seconds: 2),
+    ));
+    setState(() {
+      tumKaydedilenlerListesi.insert(0, favoriDurum);
+    });
+  }
+
+  //
+  void _favoriSil(int forDBtoDeleteID, int forListtoDeleteIndex) async {
+    var sonuc = await _databaseHelper.favoriSil(forDBtoDeleteID);
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      backgroundColor: Colors.red.shade800,
+      content:
+          Text("${secilenEgzersiz.egzersizAdi} favori listesinden silindi."),
+      duration: Duration(seconds: 2),
+    ));
+    if (sonuc == 1) {
+      setState(() {
+        tumKaydedilenlerListesi.removeAt(forListtoDeleteIndex);
+      });
+    }
   }
 }

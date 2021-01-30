@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:async';
+import 'package:cocuklar_icin_spor_app/models/favori_durum.dart';
 import 'package:cocuklar_icin_spor_app/models/hareket.dart';
 import 'package:cocuklar_icin_spor_app/models/kisisel.dart';
 import 'package:cocuklar_icin_spor_app/models/program_durum.dart';
@@ -26,6 +27,12 @@ class DatabaseHelper {
   String _columnProgramID = "programID";
   String _columnProgramDurum = "programDurum";
   String _columnProgramHaftaID = "programHaftaID";
+
+  String _favoriTablo = "favori";
+  String _columnFavoriID = "favoriID";
+  String _columnFavoriDurum = "favoriDurum";
+  String _columnFavoriHareketID = "favoriHareketID";
+  String _columnFavoriHareketAd = "favoriHareketAd";
 
   factory DatabaseHelper() {
     if (_databaseHelper == null) {
@@ -72,9 +79,37 @@ class DatabaseHelper {
 
     await db.execute(
         "CREATE TABLE $_programTablo($_columnProgramID INTEGER PRIMARY KEY AUTOINCREMENT,$_columnProgramDurum TEXT, $_columnProgramHaftaID TEXT)");
+
+    await db.execute(
+        "CREATE TABLE $_favoriTablo($_columnFavoriID INTEGER PRIMARY KEY AUTOINCREMENT,$_columnFavoriDurum TEXT,$_columnFavoriHareketID TEXT,$_columnFavoriHareketAd TEXT)");
   }
 
   //
+  Future<int> favoriEkle(FavoriDurum favoriDurum) async {
+    var db = await _getDatabase();
+    var sonuc = await db.insert(
+        _favoriTablo, favoriDurum.dbyeYazmakIcinMapeDonustur(),
+        nullColumnHack: "$_columnFavoriID");
+    print("Favori DB'ye Eklendi: " + sonuc.toString());
+    return sonuc;
+  }
+
+  //
+  Future<List<Map<String, dynamic>>> tumFavoriDurumlar() async {
+    var db = await _getDatabase();
+    var sonuc = await db.query(_favoriTablo, orderBy: "$_columnFavoriID");
+    return sonuc;
+  }
+
+  //
+  Future<int> favoriSil(int id) async {
+    var db = await _getDatabase();
+    var sonuc = await db
+        .delete(_favoriTablo, where: "$_columnFavoriID=?", whereArgs: [id]);
+    print("Favori DB'den Silindi: " + id.toString());
+    return sonuc;
+  }
+
   Future<int> durumEkle(ProgramDurum programDurum) async {
     var db = await _getDatabase();
     var sonuc = await db.insert(
@@ -84,14 +119,12 @@ class DatabaseHelper {
     return sonuc;
   }
 
-  //
   Future<List<Map<String, dynamic>>> tumProgramDurumlar() async {
     var db = await _getDatabase();
     var sonuc = await db.query(_programTablo, orderBy: "$_columnProgramID");
     return sonuc;
   }
 
-  //
   Future<int> programDurumSil(int id) async {
     var db = await _getDatabase();
     var sonuc = await db

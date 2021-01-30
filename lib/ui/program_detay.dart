@@ -5,7 +5,6 @@ import 'package:cocuklar_icin_spor_app/models/program_durum.dart';
 import 'package:cocuklar_icin_spor_app/ui/program_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
 import 'package:cocuklar_icin_spor_app/utils/strings.dart';
-// import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -18,12 +17,13 @@ class ProgramDetay extends StatefulWidget {
 }
 
 class _ProgramDetayState extends State<ProgramDetay> {
-  //
   DatabaseHelper _databaseHelper;
   List<ProgramDurum> tumKaydedilenlerListesi;
   bool secilenDurum = false;
+  Image check = Image.asset("assets/images/general/check.png");
+  Image checkLast = Image.asset("assets/images/general/trophy.png");
 
-  bool deger = false;
+  // bool deger = false;
   Color renk = Colors.grey.shade300;
   Haftalik secilenHafta;
   static List<Egzersiz> tumEgzersizler;
@@ -46,7 +46,6 @@ class _ProgramDetayState extends State<ProgramDetay> {
                 okunanHareketListesi));
       }
       for (int i = 0; i < tumKaydedilenlerListesi.length; i++) {
-        //b
         if (tumKaydedilenlerListesi[i].haftaID ==
             widget.gelenIndex.toString()) {
           secilenDurum = true;
@@ -83,40 +82,33 @@ class _ProgramDetayState extends State<ProgramDetay> {
                     value: secilenDurum,
                     onChanged: (value) {
                       setState(() {
-                        //b
-                        while (secilenDurum == false) {
+                        // while (secilenDurum == false) {
+                        //   _programDurumEkle(ProgramDurum(
+                        //       secilenDurum.toString(),
+                        //       widget.gelenIndex.toString()));
+                        //   secilenDurum = value;
+                        //   alertTebrikGoster(context, widget.gelenIndex);
+                        //   break;
+                        // }
+                        if (tumKaydedilenlerListesi.length == 0 ||
+                            secilenDurum == false) {
                           _programDurumEkle(ProgramDurum(
                               secilenDurum.toString(),
                               widget.gelenIndex.toString()));
                           secilenDurum = value;
                           alertTebrikGoster(context, widget.gelenIndex);
-                          break;
-                        }
-                        debugPrint(widget.gelenIndex.toString());
-                        if (tumKaydedilenlerListesi.length == 0) {
-                          _programDurumEkle(ProgramDurum(
-                              secilenDurum.toString(),
-                              widget.gelenIndex.toString()));
-                          secilenDurum = value;
                         }
                         for (int i = 0;
                             i < tumKaydedilenlerListesi.length;
                             i++) {
                           if (tumKaydedilenlerListesi[i].haftaID ==
                               widget.gelenIndex.toString()) {
-                            _programDurumSil(tumKaydedilenlerListesi[i].id, i);
-                            secilenDurum = value;
+                            alertEminMi(context, i, value);
+                            // _programDurumSil(tumKaydedilenlerListesi[i].id, i);
+                            // secilenDurum = value;
+
                             break;
                           }
-                          // else {
-                          //   debugPrint("durumekle çalıştı");
-                          //   _programDurumEkle(ProgramDurum(
-                          //       secilenDurum.toString(),
-                          //       widget.gelenIndex.toString(),
-                          //       "0"));
-                          //   secilenDurum = value;
-                          //   break;
-                          // }
                         }
                       });
                     },
@@ -464,9 +456,24 @@ class _ProgramDetayState extends State<ProgramDetay> {
                     fontWeight: FontWeight.bold),
               ),
               Center(
-                child: Text(
-                  secilenHafta.haftalikAd + " Seviyeyi tamamladın.",
-                  style: TextStyle(color: Colors.green.shade100, fontSize: 14),
+                child: Column(
+                  children: [
+                    Text(
+                      secilenHafta.haftalikAd + " Seviyeyi tamamladın.",
+                      style:
+                          TextStyle(color: Colors.green.shade100, fontSize: 14),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 23.0),
+                      child: Image.asset(
+                        gelenIndex == 3
+                            ? "assets/images/general/trophy.png"
+                            : "assets/images/general/check.png",
+                        width: 50,
+                        height: 50,
+                      ),
+                    )
+                  ],
                 ),
               ),
             ]),
@@ -501,7 +508,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
               FlatButton(
                 child: Text(
                   "Kapat",
-                  style: TextStyle(color: Colors.redAccent, fontSize: 10),
+                  style: TextStyle(color: Colors.redAccent, fontSize: 12),
                 ),
                 onPressed: () => Navigator.of(ctx).pop(),
               ),
@@ -509,5 +516,44 @@ class _ProgramDetayState extends State<ProgramDetay> {
           );
         });
   }
+
+  void alertEminMi(BuildContext ctx, int i, bool value) {
+    showDialog(
+        context: ctx,
+        barrierDismissible: false,
+        builder: (ctx) {
+          return AlertDialog(
+            title: Center(
+              child: Text(
+                "Emin misin?",
+                style: TextStyle(color: Colors.yellow.shade800),
+              ),
+            ),
+            backgroundColor: Colors.blueGrey.shade900,
+            content: SingleChildScrollView(
+                child: Text(
+              "İlerleme durumun silinecek.",
+              style: TextStyle(color: Colors.white),
+            )),
+            actions: [
+              FlatButton(
+                  child: Text(
+                    "Eminim",
+                    style: TextStyle(color: Colors.greenAccent, fontSize: 12),
+                  ),
+                  onPressed: () {
+                    _programDurumSil(tumKaydedilenlerListesi[i].id, i);
+                    secilenDurum = value;
+                    Navigator.of(ctx).pop();
+                  }),
+              FlatButton(
+                  child: Text(
+                    "İptal",
+                    style: TextStyle(color: Colors.redAccent, fontSize: 12),
+                  ),
+                  onPressed: () => Navigator.of(ctx).pop()),
+            ],
+          );
+        });
+  }
 }
-//Geri almak istediğinizden emin misiniz?

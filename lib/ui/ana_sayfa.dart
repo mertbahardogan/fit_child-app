@@ -1,5 +1,7 @@
+import 'package:cocuklar_icin_spor_app/models/favori_durum.dart';
 import 'package:cocuklar_icin_spor_app/models/kisisel.dart';
 import 'package:cocuklar_icin_spor_app/ui/bilgileri_guncelle.dart';
+import 'package:cocuklar_icin_spor_app/ui/favori_listesi_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/ui/tekrar_kaydedici_liste.dart';
 import 'package:cocuklar_icin_spor_app/ui/vucut_kitle_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
@@ -266,40 +268,47 @@ class _AnaSayfaState extends State<AnaSayfa> {
             indent: 100,
             endIndent: 100,
           ),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.teal,
-              borderRadius: BorderRadius.all(Radius.circular(2)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.shade700,
-                  offset: Offset(0.2, 0.2), //(x,y)
-                  blurRadius: 6.0,
-                ),
-              ],
-            ),
-            margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
-            child: ListTile(
-              leading: Image.asset("assets/images/su.png"),
-              title: Text(
-                "Su Tüketimi",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w500),
-                textAlign: TextAlign.center,
-              ),
-              subtitle: Column(
-                children: [
-                  Text(
-                    "Her gün yeteri kadar su içmelisin.",
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => FavoriSayfasi()));
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.teal,
+                borderRadius: BorderRadius.all(Radius.circular(2)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade700,
+                    offset: Offset(0.2, 0.2), //(x,y)
+                    blurRadius: 6.0,
                   ),
-                  Text(
-                    "Düzenli olarak her 25 kg için 1 L su içmeniz önerilir.",
-                    style: TextStyle(color: Colors.grey.shade400, fontSize: 10),
-                  )
                 ],
+              ),
+              margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
+              child: ListTile(
+                leading: Image.asset("assets/images/su.png"),
+                title: Text(
+                  "Su Tüketimi",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.center,
+                ),
+                subtitle: Column(
+                  children: [
+                    Text(
+                      "Her gün yeteri kadar su içmelisin.",
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                    Text(
+                      "Düzenli olarak her 25 kg için 1 L su içmeniz önerilir.",
+                      style:
+                          TextStyle(color: Colors.grey.shade400, fontSize: 10),
+                    )
+                  ],
+                ),
               ),
             ),
           ),

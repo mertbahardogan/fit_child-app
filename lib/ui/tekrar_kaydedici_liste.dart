@@ -131,7 +131,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                             "Şu andan farklı tarih girmek için tıklayın.",
                             style: TextStyle(
                                 color: Colors.black,
-                                fontSize: 17,
+                                fontSize: 13,
                                 fontWeight: FontWeight.w400),
                           ),
                           onPressed: () {
@@ -165,7 +165,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                       _hareketEkle(Hareket(
                           secilenEgzersiz, suan.toString(), _controller.text));
                     },
-                    color: Colors.black,
+                    color: Colors.green.shade600,
                     child: Text(
                       "Kaydet",
                       style: TextStyle(
@@ -174,7 +174,8 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                     ),
                   ),
                   RaisedButton(
-                      color: Colors.black,
+                      disabledColor: Colors.orange.shade500,
+                      color: Colors.orange.shade500,
                       child: Text(
                         "Güncelle",
                         style: TextStyle(
@@ -196,7 +197,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                     onPressed: () {
                       _tumTabloyuTemizle();
                     },
-                    color: Colors.black,
+                    color: Colors.red.shade800,
                     child: Text(
                       "Tüm Verileri Sil",
                       style: TextStyle(
@@ -214,7 +215,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                 padding: EdgeInsets.all(15),
                 child: Text(
                   "Kayıtlı Hareket Bilgilerim",
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 17),
                 ),
               ),
               Expanded(
@@ -287,6 +288,11 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
     if (_formKey.currentState.validate()) {
       var eklenenHareketID = await _databaseHelper.hareketEkle(hareket);
       hareket.hareketID = eklenenHareketID;
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        backgroundColor: Colors.green.shade600,
+        content: Text("Yeni kayıt eklendi."),
+        duration: Duration(seconds: 2),
+      ));
       setState(() {
         tumKaydedilenlerListesi.insert(0, hareket);
       });
@@ -299,8 +305,8 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
     var sonuc = await _databaseHelper.hareketGuncelle(hareket);
     if (sonuc == 1) {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
-        content:
-            Text("$tiklanilanCardID numaralı hareket notu güncellendi."),
+        backgroundColor: Colors.orange.shade500,
+        content: Text("${tiklanilanCardIndex + 1}. hareket notu güncellendi."),
         duration: Duration(seconds: 2),
       ));
       setState(() {
@@ -314,7 +320,8 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
     var sonuc = await _databaseHelper.hareketSil(forDBtoDeleteID);
     if (sonuc == 1) {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text("$forDBtoDeleteID numaralı hareket notu silindi."),
+        backgroundColor: Colors.red.shade800,
+        content: Text("Hareket notu silindi."),
         duration: Duration(seconds: 2),
       ));
       setState(() {
@@ -333,6 +340,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
     var silinenElemanSayisi = await _databaseHelper.tumHareketTablosunuSil();
     if (silinenElemanSayisi > 0) {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
+        backgroundColor: Colors.red.shade800,
         duration: Duration(seconds: 2),
         content: Text(
             silinenElemanSayisi.toString() + " adet hareket notu silindi."),
