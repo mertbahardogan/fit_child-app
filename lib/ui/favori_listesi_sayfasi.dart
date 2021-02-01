@@ -18,13 +18,13 @@ class _FavoriSayfasiState extends State<FavoriSayfasi> {
     super.initState();
     tumKaydedilenlerListesi = List<FavoriDurum>();
     _databaseHelper = DatabaseHelper();
-    _databaseHelper.tumFavoriDurumlar().then((value) {
-      for (Map okunanListe in value) {
-        tumKaydedilenlerListesi
-            .add(FavoriDurum.dbdenObjeyeDonustur(okunanListe));
-      }
-      setState(() {});
-    }).catchError((hata) => print("init state hata alındı: " + hata));
+    // _databaseHelper.tumFavoriDurumlar().then((value) {
+    //   for (Map okunanListe in value) {
+    //     tumKaydedilenlerListesi
+    //         .add(FavoriDurum.dbdenObjeyeDonustur(okunanListe));
+    //   }
+    //   setState(() {});
+    // }).catchError((hata) => print("init state hata alındı: " + hata));
   }
 
   @override
@@ -41,42 +41,75 @@ class _FavoriSayfasiState extends State<FavoriSayfasi> {
   }
 
   Widget listeHazirla() {
-    return ListView.builder(
-        itemCount: tumKaydedilenlerListesi.length,
-        itemBuilder: (BuildContext context, int index) {
-          return cardGetir(context, index);
+    return FutureBuilder(
+        future: _databaseHelper.favoriListesiniGetir(),
+        builder: (context, AsyncSnapshot<List<FavoriDurum>> snapShot) {
+          if (snapShot.connectionState == ConnectionState.done) {
+            tumKaydedilenlerListesi = snapShot.data;
+            return ListView.builder(
+                itemCount: tumKaydedilenlerListesi.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return cardGetir(context, index);
+                });
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
         });
   }
+  // Widget listeHazirla() {
+  //   return ListView.builder(
+  //       itemCount: tumKaydedilenlerListesi.length,
+  //       itemBuilder: (BuildContext context, int index) {
+  //         return cardGetir(context, index);
+  //       });
+  // }
 
   Widget cardGetir(BuildContext context, int index) {
-    return Container(
-      child: Column(
-        children: [
-          Card(
-            child: ListTile(
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    tumKaydedilenlerListesi[index].hareketAd.toString(),
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.close),
-                    color: Colors.redAccent,
-                    onPressed: () {
-                      _favoriSil(tumKaydedilenlerListesi[index].id, index);
-                    },
-                  ),
-                ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EgzersizDetay(
+                        int.parse(tumKaydedilenlerListesi[index].hareketID))))
+            .then((value) {
+          setState(() {});
+        });
+      },
+      child: Container(
+        child: Column(
+          children: [
+            Card(
+              child: ListTile(
+                tileColor: Colors.deepOrange[100 * (index % 3)],
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: 40,
+                      height: MediaQuery.of(context).size.height / 18,
+                      child: Center(child: Text((index + 1).toString())),
+                      color: Colors.grey.withOpacity(0.3),
+                    ),
+                    Text(
+                      tumKaydedilenlerListesi[index].hareketAd.toString(),
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      size: 17,
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
+  //Silme durumumuz var
   void _favoriSil(int forDBtoDeleteID, int forListtoDeleteIndex) async {
     var sonuc = await _databaseHelper.favoriSil(forDBtoDeleteID);
     _scaffoldKey.currentState.showSnackBar(SnackBar(

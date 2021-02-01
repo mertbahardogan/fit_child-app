@@ -132,7 +132,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                             style: TextStyle(color: Colors.white, fontSize: 20),
                           );
                         } else {
-                          return Text("Yükleniyor...");
+                          return Center(child: CircularProgressIndicator());
                         }
                       }),
                   Text("Bilgilerini güncellemek için tıkla.",

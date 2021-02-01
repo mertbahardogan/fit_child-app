@@ -86,18 +86,32 @@ class ProgramSayfasi extends StatelessWidget {
                       fontWeight: FontWeight.w500),
                 ),
                 Row(
-                  children: [
-                  ],
+                  children: [],
                 ),
                 Opacity(
                   opacity: 0.9,
                   child: Container(
+                      height: 40,
+                      width: 250,
                       decoration: BoxDecoration(
-                        color: Colors.deepOrange.shade600,
+                        color: Colors.orangeAccent,
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
-                      child: Text(oAnEklenecek.haftalikAciklama,
-                          style: TextStyle(color: Colors.white, fontSize: 11))),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            size: 22,
+                            color: Colors.grey.shade600,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(oAnEklenecek.haftalikAciklama,
+                                style: TextStyle(
+                                    color: Colors.blueGrey.shade900, fontSize: 11,fontWeight: FontWeight.bold)),
+                          ),
+                        ],
+                      )),
                 )
               ],
             )

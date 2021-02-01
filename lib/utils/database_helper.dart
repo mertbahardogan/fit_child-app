@@ -165,6 +165,16 @@ class DatabaseHelper {
     return kisiselListesi;
   }
 
+  //
+  Future<List<FavoriDurum>> favoriListesiniGetir() async {
+    var favoriMapListesi = await tumFavoriDurumlar();
+    var favoriListesi = List<FavoriDurum>();
+    for (Map map in favoriMapListesi) {
+      favoriListesi.add(FavoriDurum.dbdenObjeyeDonustur(map));
+    }
+    return favoriListesi;
+  }
+
   Future<int> hareketEkle(Hareket hareket) async {
     var db = await _getDatabase();
     var sonuc = await db.insert(_hareketTablo, hareket.forWritingDbConvertMap(),

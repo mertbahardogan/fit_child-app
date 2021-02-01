@@ -2,6 +2,7 @@ import 'package:cocuklar_icin_spor_app/models/egzersiz.dart';
 import 'package:cocuklar_icin_spor_app/models/favori_durum.dart';
 import 'package:cocuklar_icin_spor_app/ui/egzersiz_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
+import 'package:cocuklar_icin_spor_app/utils/strings.dart';
 import 'package:flutter/material.dart';
 
 class EgzersizDetay extends StatefulWidget {
@@ -13,19 +14,23 @@ class EgzersizDetay extends StatefulWidget {
 
 class _EgzersizDetayState extends State<EgzersizDetay> {
   Egzersiz secilenEgzersiz;
+
   IconData iconMod = Icons.favorite_border;
 
   //
+  static List<Egzersiz> tumEgzersizler;
+
   var _scaffoldKey = GlobalKey<ScaffoldState>();
   bool secilenDurum = false;
   DatabaseHelper _databaseHelper;
   List<FavoriDurum> tumKaydedilenlerListesi;
   @override
   void initState() {
-    secilenEgzersiz = EgzersizSayfasi.tumEgzersizler[widget.gelenIndex];
+    tumEgzersizler = verileriHazirla();
+    // secilenEgzersiz = EgzersizSayfasi.tumEgzersizler[widget.gelenIndex];
+    secilenEgzersiz = tumEgzersizler[widget.gelenIndex];
     super.initState();
 
-    //
     tumKaydedilenlerListesi = List<FavoriDurum>();
     _databaseHelper = DatabaseHelper();
     _databaseHelper.tumFavoriDurumlar().then((value) {
@@ -47,6 +52,9 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
 
   @override
   Widget build(BuildContext context) {
+    //
+    // tumEgzersizler = verileriHazirla();
+
     return Scaffold(
       key: _scaffoldKey,
       primary: true,
@@ -68,16 +76,17 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
               ),
               onPressed: () {
                 setState(() {
-                  while (secilenDurum == false) {
-                    _favoriEkle(FavoriDurum(
-                        secilenDurum.toString(),
-                        widget.gelenIndex.toString(),
-                        secilenEgzersiz.egzersizAdi));
-                    secilenDurum = true;
-                    break;
-                  }
+                  // while (secilenDurum == false) {
+                  //   _favoriEkle(FavoriDurum(
+                  //       secilenDurum.toString(),
+                  //       widget.gelenIndex.toString(),
+                  //       secilenEgzersiz.egzersizAdi));
+                  //   secilenDurum = true;
+                  //   break;
+                  // }
 
-                  if (tumKaydedilenlerListesi.length == 0) {
+                  if (tumKaydedilenlerListesi.length == 0 ||
+                      secilenDurum == false) {
                     _favoriEkle(FavoriDurum(
                         secilenDurum.toString(),
                         widget.gelenIndex.toString(),
@@ -223,5 +232,25 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
         tumKaydedilenlerListesi.removeAt(forListtoDeleteIndex);
       });
     }
+  }
+
+  //Bir methoddan hazır çekmeyi deneyelim ve işe yarayacak mı?
+  List<Egzersiz> verileriHazirla() {
+    List<Egzersiz> egzersizler = [];
+
+    for (int i = 0; i < 9; i++) {
+      String resim = Strings.EGZERSIZ_DOSYA_ADLARI[i] + "${i + 1}.png";
+
+      Egzersiz eklenecekEgzersiz = Egzersiz(
+        Strings.EGZERSIZ_ADLARI[i],
+        Strings.EGZERSIZ_DOSYA_ADLARI[i],
+        Strings.EGZERSIZ_CALISAN_BOLGELER[i],
+        Strings.EGZERSIZ_ONERILEN_TEKRAR[i],
+        Strings.EGZERSIZ_NASIL_YAPILIR[i],
+        resim,
+      );
+      egzersizler.add(eklenecekEgzersiz);
+    }
+    return egzersizler;
   }
 }
