@@ -85,31 +85,33 @@ class ProgramSayfasi extends StatelessWidget {
                       fontSize: 23,
                       fontWeight: FontWeight.w500),
                 ),
-                Row(
-                  children: [],
+                SizedBox(
+                  height: 10,
                 ),
                 Opacity(
                   opacity: 0.9,
                   child: Container(
-                      height: 40,
-                      width: 250,
+                      height: MediaQuery.of(context).size.height/22,
+                      width: MediaQuery.of(context).size.width/1.7,
                       decoration: BoxDecoration(
-                        color: Colors.orangeAccent,
+                        color: Colors.redAccent.shade100,
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
                       child: Row(
                         children: [
-                          Icon(
-                            Icons.star,
-                            size: 22,
-                            color: Colors.grey.shade600,
-                          ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Text(oAnEklenecek.haftalikAciklama,
-                                style: TextStyle(
-                                    color: Colors.blueGrey.shade900, fontSize: 11,fontWeight: FontWeight.bold)),
+                            padding: const EdgeInsets.only(right: 6, left: 6),
+                            child: Icon(
+                              Icons.fiber_manual_record,
+                              size: 10,
+                              color: Colors.white,
+                            ),
                           ),
+                          Text(oAnEklenecek.haftalikAciklama,
+                              style: TextStyle(
+                                  color: Colors.blueGrey.shade900,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold)),
                         ],
                       )),
                 )

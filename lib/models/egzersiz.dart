@@ -9,7 +9,7 @@ class Egzersiz {
   //Değişkenler Bu Değerlerde Saklanır, Dışarda Kullanılması İçin GET SET Oluşturulur
   //Değişkenler Private Türdedir, Direk Erişilemez
 
-  Egzersiz( 
+  Egzersiz(
     //Default Constructor
     this._egzersizAdi,
     this._egzersizDosya,
@@ -49,10 +49,4 @@ class Egzersiz {
   String get egzersizResim => this._egzersizResim;
 
   set egzersizResim(String value) => _egzersizResim = value;
-
-
-  // void denemeYap(){
-
-  //   print("Ben çalıştım");
-  // }
 }

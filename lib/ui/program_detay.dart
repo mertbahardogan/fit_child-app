@@ -382,7 +382,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
           ],
         ),
         decoration: BoxDecoration(
-          color: Colors.deepOrange.shade400,
+          color: Colors.redAccent.shade400,
           borderRadius: BorderRadius.circular(5),
         ),
       )

@@ -1,6 +1,5 @@
 import 'package:cocuklar_icin_spor_app/models/egzersiz.dart';
 import 'package:cocuklar_icin_spor_app/models/favori_durum.dart';
-import 'package:cocuklar_icin_spor_app/ui/egzersiz_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
 import 'package:cocuklar_icin_spor_app/utils/strings.dart';
 import 'package:flutter/material.dart';
@@ -76,15 +75,6 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
               ),
               onPressed: () {
                 setState(() {
-                  // while (secilenDurum == false) {
-                  //   _favoriEkle(FavoriDurum(
-                  //       secilenDurum.toString(),
-                  //       widget.gelenIndex.toString(),
-                  //       secilenEgzersiz.egzersizAdi));
-                  //   secilenDurum = true;
-                  //   break;
-                  // }
-
                   if (tumKaydedilenlerListesi.length == 0 ||
                       secilenDurum == false) {
                     _favoriEkle(FavoriDurum(
@@ -102,12 +92,6 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
                       break;
                     }
                   }
-
-                  // if (iconMod == Icons.favorite_border) {
-                  //   iconMod = Icons.favorite;
-                  // } else {
-                  //   iconMod = Icons.favorite_border;
-                  // }
                 });
               },
             )
@@ -166,26 +150,13 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 5),
-                              child: Icon(
-                                Icons.fiber_manual_record,
-                                size: 15,
-                                color: Colors.deepOrange.shade800,
-                              ),
-                            ),
-                            Text(
-                              "Nasıl Yapabilirim?",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20,
-                                color: Colors.deepOrange.shade800,
-                              ),
-                            ),
-                          ],
+                        child: Text(
+                          "Nasıl Yapabilirim?",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 20,
+                            color: Colors.deepOrange.shade800,
+                          ),
                         ),
                       ),
                       Text(

@@ -70,7 +70,7 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
                     border: OutlineInputBorder(),
                   ),
                   autofocus: false,
-                  maxLength: 20,
+                  maxLength: 15,
                   controller: _controller,
                   validator: _isimKontrol,
                 ),
