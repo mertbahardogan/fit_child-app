@@ -58,13 +58,13 @@ class ProgramSayfasi extends StatelessWidget {
         width: MediaQuery.of(context).size.width / 4,
         height: MediaQuery.of(context).size.height / 5.5,
         decoration: BoxDecoration(
-            color: renkUret(index),
+            color: Colors.blueGrey.shade900,
             borderRadius: BorderRadius.all(
               Radius.circular(14),
             ),
             boxShadow: [
               BoxShadow(
-                  color: Colors.black12, blurRadius: 10, offset: Offset(0, 10))
+                  color: Colors.red, blurRadius: 1, offset: Offset(0, 5))
             ]),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -77,43 +77,34 @@ class ProgramSayfasi extends StatelessWidget {
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              // crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
                   oAnEklenecek.haftalikAd + " Seviye",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.red,
                       fontSize: 23,
                       fontWeight: FontWeight.w500),
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                Opacity(
-                  opacity: 0.9,
-                  child: Container(
-                      height: MediaQuery.of(context).size.height/22,
-                      width: MediaQuery.of(context).size.width/1.7,
-                      decoration: BoxDecoration(
-                        color: Colors.redAccent.shade100,
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 6, left: 6),
+                      child: Icon(
+                        Icons.info,
+                        size: 13,
+                        color: Colors.white,
                       ),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 6, left: 6),
-                            child: Icon(
-                              Icons.fiber_manual_record,
-                              size: 10,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Text(oAnEklenecek.haftalikAciklama,
-                              style: TextStyle(
-                                  color: Colors.blueGrey.shade900,
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.bold)),
-                        ],
-                      )),
+                    ),
+                    Text(oAnEklenecek.haftalikAciklama,
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w400)),
+                  ],
                 )
               ],
             )
@@ -126,13 +117,13 @@ class ProgramSayfasi extends StatelessWidget {
     );
   }
 
-  Color renkUret(int index) {
-    if (index == 0) return Colors.blueGrey.shade400;
-    if (index == 1) return Colors.blueGrey.shade600;
-    if (index == 2) return Colors.blueGrey.shade700;
-    if (index == 3)
-      return Colors.blueGrey.shade900;
-    else
-      return Colors.blueGrey;
-  }
+  // Color renkUret(int index) {
+  //   if (index == 0) return Colors.blueGrey.shade400;
+  //   if (index == 1) return Colors.blueGrey.shade600;
+  //   if (index == 2) return Colors.blueGrey.shade700;
+  //   if (index == 3)
+  //     return Colors.blueGrey.shade900;
+  //   else
+  //     return Colors.blueGrey;
+  // }
 }

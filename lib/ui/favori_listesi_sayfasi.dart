@@ -66,7 +66,7 @@ class _FavoriSayfasiState extends State<FavoriSayfasi> {
           children: [
             Card(
               child: ListTile(
-                tileColor: Colors.deepOrange[100 * (index % 3)],
+                tileColor: Colors.redAccent[100 * ((index % 3) + 1)],
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

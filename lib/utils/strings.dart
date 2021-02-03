@@ -6,7 +6,7 @@ class Strings {
     "Yan Plank",
     "Koşu",
     "Squad",
-    "Isınma Hareketleri",
+    "Isınma",
     "Yoga",
     "Dinlenme"
   ];
@@ -88,6 +88,18 @@ class Strings {
         "\tSeçenek 3: Son olarak bedeninizi dinlendirmek ve ona tamamladığı yoga hareketleri için teşekkür etmek üzere sırt üstü uzanın\n\n"
         "\tKollarınızı iki yana bırakın. Tüm bedeninizin ağırlığını yere verin ve gözlerinizi kapatarak bir süre kıpırdamadan uzanın.\n\n",
     "\tSpor yapmak kadar dinlenmekte çok önemlidir.\n\n"
-    "\tVücudumuz spor yaparken gelişeceği gibi, dinlenirkende gelişir."
+        "\tVücudumuz spor yaparken gelişeceği gibi, dinlenirkende gelişir."
+  ];
+
+  static const List<String> EGZERSIZ_SEVIYE = [
+    "Zor",
+    "Kolay",
+    "Orta",
+    "Zor",
+    "Kolay",
+    "Orta",
+    "Zor",
+    "Kolay",
+    "Orta",
   ];
 }

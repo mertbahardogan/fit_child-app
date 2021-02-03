@@ -1,3 +1,4 @@
+import 'package:cocuklar_icin_spor_app/methods/egzersiz_verileri_hazirla.dart';
 import 'package:cocuklar_icin_spor_app/models/egzersiz.dart';
 import 'package:cocuklar_icin_spor_app/models/gunler.dart';
 import 'package:cocuklar_icin_spor_app/models/haftalik.dart';
@@ -157,24 +158,6 @@ class _ProgramDetayState extends State<ProgramDetay> {
     return gunler;
   }
 
-  List<Egzersiz> verileriHazirla() {
-    List<Egzersiz> egzersizler = [];
-    for (int i = 0; i < 9; i++) {
-      String resim = Strings.EGZERSIZ_DOSYA_ADLARI[i] + "${i + 1}.png";
-      //Strings sınıfında bulunan veriler, Egzersiz sınıfında bulunan özellikler kullanılarak Liste oluşturuldu.
-      Egzersiz eklenecekEgzersiz = Egzersiz(
-        Strings.EGZERSIZ_ADLARI[i],
-        Strings.EGZERSIZ_DOSYA_ADLARI[i],
-        Strings.EGZERSIZ_CALISAN_BOLGELER[i],
-        Strings.EGZERSIZ_ONERILEN_TEKRAR[i],
-        Strings.EGZERSIZ_NASIL_YAPILIR[i],
-        resim,
-      );
-      egzersizler.add(eklenecekEgzersiz);
-    }
-    return egzersizler;
-  }
-
   Widget listeyiHazirla() {
     return ListView.builder(
       itemBuilder: (BuildContext context, index) {
@@ -200,17 +183,6 @@ class _ProgramDetayState extends State<ProgramDetay> {
             ),
             textAlign: TextAlign.center,
           ),
-          // Padding(
-          //   padding: const EdgeInsets.only(left: 15),
-          //   child: Checkbox(
-          //     activeColor: Colors.yellow.shade800,
-          //     value: valueDurum,
-          //     onChanged: (value) {
-          //       setState(() {
-          //       });
-          //     },
-          //   ),
-          // )
         ],
       ),
       initiallyExpanded: tumGunler[index].expanded,
@@ -219,32 +191,29 @@ class _ProgramDetayState extends State<ProgramDetay> {
           onTap: () {
             aciklamaAlertDialog(context, index);
           },
-          child: Hero(
-            tag: widget.gelenIndex,
-            child: Container(
-              height: MediaQuery.of(context).size.height / 13,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                    color: Colors.grey.shade300,
-                    width: 3,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Image.asset(
-                    "assets/images/exercises/" + tumGunler[index].hareketResim,
-                    width: MediaQuery.of(context).size.width / 8,
-                    height: MediaQuery.of(context).size.height / 15,
-                  ),
-                  Text(
-                    tumGunler[index].icerik,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
+          child: Container(
+            height: MediaQuery.of(context).size.height / 13,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(
+                  color: Colors.grey.shade300,
+                  width: 3,
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(10))),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Image.asset(
+                  "assets/images/exercises/" + tumGunler[index].hareketResim,
+                  width: MediaQuery.of(context).size.width / 8,
+                  height: MediaQuery.of(context).size.height / 15,
+                ),
+                Text(
+                  tumGunler[index].icerik,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+                ),
+              ],
             ),
           ),
         ),
@@ -253,17 +222,17 @@ class _ProgramDetayState extends State<ProgramDetay> {
   }
 
   String degerDondur(String s) {
-    tumEgzersizler = verileriHazirla(); //Nesne
+    tumEgzersizler = egzersizVerileriHazirla(); //Nesne
     return tumEgzersizler[gunDondur(s)].egzersizAdi;
   }
 
   String resimDondur([String s]) {
-    tumEgzersizler = verileriHazirla();
+    tumEgzersizler = egzersizVerileriHazirla();
     return tumEgzersizler[gunDondur(s)].egzersizResim;
   }
 
   String detayDondur([String s]) {
-    tumEgzersizler = verileriHazirla();
+    tumEgzersizler = egzersizVerileriHazirla();
     return tumEgzersizler[gunDondur(s)].egzersizDetay;
   }
 
@@ -394,31 +363,28 @@ class _ProgramDetayState extends State<ProgramDetay> {
         context: ctx,
         barrierDismissible: false,
         builder: (ctx) {
-          return Hero(
-            tag: widget.gelenIndex,
-            child: AlertDialog(
-              title: Center(
-                child: Text(
-                  tumGunler[index].icerik,
-                  style: TextStyle(color: Colors.yellow.shade800),
-                ),
+          return AlertDialog(
+            title: Center(
+              child: Text(
+                tumGunler[index].icerik,
+                style: TextStyle(color: Colors.yellow.shade800),
               ),
-              backgroundColor: Colors.blueGrey.shade900,
-              content: SingleChildScrollView(
-                  child: Text(
-                tumGunler[index].hareketDetay,
-                style: TextStyle(color: Colors.white),
-              )),
-              actions: [
-                RaisedButton(
-                    color: Colors.white,
-                    child: Text(
-                      "Anladım",
-                      style: TextStyle(color: Colors.blueGrey.shade900),
-                    ),
-                    onPressed: () => Navigator.of(ctx).pop()),
-              ],
             ),
+            backgroundColor: Colors.blueGrey.shade900,
+            content: SingleChildScrollView(
+                child: Text(
+              tumGunler[index].hareketDetay,
+              style: TextStyle(color: Colors.white),
+            )),
+            actions: [
+              RaisedButton(
+                  color: Colors.white,
+                  child: Text(
+                    "Anladım",
+                    style: TextStyle(color: Colors.blueGrey.shade900),
+                  ),
+                  onPressed: () => Navigator.of(ctx).pop()),
+            ],
           );
         });
   }

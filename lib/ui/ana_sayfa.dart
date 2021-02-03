@@ -1,4 +1,4 @@
-import 'package:cocuklar_icin_spor_app/models/favori_durum.dart';
+import 'package:cocuklar_icin_spor_app/methods/oneri_verileri_hazirla.dart';
 import 'package:cocuklar_icin_spor_app/models/kisisel.dart';
 import 'package:cocuklar_icin_spor_app/models/oneri.dart';
 import 'package:cocuklar_icin_spor_app/ui/bilgileri_guncelle.dart';
@@ -6,7 +6,6 @@ import 'package:cocuklar_icin_spor_app/ui/favori_listesi_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/ui/tekrar_kaydedici_liste.dart';
 import 'package:cocuklar_icin_spor_app/ui/vucut_kitle_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
-import 'package:cocuklar_icin_spor_app/utils/others.dart';
 import 'package:flutter/material.dart';
 
 class AnaSayfa extends StatefulWidget {
@@ -41,43 +40,44 @@ class _AnaSayfaState extends State<AnaSayfa> {
   Widget build(BuildContext context) {
     var ekranHeight = MediaQuery.of(context).size.height;
 
-    //
-    tumOneriler = _verileriHazirla();
+    tumOneriler = oneriVerileriHazirla();
 
     return CustomScrollView(
       scrollDirection: Axis.vertical,
       slivers: [
         SliverAppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Center(
-                child: Text(
-                  "Fit Child",
-                  style: TextStyle(
-                      fontSize: 33,
-                      color: Colors.blueGrey.shade900,
-                      fontFamily: "Indie",
-                      fontWeight: FontWeight.bold),
+          title: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Center(
+                  child: Text(
+                    "Fit Child",
+                    style: TextStyle(
+                        fontSize: 33,
+                        color: Colors.blueGrey.shade900,
+                        fontFamily: "Indie",
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              GestureDetector(
-                child: Container(
-                  child: Image.asset("assets/images/general/profile.png"),
-                  width: 30,
-                  height: 30,
-                ),
-                onTap: () {
-                  Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BilgileriGuncelle()))
-                      .then((value) {
-                    setState(() {});
-                  });
-                },
-              ),
-            ],
+                IconButton(
+                    icon: Icon(
+                      Icons.account_circle_rounded,
+                      color: Colors.blueGrey.shade700,
+                      size: 30,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => BilgileriGuncelle()))
+                          .then((value) {
+                        setState(() {});
+                      });
+                    }),
+              ],
+            ),
           ),
           centerTitle: true,
           backgroundColor: Colors.white,
@@ -87,22 +87,21 @@ class _AnaSayfaState extends State<AnaSayfa> {
           elevation: 4,
         ),
         SliverFixedExtentList(
-          delegate: SliverChildListDelegate(sabitCardElemanlari()),
+          delegate: SliverChildListDelegate(girisElemanlari()),
           itemExtent: ekranHeight - 470,
         ),
-        // SliverFixedExtentList(
-
-        //     delegate: SliverChildBuilderDelegate(_dinamikCardElemanlari,
-        //         childCount: 5,),
-        //     itemExtent: 200),
-
         SliverFixedExtentList(
-            delegate: SliverChildListDelegate(pageViewCard()), itemExtent: 130),
+            delegate: SliverChildListDelegate(yanaKayanList()),
+            itemExtent: 130),
+        SliverFixedExtentList(
+            delegate: SliverChildListDelegate(hareketBmiElemanlari()),
+            itemExtent: ekranHeight - 500)
       ],
     );
   }
 
-  List<Widget> sabitCardElemanlari() {
+  //Giriş Kısmı ve Favori Card
+  List<Widget> girisElemanlari() {
     return [
       Column(
         children: [
@@ -151,114 +150,6 @@ class _AnaSayfaState extends State<AnaSayfa> {
               ],
             ),
           ),
-          //Favori Sayfa Kısmı
-
-          // GestureDetector(
-          //   onTap: () {
-          //     Navigator.push(
-          //         context,w
-          //         MaterialPageRoute(
-          //             builder: (context) => HareketKaydediciSayfasi()));
-          //   },
-          //   child: Container(
-          //     width: MediaQuery.of(context).size.width,
-          //     decoration: BoxDecoration(
-          //       color: Colors.green.shade200,
-          //       borderRadius: BorderRadius.all(Radius.circular(2)),
-          //       boxShadow: [
-          //         BoxShadow(
-          //           color: Colors.grey.shade700,
-          //           offset: Offset(0.2, 0.2),
-          //           blurRadius: 6.0,
-          //         ),
-          //       ],
-          //     ),
-          //     margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
-          //     child: Column(children: [
-          //       Image.asset(
-          //         "assets/images/liste.png",
-          //         width: 60,
-          //         height: 60,
-          //       ),
-          //       Text(
-          //         "Anteman Programı",
-          //         style: TextStyle(
-          //             color: Colors.white,
-          //             fontSize: 22,
-          //             fontWeight: FontWeight.w500),
-          //         textAlign: TextAlign.center,
-          //       ),
-          //       Text(
-          //         "Tekrar Sayılarınızı Kaydedin",
-          //         style: TextStyle(
-          //             color: Colors.white,
-          //             fontSize: 18,
-          //             fontWeight: FontWeight.w500),
-          //         textAlign: TextAlign.center,
-          //       ),
-          //       Text(
-          //         "Listeye gitmek için tıklayınız.",
-          //         style: TextStyle(
-          //             color: Colors.grey,
-          //             fontSize: 13,
-          //             fontWeight: FontWeight.w500),
-          //         textAlign: TextAlign.center,
-          //       ),
-          //     ]),
-          //   ),
-          // ),
-          // GestureDetector(
-          //   onTap: () {
-          //     Navigator.push(context,
-          //         MaterialPageRoute(builder: (context) => VucutKitleSayfasi()));
-          //   },
-          //   child: Container(
-          //     width: MediaQuery.of(context).size.width,
-          //     decoration: BoxDecoration(
-          //       color: Colors.brown.shade200,
-          //       borderRadius: BorderRadius.all(Radius.circular(2)),
-          //       boxShadow: [
-          //         BoxShadow(
-          //           color: Colors.grey.shade700,
-          //           offset: Offset(0.2, 0.2),
-          //           blurRadius: 6.0,
-          //         ),
-          //       ],
-          //     ),
-          //     margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
-          //     child: Column(children: [
-          //       Image.asset(
-          //         "assets/images/yag.png",
-          //         width: 60,
-          //         height: 60,
-          //       ),
-          //       Text(
-          //         "Vücut Kitle Endeksi",
-          //         style: TextStyle(
-          //             color: Colors.white,
-          //             fontSize: 22,
-          //             fontWeight: FontWeight.w500),
-          //         textAlign: TextAlign.center,
-          //       ),
-          //       Text(
-          //         "Oranınızı Öğrenin",
-          //         style: TextStyle(
-          //             color: Colors.white,
-          //             fontSize: 18,
-          //             fontWeight: FontWeight.w500),
-          //         textAlign: TextAlign.center,
-          //       ),
-          //       Text(
-          //         "Hesaplayıcıya gitmek için tıklayınız.",
-          //         style: TextStyle(
-          //             color: Colors.grey.shade600,
-          //             fontSize: 13,
-          //             fontWeight: FontWeight.w500),
-          //         textAlign: TextAlign.center,
-          //       ),
-          //     ]),
-          //   ),
-          // ),
 
           //Favori Listesi Container
           SizedBox(
@@ -321,93 +212,13 @@ class _AnaSayfaState extends State<AnaSayfa> {
               ],
             ),
           ),
-
-          // Container(
-          //   decoration: BoxDecoration(
-          //     color: Colors.teal,
-          //     borderRadius: BorderRadius.all(Radius.circular(2)),
-          //     boxShadow: [
-          //       BoxShadow(
-          //         color: Colors.grey.shade700,
-          //         offset: Offset(0.2, 0.2), //(x,y)
-          //         blurRadius: 6.0,
-          //       ),
-          //     ],
-          //   ),
-          //   margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
-          //   child: ListTile(
-          //     leading: Image.asset("assets/images/beslenme.png"),
-          //     title: Text(
-          //       "Beslenme",
-          //       style: TextStyle(
-          //           color: Colors.white,
-          //           fontSize: 22,
-          //           fontWeight: FontWeight.w500),
-          //       textAlign: TextAlign.center,
-          //     ),
-          //     subtitle: Column(
-          //       children: [
-          //         Text(
-          //           "Sebze ve meyve tüketimi vücut gelişimi açısından çok önemlidir.",
-          //           style: TextStyle(color: Colors.white, fontSize: 16),
-          //         ),
-          //         Divider(color: Colors.white),
-          //         Text(
-          //           "Dengeli ve sağlıklı beslenmeye özen gösterirseniz yaptığınız spordan daha çok verim alabilirsiniz.",
-          //           style: TextStyle(color: Colors.white, fontSize: 16),
-          //         ),
-          //         Text(
-          //           "Sporun büyük bir kısmı beslenmeden oluşur.",
-          //           style: TextStyle(color: Colors.grey.shade400, fontSize: 10),
-          //         )
-          //       ],
-          //     ),
-          //   ),
-          // ),
-          // Container(
-          //   decoration: BoxDecoration(
-          //     color: Colors.teal,
-          //     borderRadius: BorderRadius.all(Radius.circular(2)),
-          //     boxShadow: [
-          //       BoxShadow(
-          //         color: Colors.grey.shade700,
-          //         offset: Offset(0.2, 0.2), //(x,y)
-          //         blurRadius: 6.0,
-          //       ),
-          //     ],
-          //   ),
-          //   margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
-          //   child: ListTile(
-          //     leading: Image.asset("assets/images/sleep.png"),
-          //     title: Text(
-          //       "Uyku Düzeni",
-          //       style: TextStyle(
-          //           color: Colors.white,
-          //           fontSize: 22,
-          //           fontWeight: FontWeight.w500),
-          //       textAlign: TextAlign.center,
-          //     ),
-          //     subtitle: Column(
-          //       children: [
-          //         Text(
-          //           "Her gün yeteri kadar uyumalısın.",
-          //           style: TextStyle(color: Colors.white, fontSize: 16),
-          //         ),
-          //         Text(
-          //           "Yaptığımız sporun verimli olması için 8 saat uyumalıyız.",
-          //           style: TextStyle(color: Colors.grey.shade400, fontSize: 10),
-          //         )
-          //       ],
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     ];
   }
 
   //Yana Kayan Liste
-  List<Widget> pageViewCard() {
+  List<Widget> yanaKayanList() {
     return [
       Padding(
         padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
@@ -439,7 +250,9 @@ class _AnaSayfaState extends State<AnaSayfa> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, "/oneriDetay/$index");
+            },
             child: Container(
               decoration: BoxDecoration(
                 image: new DecorationImage(
@@ -461,18 +274,149 @@ class _AnaSayfaState extends State<AnaSayfa> {
     );
   }
 
-  List<Oneri> _verileriHazirla() {
-    //Others veri kaynağı, Oneri model sınıfı.
-    //Burda verileri bir listeye aktarıyoruz. Aktardığımız liste modelimizin propertysi.
-    List<Oneri> oneriler = [];
-
-    for (int i = 0; i < 7; i++) {
-      String resim = Others.OTHERS_DOSYA_ADLARI[i] + "${i + 1}.png";
-
-      Oneri eklenecekOneri = Oneri(Others.OTHERS_ADLARI[i],
-          Others.OTHERS_DOSYA_ADLARI[i], Others.OTHERS_FAYDALARI[i], resim);
-      oneriler.add(eklenecekOneri);
-    }
-    return oneriler;
+  List<Widget> hareketBmiElemanlari() {
+    return [
+      Padding(
+        padding: EdgeInsets.only(left: 10, top: 10),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(
+                  "Size Özel",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 15),
+              child: Row(
+                children: [
+                  //Hareket Kaydedici
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HareketKaydediciSayfasi()));
+                    },
+                    child: Container(
+                        height: MediaQuery.of(context).size.height / 7.5,
+                        width: MediaQuery.of(context).size.width / 2.05,
+                        decoration: BoxDecoration(
+                            color: Colors.blueGrey.shade900,
+                            borderRadius: BorderRadius.all(Radius.circular(4))),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(5),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "Yaptığınız Hareketleri",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w300,
+                                        fontSize: 16),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 5.0, left: 12.0),
+                                        child: Image.asset(
+                                          "assets/images/general/kaydedici.png",
+                                          width: 45,
+                                          height: 45,
+                                        ),
+                                      ),
+                                      Text(
+                                        "Kaydedin",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 22),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        )),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  //BMI Hesaplayıcı
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => VucutKitleSayfasi()));
+                    },
+                    child: Container(
+                      height: MediaQuery.of(context).size.height / 7.5,
+                      width: MediaQuery.of(context).size.width / 2.25,
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade500,
+                          borderRadius: BorderRadius.all(Radius.circular(4))),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.all(6),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Vücut Kitle Endeksi",
+                                  style: TextStyle(
+                                      color: Colors.blueGrey.shade900,
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 16),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 5.0, left: 7.0),
+                                      child: Image.asset(
+                                        "assets/images/general/bmi.png",
+                                        width: 45,
+                                        height: 45,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 18.0),
+                                      child: Text(
+                                        "Hesapla",
+                                        style: TextStyle(
+                                            color: Colors.blueGrey.shade900,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 22),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    ];
   }
 }

@@ -1,5 +1,5 @@
+import 'package:cocuklar_icin_spor_app/methods/egzersiz_verileri_hazirla.dart';
 import 'package:cocuklar_icin_spor_app/models/egzersiz.dart';
-import 'package:cocuklar_icin_spor_app/utils/strings.dart';
 import 'package:flutter/material.dart';
 
 class EgzersizSayfasi extends StatelessWidget {
@@ -9,7 +9,7 @@ class EgzersizSayfasi extends StatelessWidget {
   Widget build(BuildContext context) {
     final sizeHeight = MediaQuery.of(context).size.height;
     final sizeWidth = MediaQuery.of(context).size.width;
-    tumEgzersizler = verileriHazirla();
+    tumEgzersizler = egzersizVerileriHazirla();
     return Scaffold(
       body: listeyiHazirla(sizeHeight, sizeWidth),
       appBar: AppBar(
@@ -24,25 +24,6 @@ class EgzersizSayfasi extends StatelessWidget {
     );
   }
 
-  List<Egzersiz> verileriHazirla() {
-    List<Egzersiz> egzersizler = [];
-
-    for (int i = 0; i < 9; i++) {
-      String resim = Strings.EGZERSIZ_DOSYA_ADLARI[i] + "${i + 1}.png";
-
-      Egzersiz eklenecekEgzersiz = Egzersiz(
-        Strings.EGZERSIZ_ADLARI[i],
-        Strings.EGZERSIZ_DOSYA_ADLARI[i],
-        Strings.EGZERSIZ_CALISAN_BOLGELER[i],
-        Strings.EGZERSIZ_ONERILEN_TEKRAR[i],
-        Strings.EGZERSIZ_NASIL_YAPILIR[i],
-        resim,
-      );
-      egzersizler.add(eklenecekEgzersiz);
-    }
-    return egzersizler;
-  }
-
   // Widget listeyiHazirla() {
   //   return ListView.builder(
   //     itemBuilder: (BuildContext context, int index) {
@@ -55,7 +36,7 @@ class EgzersizSayfasi extends StatelessWidget {
   Widget listeyiHazirla(sizeHeight, sizeWidth) {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, childAspectRatio: sizeHeight / (sizeWidth * 2.5)),
+          crossAxisCount: 2, childAspectRatio: sizeHeight / (sizeWidth * 2.2)),
       itemBuilder: (BuildContext context, int index) {
         return tekSatirCard(context, index);
       },
@@ -70,20 +51,19 @@ class EgzersizSayfasi extends StatelessWidget {
       margin: EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(5.0)),
-        boxShadow: [
-          BoxShadow(
-              color: Colors.cyan.shade200,
-              offset: Offset(1.0, 1.0),
-              blurRadius: 1.0),
-        ],
-        color: Colors.deepOrange[200 * (index % 3)],
+        // boxShadow: [
+        //   BoxShadow(
+        //       color: Colors.cyan.shade200,
+        //       offset: Offset(1.0, 1.0),
+        //       blurRadius: 1.0),
+        // ],
+        color: Colors.red[100 * ((index % 4) + 2)],
       ),
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: InkWell(
           onTap: () {
             Navigator.pushNamed(context, "/egzersizDetay/$index");
-            print(Colors.deepOrange[200 * (index % 3)]);
           },
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -93,12 +73,31 @@ class EgzersizSayfasi extends StatelessWidget {
                   width: 140,
                   height: 140,
                 ),
-                Text(
-                  oAnEklenecek.egzersizAdi,
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.blueGrey.shade900,
-                      fontWeight: FontWeight.bold),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      oAnEklenecek.egzersizAdi,
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: Padding(
+                          padding: EdgeInsets.all(4),
+                          child: Text(
+                            tumEgzersizler[index].egzersizSeviye,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                                color: Colors.blueGrey.shade900),
+                          )),
+                    )
+                  ],
                 ),
               ]),
         ),

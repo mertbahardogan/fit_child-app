@@ -135,10 +135,8 @@ class _VucutKitleSayfasiState extends State<VucutKitleSayfasi> {
         return "Lütfen geçerli bir sayı değeri giriniz. Boşluk bırakmayın.";
       } else
         return null;
-    }
-    else{
+    } else {
       return "Lütfen boş değer girmeyin.";
     }
   }
 }
-

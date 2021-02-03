@@ -1,7 +1,7 @@
+import 'package:cocuklar_icin_spor_app/methods/egzersiz_verileri_hazirla.dart';
 import 'package:cocuklar_icin_spor_app/models/egzersiz.dart';
 import 'package:cocuklar_icin_spor_app/models/favori_durum.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
-import 'package:cocuklar_icin_spor_app/utils/strings.dart';
 import 'package:flutter/material.dart';
 
 class EgzersizDetay extends StatefulWidget {
@@ -25,8 +25,7 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
   List<FavoriDurum> tumKaydedilenlerListesi;
   @override
   void initState() {
-    tumEgzersizler = verileriHazirla();
-    // secilenEgzersiz = EgzersizSayfasi.tumEgzersizler[widget.gelenIndex];
+    tumEgzersizler = egzersizVerileriHazirla();
     secilenEgzersiz = tumEgzersizler[widget.gelenIndex];
     super.initState();
 
@@ -51,9 +50,6 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
 
   @override
   Widget build(BuildContext context) {
-    //
-    // tumEgzersizler = verileriHazirla();
-
     return Scaffold(
       key: _scaffoldKey,
       primary: true,
@@ -63,7 +59,7 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
           pinned: true,
           title: Text(secilenEgzersiz.egzersizAdi),
           centerTitle: true,
-          backgroundColor: Colors.deepOrange[200 * (widget.gelenIndex % 3)],
+          backgroundColor: Colors.red[100 * ((widget.gelenIndex % 4) + 2)],
           expandedHeight: 200,
           actions: [
             IconButton(
@@ -175,7 +171,6 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
     );
   }
 
-  //
   void _favoriEkle(FavoriDurum favoriDurum) async {
     var eklenenID = await _databaseHelper.favoriEkle(favoriDurum);
     favoriDurum.id = eklenenID;
@@ -189,7 +184,6 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
     });
   }
 
-  //
   void _favoriSil(int forDBtoDeleteID, int forListtoDeleteIndex) async {
     var sonuc = await _databaseHelper.favoriSil(forDBtoDeleteID);
     _scaffoldKey.currentState.showSnackBar(SnackBar(
@@ -203,25 +197,5 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
         tumKaydedilenlerListesi.removeAt(forListtoDeleteIndex);
       });
     }
-  }
-
-  //Bir methoddan hazır çekmeyi deneyelim ve işe yarayacak mı?
-  List<Egzersiz> verileriHazirla() {
-    List<Egzersiz> egzersizler = [];
-
-    for (int i = 0; i < 9; i++) {
-      String resim = Strings.EGZERSIZ_DOSYA_ADLARI[i] + "${i + 1}.png";
-
-      Egzersiz eklenecekEgzersiz = Egzersiz(
-        Strings.EGZERSIZ_ADLARI[i],
-        Strings.EGZERSIZ_DOSYA_ADLARI[i],
-        Strings.EGZERSIZ_CALISAN_BOLGELER[i],
-        Strings.EGZERSIZ_ONERILEN_TEKRAR[i],
-        Strings.EGZERSIZ_NASIL_YAPILIR[i],
-        resim,
-      );
-      egzersizler.add(eklenecekEgzersiz);
-    }
-    return egzersizler;
   }
 }

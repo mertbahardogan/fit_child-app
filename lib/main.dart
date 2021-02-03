@@ -1,4 +1,5 @@
 import 'package:cocuklar_icin_spor_app/ui/ana_sayfa.dart';
+import 'package:cocuklar_icin_spor_app/ui/oneri_detay.dart';
 import 'package:cocuklar_icin_spor_app/ui/program_detay.dart';
 import 'package:cocuklar_icin_spor_app/ui/program_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/ui/egzersiz_detay.dart';
@@ -46,6 +47,10 @@ class _MyAppState extends State<MyApp> {
         if (pathElemanlari[1] == "programDetay") {
           return MaterialPageRoute(
               builder: (context) => ProgramDetay(int.parse(pathElemanlari[2])));
+        }
+        if (pathElemanlari[1] == "oneriDetay") {
+          return MaterialPageRoute(
+              builder: (context) => OneriDetay(int.parse(pathElemanlari[2])));
         } else
           return null;
       },

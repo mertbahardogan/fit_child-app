@@ -6,17 +6,20 @@ class Egzersiz {
   String _egzersizOneri;
   String _egzersizDetay;
   String _egzersizResim;
+  String _egzersizSeviye;
+
   //Değişkenler Bu Değerlerde Saklanır, Dışarda Kullanılması İçin GET SET Oluşturulur
   //Değişkenler Private Türdedir, Direk Erişilemez
 
   Egzersiz(
-    //Default Constructor
+    //Default Constructor: Çağırılıp nesne oluşturulurken alacağı değerler.
     this._egzersizAdi,
     this._egzersizDosya,
     this._egzersizBolge,
     this._egzersizOneri,
     this._egzersizDetay,
     this._egzersizResim,
+    this._egzersizSeviye,
   );
 
   Egzersiz.kaydediciOzel(
@@ -49,4 +52,8 @@ class Egzersiz {
   String get egzersizResim => this._egzersizResim;
 
   set egzersizResim(String value) => _egzersizResim = value;
+
+  String get egzersizSeviye => _egzersizSeviye;
+
+  set egzersizSeviye(String value) => this._egzersizSeviye = value;
 }
