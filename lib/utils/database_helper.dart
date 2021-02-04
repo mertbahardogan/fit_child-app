@@ -142,9 +142,18 @@ class DatabaseHelper {
     return sonuc;
   }
 
+  //
+  // Future<int> kayitSil(int id) async {
+  //   var db = await _getDatabase();
+  //   var sonuc =
+  //       await db.delete(_kisiselTablo, where: "$_columnID=?", whereArgs: [id]);
+  //   print("Kayit DB'den Silindi: " + id.toString());
+  //   return sonuc;
+  // }
+
   Future<List<Map<String, dynamic>>> tumKayitlar() async {
     var db = await _getDatabase();
-    var sonuc = await db.query(_kisiselTablo, orderBy: "$_columnID DESC");
+    var sonuc = await db.query(_kisiselTablo); //, orderBy: "$_columnID DESC"
     return sonuc;
   }
 
@@ -165,7 +174,6 @@ class DatabaseHelper {
     return kisiselListesi;
   }
 
-  //
   Future<List<FavoriDurum>> favoriListesiniGetir() async {
     var favoriMapListesi = await tumFavoriDurumlar();
     var favoriListesi = List<FavoriDurum>();

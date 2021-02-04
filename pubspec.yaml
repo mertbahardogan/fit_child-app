@@ -32,8 +32,6 @@ dependencies:
   path_provider: ^1.6.24
   date_format: ^1.0.9
 
-
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -53,7 +51,6 @@ flutter:
     - assets/images/
     - assets/images/levels/
     - assets/images/exercises/
-    - assets/images/programs/
     - assets/images/general/
     - assets/images/others/
   #   - images/a_dot_ham.jpeg
@@ -77,7 +74,7 @@ flutter:
     - family: Indie
       fonts:
         - asset: assets/fonts/IndieFlower.ttf
-        
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

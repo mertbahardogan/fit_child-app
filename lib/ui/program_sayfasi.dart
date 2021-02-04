@@ -63,21 +63,19 @@ class ProgramSayfasi extends StatelessWidget {
               Radius.circular(14),
             ),
             boxShadow: [
-              BoxShadow(
-                  color: Colors.red, blurRadius: 1, offset: Offset(0, 5))
+              BoxShadow(color: Colors.red, blurRadius: 1, offset: Offset(0, 5))
             ]),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Image.asset(
               "assets/images/levels/" + oAnEklenecek.haftalikResim,
-              width: 130,
-              height: 130,
+              width: MediaQuery.of(context).size.width / 3.5,
+              height: MediaQuery.of(context).size.height / 6,
               alignment: Alignment.topCenter,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              // crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
                   oAnEklenecek.haftalikAd + " Seviye",

@@ -87,64 +87,59 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                     SizedBox(
                       height: 10,
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width / 1.5,
-                      height: MediaQuery.of(context).size.height / 17,
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.only(bottom: 10, top: 5),
-                      decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.all(Radius.circular(2))),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton(
-                          iconSize: 30,
-                          items: tumEgzersizler.map((oankiEgzersiz) {
-                            return DropdownMenuItem<String>(
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  oankiEgzersiz,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 21),
-                                ),
-                              ),
-                              value: oankiEgzersiz,
-                            );
-                          }).toList(),
-                          onChanged: (secilen) {
-                            setState(() {
-                              secilenEgzersiz = secilen;
-                            });
-                          },
-                          value: secilenEgzersiz,
-                        ),
-                      ),
-                    ),
-                    Column(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        FlatButton(
-                          color: Colors.grey.shade300,
-                          child: Text(
-                            "Şu andan farklı tarih girmek için tıklayın.",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w400),
+                        Container(
+                          width: MediaQuery.of(context).size.width / 1.5,
+                          height: MediaQuery.of(context).size.height / 17,
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.only(bottom: 10, top: 5),
+                          decoration: BoxDecoration(
+                              color: Colors.grey.shade300,
+                              border: Border.all(color: Colors.grey),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(2))),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                              iconSize: 30,
+                              items: tumEgzersizler.map((oankiEgzersiz) {
+                                return DropdownMenuItem<String>(
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      oankiEgzersiz,
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 21),
+                                    ),
+                                  ),
+                                  value: oankiEgzersiz,
+                                );
+                              }).toList(),
+                              onChanged: (secilen) {
+                                setState(() {
+                                  secilenEgzersiz = secilen;
+                                });
+                              },
+                              value: secilenEgzersiz,
+                            ),
                           ),
+                        ),
+                        //Farklı tarih seç buton
+                        IconButton(
+                          icon: Icon(Icons.date_range),
+                          color: Colors.black,
                           onPressed: () {
                             showDatePicker(
                                     context: context,
-                                    initialDate: suan,
+                                    initialDate: DateTime.now(),
                                     firstDate: once,
-                                    lastDate: suan)
+                                    lastDate: DateTime.now())
                                 .then(
                               (secilenTarih) {
-                                debugPrint(secilenTarih.toString());
                                 suan = secilenTarih;
-                                print(once.toString());
                               },
                             );
                           },
@@ -223,7 +218,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                     itemCount: tumKaydedilenlerListesi.length,
                     itemBuilder: (context, index) {
                       return Card(
-                        color: Colors.red.shade100,
+                        color: Colors.white,
                         child: ListTile(
                           onTap: () {
                             setState(() {

@@ -66,7 +66,7 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
                 TextFormField(
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.account_box_rounded),
-                    labelText: "Ad Soyad",
+                    labelText: "Kullanıcı Adı",
                     border: OutlineInputBorder(),
                   ),
                   autofocus: false,
@@ -82,9 +82,9 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
                     min: 7,
                     max: 17,
                     divisions: 10,
-                    activeColor: Colors.orangeAccent,
+                    activeColor: Colors.redAccent,
                     label: _yasForm.toInt().toString(),
-                    inactiveColor: Colors.grey,
+                    inactiveColor: Colors.blueGrey.shade900,
                     value: _yasForm,
                     onChanged: (secilen) {
                       setState(() {
@@ -133,4 +133,5 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
       Navigator.of(context).pop();
     }
   }
+
 }

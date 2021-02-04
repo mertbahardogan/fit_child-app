@@ -88,14 +88,14 @@ class _AnaSayfaState extends State<AnaSayfa> {
         ),
         SliverFixedExtentList(
           delegate: SliverChildListDelegate(girisElemanlari()),
-          itemExtent: ekranHeight - 470,
+          itemExtent: ekranHeight / 2.5,
         ),
         SliverFixedExtentList(
             delegate: SliverChildListDelegate(yanaKayanList()),
-            itemExtent: 130),
+            itemExtent: ekranHeight / 7),
         SliverFixedExtentList(
             delegate: SliverChildListDelegate(hareketBmiElemanlari()),
-            itemExtent: ekranHeight - 500)
+            itemExtent: ekranHeight / 4)
       ],
     );
   }
@@ -225,9 +225,9 @@ class _AnaSayfaState extends State<AnaSayfa> {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(15.0)),
-            color: Colors.grey.shade200,
+            color: Colors.grey.shade100,
           ),
-          height: 110,
+          height: 80,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemBuilder: (BuildContext context, int index) {
@@ -261,14 +261,14 @@ class _AnaSayfaState extends State<AnaSayfa> {
                   ),
                   fit: BoxFit.contain,
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                borderRadius: BorderRadius.all(Radius.circular(60.0)),
                 color: Colors.grey.shade300,
               ),
-              width: MediaQuery.of(context).size.width / 5,
-              height: MediaQuery.of(context).size.height / 10,
+              width: MediaQuery.of(context).size.width / 6,
+              height: MediaQuery.of(context).size.height / 12,
             ),
           ),
-          Text(tumOneriler[index].oneriAd)
+          Text(tumOneriler[index].oneriAd,style: TextStyle(fontSize: MediaQuery.of(context).size.width/35),)
         ],
       ),
     );

@@ -83,14 +83,6 @@ class _ProgramDetayState extends State<ProgramDetay> {
                     value: secilenDurum,
                     onChanged: (value) {
                       setState(() {
-                        // while (secilenDurum == false) {
-                        //   _programDurumEkle(ProgramDurum(
-                        //       secilenDurum.toString(),
-                        //       widget.gelenIndex.toString()));
-                        //   secilenDurum = value;
-                        //   alertTebrikGoster(context, widget.gelenIndex);
-                        //   break;
-                        // }
                         if (tumKaydedilenlerListesi.length == 0 ||
                             secilenDurum == false) {
                           _programDurumEkle(ProgramDurum(
@@ -105,9 +97,6 @@ class _ProgramDetayState extends State<ProgramDetay> {
                           if (tumKaydedilenlerListesi[i].haftaID ==
                               widget.gelenIndex.toString()) {
                             alertEminMi(context, i, value);
-                            // _programDurumSil(tumKaydedilenlerListesi[i].id, i);
-                            // secilenDurum = value;
-
                             break;
                           }
                         }
@@ -124,9 +113,9 @@ class _ProgramDetayState extends State<ProgramDetay> {
             expandedHeight: 55,
             elevation: 4,
           ),
-          SliverList(
-            delegate: SliverChildListDelegate(sabitListeElemanlari()),
-          ),
+          SliverFixedExtentList(
+              delegate: SliverChildListDelegate(sabitListeElemanlari()),
+              itemExtent: MediaQuery.of(context).size.height / 5),
           SliverList(
             delegate:
                 SliverChildBuilderDelegate(_dinamikElemanUret, childCount: 7),
@@ -324,37 +313,50 @@ class _ProgramDetayState extends State<ProgramDetay> {
   List<Widget> sabitListeElemanlari() {
     return [
       Container(
-        margin: EdgeInsets.only(top: 15, bottom: 5, left: 5, right: 5),
-        height: MediaQuery.of(context).size.height - 680,
+        margin: EdgeInsets.only(top: 15, bottom: 15, left: 5, right: 5),
+        // height: MediaQuery.of(context).size.height - 680,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            color: Colors.blueGrey.shade900,
-            borderRadius: BorderRadius.circular(5),
-            image: DecorationImage(
-                image: AssetImage(
-                    "assets/images/programs/" + secilenHafta.haftalikResim),
-                fit: BoxFit.contain)),
-      ),
-      Container(
-        margin: EdgeInsets.only(top: 0, bottom: 15, left: 5, right: 5),
-        height: MediaQuery.of(context).size.height / 24,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              "Tüm egzersizlerden önce ısınma hareketleri yapılmalıdır.",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 12),
-            )
-          ],
-        ),
-        decoration: BoxDecoration(
-          color: Colors.redAccent.shade400,
+          color: Colors.grey,
           borderRadius: BorderRadius.circular(5),
         ),
-      )
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0, right: 20),
+              child: Image.asset(
+                "assets/images/levels/" + secilenHafta.haftalikResim,
+                width: 80,
+                height: 80,
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width/1.5,
+              height: MediaQuery.of(context).size.height/11,
+              decoration: BoxDecoration(
+                color: Colors.blueGrey.shade900,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    "UYARI:",
+                    style: TextStyle(
+                        color: Colors.red, fontWeight: FontWeight.bold),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 14.0, top: 3),
+                    child: Text(
+                      "Egzersizlerden önce ısınma hareketleri yapılması kaslarınızı spora hazırlar.",
+                      style: TextStyle(fontSize: 12, color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     ];
   }
 

@@ -72,22 +72,35 @@ class _SplashState extends State<Splash> {
     super.initState();
     tumKisiselVerilerListesi = List<Kisisel>();
     _databaseHelper = DatabaseHelper();
-    _databaseHelper.tumKayitlar().then((tumKayitlariTutanMapList) {
-      for (Map okunanKayitListesi in tumKayitlariTutanMapList) {
-        tumKisiselVerilerListesi
-            .add(Kisisel.dbdenOkudugunDegeriObjeyeDonustur(okunanKayitListesi));
-      }
-      setState(() {});
-    }).catchError((hata) => print("Init state hata fonk: " + hata));
+    // _databaseHelper.tumKayitlar().then((tumKayitlariTutanMapList) {
+    //   for (Map okunanKayitListesi in tumKayitlariTutanMapList) {
+    //     tumKisiselVerilerListesi
+    //         .add(Kisisel.dbdenOkudugunDegeriObjeyeDonustur(okunanKayitListesi));
+    //   }
+    //   setState(() {});
+    // }).catchError((hata) => print("Init state hata fonk: " + hata.toString()));
   }
 
   @override
   Widget build(BuildContext context) {
     return SplashScreen(
         seconds: 2,
-        navigateAfterSeconds: tumKisiselVerilerListesi.length == 0
-            ? GirisSayfasi()
-            : MyHomePage(),
+        // navigateAfterSeconds: tumKisiselVerilerListesi.length == 0
+        //     ? GirisSayfasi()
+        //     : MyHomePage(),
+        navigateAfterSeconds: FutureBuilder(
+          future: _databaseHelper.kisiselListesiniGetir(),
+          builder: (context, AsyncSnapshot<List<Kisisel>> snapShot) {
+            if (snapShot.connectionState == ConnectionState.done) {
+              tumKisiselVerilerListesi = snapShot.data;
+              return tumKisiselVerilerListesi.length == 0
+                  ? GirisSayfasi()
+                  : MyHomePage();
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
         title: Text(
           'Fit Child',
           textAlign: TextAlign.end,
@@ -102,7 +115,7 @@ class _SplashState extends State<Splash> {
         //   // tumKisiselVerilerListesi.length == 0? "Hoşgeldiniz": "Hoşgeldiniz " + tumKisiselVerilerListesi[0].adSoyad,style: TextStyle(fontWeight: FontWeight.bold),
         // ),
         loadingText: Text(
-          "Version 0.0.1",
+          "Version 1.0.0",
           style: TextStyle(color: Colors.white),
         ),
         photoSize: 50.0,
