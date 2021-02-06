@@ -15,7 +15,7 @@ class DatabaseHelper {
   String _kisiselTablo = "kisisel";
   String _columnID = "id";
   String _columnAdSoyad = "adSoyad";
-  String _columnYas = "yas";
+  // String _columnYas = "yas";
 
   String _hareketTablo = "hareket";
   String _columnHareketID = "hareketID";
@@ -72,7 +72,7 @@ class DatabaseHelper {
   Future<void> _createDB(Database db, int version) async {
     print("CREATE DB METOT ÇALIŞTI TABLO OLUŞTURULACAK.");
     await db.execute(
-        "CREATE TABLE $_kisiselTablo ($_columnID INTEGER PRIMARY KEY AUTOINCREMENT,$_columnAdSoyad TEXT, $_columnYas INTEGER )");
+        "CREATE TABLE $_kisiselTablo ($_columnID INTEGER PRIMARY KEY AUTOINCREMENT,$_columnAdSoyad TEXT)");
 
     await db.execute(
         "CREATE TABLE $_hareketTablo($_columnHareketID INTEGER PRIMARY KEY AUTOINCREMENT,$_columnHareketAd TEXT,$_columnHareketTarih TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,$_columnHareketTekrarSayisi TEXT)");

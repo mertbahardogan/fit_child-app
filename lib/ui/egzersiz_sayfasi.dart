@@ -7,11 +7,11 @@ class EgzersizSayfasi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sizeHeight = MediaQuery.of(context).size.height;
-    final sizeWidth = MediaQuery.of(context).size.width;
+    final boy = MediaQuery.of(context).size.height;
+    final en = MediaQuery.of(context).size.width;
     tumEgzersizler = egzersizVerileriHazirla();
     return Scaffold(
-      body: listeyiHazirla(sizeHeight, sizeWidth),
+      body: listeyiHazirla(en, boy),
       appBar: AppBar(
         title: Text(
           "Tüm Hareketler",
@@ -33,30 +33,24 @@ class EgzersizSayfasi extends StatelessWidget {
   //   );
   // }
 
-  Widget listeyiHazirla(sizeHeight, sizeWidth) {
+  Widget listeyiHazirla(en, boy) {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, childAspectRatio: sizeHeight / (sizeWidth * 2.2)),
+          crossAxisCount: 2, childAspectRatio: boy / 800),
       itemBuilder: (BuildContext context, int index) {
-        return tekSatirCard(context, index);
+        return tekSatirCard(context, index, en, boy);
       },
       itemCount: tumEgzersizler.length,
     );
   }
 
-  Widget tekSatirCard(BuildContext context, int index) {
+  Widget tekSatirCard(BuildContext context, int index, double en, boy) {
     Egzersiz oAnEklenecek = tumEgzersizler[index]; //object
 
     return Container(
       margin: EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(5.0)),
-        // boxShadow: [
-        //   BoxShadow(
-        //       color: Colors.cyan.shade200,
-        //       offset: Offset(1.0, 1.0),
-        //       blurRadius: 1.0),
-        // ],
         color: Colors.red[100 * ((index % 4) + 2)],
       ),
       child: Padding(
@@ -70,8 +64,8 @@ class EgzersizSayfasi extends StatelessWidget {
               children: [
                 Image.asset(
                   "assets/images/exercises/" + oAnEklenecek.egzersizResim,
-                  width: 140,
-                  height: 140,
+                  width: en/3,
+                  height: boy/6.2,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -79,7 +73,7 @@ class EgzersizSayfasi extends StatelessWidget {
                     Text(
                       oAnEklenecek.egzersizAdi,
                       style: TextStyle(
-                          fontSize: 16,
+                          fontSize: en/24,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                     ),
@@ -93,7 +87,7 @@ class EgzersizSayfasi extends StatelessWidget {
                             tumEgzersizler[index].egzersizSeviye,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 13,
+                                fontSize: en/35,
                                 color: Colors.blueGrey.shade900),
                           )),
                     )

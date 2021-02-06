@@ -8,7 +8,7 @@ class BilgileriGuncelle extends StatefulWidget {
 }
 
 class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
-  double _yasForm = 7;
+  // double _yasForm = 7;
   var otomatikKontrol = AutovalidateMode.disabled;
   var _formKey = GlobalKey<FormState>();
 
@@ -28,7 +28,7 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
       }
       setState(() {
         _controller.text = tumKisiselVerilerListesi[0].adSoyad;
-        _yasForm = tumKisiselVerilerListesi[0].yas.toDouble();
+        // _yasForm = tumKisiselVerilerListesi[0].yas.toDouble();
       });
     }).catchError((hata) => print("İnit state hata fonk: " + hata));
   }
@@ -42,12 +42,12 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
       resizeToAvoidBottomPadding: true,
       appBar: AppBar(
         backgroundColor: Colors.blueGrey.shade900,
-        title: Text("Bilgileri Güncelle"),
+        title: Text("Yenilik Zamanı"),
         centerTitle: true,
       ),
       body: Padding(
           padding: EdgeInsets.only(
-              top: ekranHeight / 3.5,
+              top: ekranHeight / 7,
               left: ekranWidth / 10,
               right: ekranWidth / 10),
           child: Form(
@@ -57,7 +57,7 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
               children: [
                 Padding(
                   child: Image.asset(
-                    "assets/images/kullanici.png",
+                    "assets/images/general/user.png",
                     width: 100,
                     height: 100,
                   ),
@@ -74,34 +74,34 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
                   controller: _controller,
                   validator: _isimKontrol,
                 ),
-                SizedBox(
-                  height: 25,
-                ),
-                Text("Yaşınızı Seçiniz:"),
-                Slider(
-                    min: 7,
-                    max: 17,
-                    divisions: 10,
-                    activeColor: Colors.redAccent,
-                    label: _yasForm.toInt().toString(),
-                    inactiveColor: Colors.blueGrey.shade900,
-                    value: _yasForm,
-                    onChanged: (secilen) {
-                      setState(() {
-                        _yasForm = secilen;
-                      });
-                    }),
-                SizedBox(
-                  height: 25,
-                ),
+                // SizedBox(
+                //   height: 25,
+                // ),
+                // Text("Yaşınızı Seçiniz:"),
+                // Slider(
+                //     min: 7,
+                //     max: 17,
+                //     divisions: 10,
+                //     activeColor: Colors.redAccent,
+                //     label: _yasForm.toInt().toString(),
+                //     inactiveColor: Colors.blueGrey.shade900,
+                //     value: _yasForm,
+                //     onChanged: (secilen) {
+                //       setState(() {
+                //         _yasForm = secilen;
+                //       });
+                //     }),
+                // SizedBox(
+                //   height: 25,
+                // ),
                 RaisedButton(
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
-                      _kayitGuncelle(Kisisel.withID(
-                          1, _controller.text, _yasForm.toInt()));
+                      _kayitGuncelle(Kisisel.withID(1, _controller.text));
                     }
                   },
-                  color: Colors.deepOrange,
+                  // color: Colors.red.withBlue(200),
+                  color: Colors.orange.shade300,
                   child: Text(
                     "Güncelle",
                     style: TextStyle(
@@ -133,5 +133,4 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
       Navigator.of(context).pop();
     }
   }
-
 }

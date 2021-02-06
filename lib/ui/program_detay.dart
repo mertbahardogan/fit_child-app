@@ -21,8 +21,8 @@ class _ProgramDetayState extends State<ProgramDetay> {
   DatabaseHelper _databaseHelper;
   List<ProgramDurum> tumKaydedilenlerListesi;
   bool secilenDurum = false;
-  Image check = Image.asset("assets/images/general/check.png");
-  Image checkLast = Image.asset("assets/images/general/trophy.png");
+  // Image check = Image.asset("assets/images/general/check.png");
+  // Image checkLast = Image.asset("assets/images/general/trophy.png");
 
   // bool deger = false;
   Color renk = Colors.grey.shade300;
@@ -157,10 +157,12 @@ class _ProgramDetayState extends State<ProgramDetay> {
   }
 
   Widget topluListe(BuildContext context, int index) {
+    double en = MediaQuery.of(context).size.width;
+    double boy = MediaQuery.of(context).size.height;
     return ExpansionTile(
       backgroundColor: renk,
       childrenPadding: EdgeInsets.all(10),
-      tilePadding: EdgeInsets.all(MediaQuery.of(context).size.height / 57),
+      tilePadding: EdgeInsets.all(boy / 57),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -181,8 +183,8 @@ class _ProgramDetayState extends State<ProgramDetay> {
             aciklamaAlertDialog(context, index);
           },
           child: Container(
-            height: MediaQuery.of(context).size.height / 13,
-            width: double.infinity,
+            height: boy / 13,
+            width: en,
             decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(
@@ -195,8 +197,8 @@ class _ProgramDetayState extends State<ProgramDetay> {
               children: [
                 Image.asset(
                   "assets/images/exercises/" + tumGunler[index].hareketResim,
-                  width: MediaQuery.of(context).size.width / 8,
-                  height: MediaQuery.of(context).size.height / 15,
+                  width: en / 8,
+                  height: boy / 15,
                 ),
                 Text(
                   tumGunler[index].icerik,
@@ -311,10 +313,11 @@ class _ProgramDetayState extends State<ProgramDetay> {
   }
 
   List<Widget> sabitListeElemanlari() {
+    double en = MediaQuery.of(context).size.width;
+    double boy = MediaQuery.of(context).size.height;
     return [
       Container(
         margin: EdgeInsets.only(top: 15, bottom: 15, left: 5, right: 5),
-        // height: MediaQuery.of(context).size.height - 680,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: Colors.grey,
@@ -326,13 +329,13 @@ class _ProgramDetayState extends State<ProgramDetay> {
               padding: const EdgeInsets.only(left: 8.0, right: 20),
               child: Image.asset(
                 "assets/images/levels/" + secilenHafta.haftalikResim,
-                width: 80,
-                height: 80,
+                width: en / 4,
+                height: boy / 9,
               ),
             ),
             Container(
-              width: MediaQuery.of(context).size.width/1.5,
-              height: MediaQuery.of(context).size.height/11,
+              width: en / 1.6,
+              height: boy / 10,
               decoration: BoxDecoration(
                 color: Colors.blueGrey.shade900,
                 borderRadius: BorderRadius.circular(5),
@@ -345,10 +348,10 @@ class _ProgramDetayState extends State<ProgramDetay> {
                         color: Colors.red, fontWeight: FontWeight.bold),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 14.0, top: 3),
+                    padding: const EdgeInsets.only(left: 14.0, top: 0),
                     child: Text(
                       "Egzersizlerden önce ısınma hareketleri yapılması kaslarınızı spora hazırlar.",
-                      style: TextStyle(fontSize: 12, color: Colors.white),
+                      style: TextStyle(fontSize: en / 36, color: Colors.white),
                     ),
                   ),
                 ],

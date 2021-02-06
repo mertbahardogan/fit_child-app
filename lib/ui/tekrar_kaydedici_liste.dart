@@ -18,7 +18,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
 
   List<Hareket> tumKaydedilenlerListesi;
   DateTime suan = DateTime.now();
-  DateTime once = DateTime(2020, DateTime.now().month, DateTime.now().day - 7);
+  DateTime once = DateTime(2021, DateTime.now().month, DateTime.now().day - 3);
   List<String> tumEgzersizler = [
     "Şınav",
     "Mekik",
@@ -26,12 +26,13 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
     "Yan Plank",
     "Koşu",
     "Squad",
-    "Isınma Hareketleri",
+    "Isınma",
     "Yoga"
   ];
   String secilenEgzersiz = "Şınav";
   int tiklanilanCardIndex;
   int tiklanilanCardID;
+  int boyut = 0;
 
   @override
   void initState() {
@@ -49,6 +50,10 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      boyut = tumKaydedilenlerListesi.length;
+    });
+    double en = MediaQuery.of(context).size.width;
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomPadding: true,
@@ -78,7 +83,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                             color: Colors.black,
                             fontWeight: FontWeight.w400),
                         cursorColor: Colors.grey,
-                        maxLength: 20,
+                        maxLength: 10,
                         autofocus: false,
                         controller: _controller,
                         validator: _alanKontrol,
@@ -157,6 +162,9 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                 children: [
                   RaisedButton(
                     onPressed: () {
+                      if (suan == null) {
+                        suan = DateTime.now();
+                      }
                       _hareketEkle(Hareket(
                           secilenEgzersiz, suan.toString(), _controller.text));
                     },
@@ -190,11 +198,14 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                             }),
                   RaisedButton(
                     onPressed: () {
-                      _tumTabloyuTemizle();
+                      if (tumKaydedilenlerListesi.length == 0) {
+                      } else {
+                        alertEminMi(context);
+                      }
                     },
                     color: Colors.red.shade800,
                     child: Text(
-                      "Tüm Verileri Sil",
+                      "Tüm Bilgileri Sil",
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -208,9 +219,20 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
               ),
               Padding(
                 padding: EdgeInsets.all(15),
-                child: Text(
-                  "Kayıtlı Hareket Bilgilerim",
-                  style: TextStyle(fontSize: 17),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Kayıtlı Hareket Bilgilerim",
+                      style: TextStyle(fontSize: 17),
+                    ),
+                    Text(
+                        boyut.toString() == null ? "Boyut: 0" : "Boyut: $boyut",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: en / 30,
+                        ))
+                  ],
                 ),
               ),
               Expanded(
@@ -280,19 +302,30 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
   }
 
   void _hareketEkle(Hareket hareket) async {
-    if (_formKey.currentState.validate()) {
+    //
+    if (_formKey.currentState.validate() &&
+        tumKaydedilenlerListesi.length < 13) {
       var eklenenHareketID = await _databaseHelper.hareketEkle(hareket);
       hareket.hareketID = eklenenHareketID;
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         backgroundColor: Colors.green.shade600,
         content: Text("Yeni kayıt eklendi."),
-        duration: Duration(seconds: 2),
+        duration: Duration(seconds: 1),
       ));
       setState(() {
         tumKaydedilenlerListesi.insert(0, hareket);
       });
     } else {
-      otomatikKontrol = AutovalidateMode.always;
+      if (tumKaydedilenlerListesi.length >= 13) {
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+          backgroundColor: Colors.black,
+          content: Text("Hatırlatıcı boyutunda 14 kayıt sınırı bulunmaktadır."),
+          duration: Duration(seconds: 1),
+        ));
+      }
+      if (!_formKey.currentState.validate()) {
+        otomatikKontrol = AutovalidateMode.always;
+      }
     }
   }
 
@@ -302,7 +335,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         backgroundColor: Colors.orange.shade500,
         content: Text("${tiklanilanCardIndex + 1}. hareket notu güncellendi."),
-        duration: Duration(seconds: 2),
+        duration: Duration(seconds: 1),
       ));
       setState(() {
         tumKaydedilenlerListesi[tiklanilanCardIndex] = hareket;
@@ -317,7 +350,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         backgroundColor: Colors.red.shade800,
         content: Text("Hareket notu silindi."),
-        duration: Duration(seconds: 2),
+        duration: Duration(seconds: 1),
       ));
       setState(() {
         tumKaydedilenlerListesi.removeAt(forListtoDeleteIndex);
@@ -325,7 +358,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
     } else {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         content: Text("Silme işlemi sırasında hata oluştu."),
-        duration: Duration(seconds: 2),
+        duration: Duration(seconds: 1),
       ));
     }
     tiklanilanCardID = null;
@@ -336,7 +369,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
     if (silinenElemanSayisi > 0) {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         backgroundColor: Colors.red.shade800,
-        duration: Duration(seconds: 2),
+        duration: Duration(seconds: 1),
         content: Text(
             silinenElemanSayisi.toString() + " adet hareket notu silindi."),
       ));
@@ -346,19 +379,45 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
     }
     tiklanilanCardID = null;
   }
+
+  void alertEminMi(BuildContext ctx) {
+    showDialog(
+        context: ctx,
+        barrierDismissible: false,
+        builder: (ctx) {
+          return AlertDialog(
+            title: Center(
+              child: Text(
+                "Emin misin?",
+                style: TextStyle(color: Colors.yellow.shade800),
+              ),
+            ),
+            backgroundColor: Colors.blueGrey.shade900,
+            content: SingleChildScrollView(
+                child: Center(
+                  child: Text(
+              "Tüm bilgilerin silinecek.",
+              style: TextStyle(color: Colors.white),
+            ),
+                )),
+            actions: [
+              FlatButton(
+                  child: Text(
+                    "Eminim",
+                    style: TextStyle(color: Colors.greenAccent, fontSize: 12),
+                  ),
+                  onPressed: () {
+                    _tumTabloyuTemizle();
+                    Navigator.of(ctx).pop();
+                  }),
+              FlatButton(
+                  child: Text(
+                    "İptal",
+                    style: TextStyle(color: Colors.redAccent, fontSize: 12),
+                  ),
+                  onPressed: () => Navigator.of(ctx).pop()),
+            ],
+          );
+        });
+  }
 }
-
-// List<Egzersiz> listeyiDoldur() {
-//   List<Egzersiz> egzersizAd = [];
-
-//   for (int i = 0; i < 8; i++) {
-//     Egzersiz eklenecekEgzersiz = Egzersiz.kaydediciOzel(
-//       Strings.EGZERSIZ_ADLARI[i],
-//     );
-//     egzersizAd.add(eklenecekEgzersiz);
-//   }
-//   // secilenEgzersiz = egzersizAd[0].toString();
-//   return egzersizAd;
-// }
-
-//Dropdown hareketleri dinamik olarak çekilecek

@@ -9,7 +9,7 @@ class GirisSayfasi extends StatefulWidget {
 }
 
 class _GirisSayfasiState extends State<GirisSayfasi> {
-  double _yasForm = 7;
+  // double _yasForm = 7;
   var otomatikKontrol = AutovalidateMode.disabled;
   var _formKey = GlobalKey<FormState>();
 
@@ -39,12 +39,12 @@ class _GirisSayfasiState extends State<GirisSayfasi> {
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: AppBar(
-        title: Text("Bilgilerinizi Giriniz"),
+        title: Text("Hoşgeldiniz"),
         centerTitle: true,
       ),
       body: Padding(
           padding: EdgeInsets.only(
-              top: ekranHeight / 3.5,
+              top: ekranHeight / 7,
               left: ekranWidth / 10,
               right: ekranWidth / 10),
           child: Form(
@@ -52,9 +52,9 @@ class _GirisSayfasiState extends State<GirisSayfasi> {
             autovalidateMode: otomatikKontrol,
             child: ListView(
               children: [
-                 Padding(
+                Padding(
                   child: Image.asset(
-                    "assets/images/kullanici.png",
+                    "assets/images/general/user.png",
                     width: 100,
                     height: 100,
                   ),
@@ -71,40 +71,33 @@ class _GirisSayfasiState extends State<GirisSayfasi> {
                   controller: _controller,
                   validator: _isimKontrol,
                 ),
-                SizedBox(
-                  height: 25,
-                ),
-                Text("Yaşınızı Seçiniz:"),
-                Slider(
-                    min: 7,
-                    max: 17,
-                    divisions: 10,
-                    activeColor: Colors.redAccent,
-                    label: _yasForm.toInt().toString(),
-                    inactiveColor: Colors.blueGrey.shade900,
-                    value: _yasForm,
-                    onChanged: (secilen) {
-                      setState(() {
-                        _yasForm = secilen;
-                        debugPrint("Girilen yaş değeri: $_yasForm");
-                      });
-                    }),
-                SizedBox(
-                  height: 25,
-                ),
-                RaisedButton.icon(
+                // SizedBox(
+                //   height: 25,
+                // ),
+                // Text("Yaşınızı Seçiniz:"),
+                // Slider(
+                //     min: 7,
+                //     max: 17,
+                //     divisions: 10,
+                //     activeColor: Colors.redAccent,
+                //     label: _yasForm.toInt().toString(),
+                //     inactiveColor: Colors.blueGrey.shade900,
+                //     value: _yasForm,
+                //     onChanged: (secilen) {
+                //       setState(() {
+                //         _yasForm = secilen;
+                //         debugPrint("Girilen yaş değeri: $_yasForm");
+                //       });
+                //     }),
+                // SizedBox(
+                //   height: 25,
+                // ),
+                RaisedButton(
                   onPressed: () {
-                    // if (_formKey.currentState.validate()) {
-                    //   _kayitEkle(Kisisel(_controller.text, _yasForm.toInt()));
-                    // }
-                    _kayitEkle(Kisisel(_controller.text, _yasForm.toInt()));
+                    _kayitEkle(Kisisel(_controller.text));
                   },
-                  icon: Icon(
-                    Icons.save,
-                    color: Colors.red,
-                  ),
-                  color: Colors.red,
-                  label: Text(
+                  color: Colors.green.shade400,
+                  child: Text(
                     "Kaydet",
                     style: TextStyle(
                       color: Colors.white,
@@ -121,8 +114,8 @@ class _GirisSayfasiState extends State<GirisSayfasi> {
     if (_formKey.currentState.validate()) {
       var eklenenKayitID = await _databaseHelper.kayitEkle(kisisel);
       kisisel.id = eklenenKayitID;
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => MyHomePage()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => MyHomePage()));
     } else {
       setState(() {
         otomatikKontrol = AutovalidateMode.always;

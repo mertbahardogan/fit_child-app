@@ -38,7 +38,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
 
   @override
   Widget build(BuildContext context) {
-    var ekranHeight = MediaQuery.of(context).size.height;
+    var boy = MediaQuery.of(context).size.height;
+    var en = MediaQuery.of(context).size.width;
 
     tumOneriler = oneriVerileriHazirla();
 
@@ -87,21 +88,24 @@ class _AnaSayfaState extends State<AnaSayfa> {
           elevation: 4,
         ),
         SliverFixedExtentList(
-          delegate: SliverChildListDelegate(girisElemanlari()),
-          itemExtent: ekranHeight / 2.5,
+          delegate: SliverChildListDelegate(girisElemanlari(en, boy)),
+          itemExtent: boy / 2.7, //2.5
         ),
         SliverFixedExtentList(
-            delegate: SliverChildListDelegate(yanaKayanList()),
-            itemExtent: ekranHeight / 7),
+            delegate: SliverChildListDelegate(yanaKayanList(en, boy)),
+            itemExtent: boy / 5), //7
         SliverFixedExtentList(
-            delegate: SliverChildListDelegate(hareketBmiElemanlari()),
-            itemExtent: ekranHeight / 4)
+            delegate: SliverChildListDelegate(hareketBmiElemanlari(en, boy)),
+            itemExtent: boy / 4.4),
+        SliverFixedExtentList(
+            delegate: SliverChildListDelegate(tavsiyeElemanlari(en, boy)),
+            itemExtent: boy / 4),
       ],
     );
   }
 
   //Giriş Kısmı ve Favori Card
-  List<Widget> girisElemanlari() {
+  List<Widget> girisElemanlari(double en, boy) {
     return [
       Column(
         children: [
@@ -119,7 +123,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                       "Merhaba,",
                       style: TextStyle(
                           color: Colors.blueGrey.shade900,
-                          fontSize: 17,
+                          fontSize: en / 25,
                           fontWeight: FontWeight.w600),
                     ),
                     FutureBuilder(
@@ -132,8 +136,9 @@ class _AnaSayfaState extends State<AnaSayfa> {
                             return Text(
                               tumKisiselVerilerListesi[0].adSoyad,
                               style: TextStyle(
-                                  color: Colors.deepOrange.shade900,
-                                  fontSize: 25,
+                                  // color: Colors.deepOrange.shade900,
+                                  color: Colors.blueAccent.shade100,
+                                  fontSize: en / 19,
                                   fontWeight: FontWeight.bold),
                             );
                           } else {
@@ -143,9 +148,9 @@ class _AnaSayfaState extends State<AnaSayfa> {
                   ],
                 ),
                 Image.asset(
-                  "assets/images/fitness.png",
-                  width: MediaQuery.of(context).size.width / 4,
-                  height: MediaQuery.of(context).size.height / 7,
+                  "assets/images/general/main.png",
+                  width: en / 4,
+                  height: boy / 7,
                 ),
               ],
             ),
@@ -175,7 +180,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                       "Favori Hareketler",
                       style: TextStyle(
                         color: Colors.blueGrey.shade900,
-                        fontSize: 22,
+                        fontSize: en / 19,
                         fontWeight: FontWeight.w600,
                       ),
                       textAlign: TextAlign.center,
@@ -183,6 +188,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     Icon(
                       Icons.keyboard_arrow_right_rounded,
                       color: Colors.blueGrey.shade900,
+                      size: en / 15,
                     )
                   ],
                 ),
@@ -193,23 +199,13 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     children: [
                       Text(
                         "Favori olarak kaydedilen hareketlere buraya tıklayarak erişebilirsin.",
-                        style: TextStyle(color: Colors.white, fontSize: 13),
+                        style:
+                            TextStyle(color: Colors.white, fontSize: en / 33),
                       ),
                     ],
                   ),
                 ),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0, top: 20),
-            child: Row(
-              children: [
-                Text(
-                  "Önerilen Egzersizler",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ],
             ),
           ),
         ],
@@ -218,30 +214,42 @@ class _AnaSayfaState extends State<AnaSayfa> {
   }
 
   //Yana Kayan Liste
-  List<Widget> yanaKayanList() {
+  List<Widget> yanaKayanList(double en, boy) {
     return [
-      Padding(
-        padding: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(15.0)),
-            color: Colors.grey.shade100,
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0, top: 10, bottom: 10),
+            child: Text(
+              "Önerilen Egzersizler",
+              style: TextStyle(fontSize: en / 26, fontWeight: FontWeight.bold),
+            ),
           ),
-          height: 80,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (BuildContext context, int index) {
-              return yanSatir(context, index);
-            },
-            itemCount: tumOneriler.length,
-          ),
-        ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                color: Colors.grey.shade100,
+              ),
+              height: boy / 8,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (BuildContext context, int index) {
+                  return yanSatir(context, index, en, boy);
+                },
+                itemCount: tumOneriler.length,
+              ),
+            ),
+          )
+        ],
       )
     ];
   }
 
   //Yana Kayan Liste
-  Widget yanSatir(BuildContext context, int index) {
+  Widget yanSatir(BuildContext context, int index, double en, boy) {
     Oneri oAnEklenecek = tumOneriler[index];
 
     return Padding(
@@ -261,20 +269,23 @@ class _AnaSayfaState extends State<AnaSayfa> {
                   ),
                   fit: BoxFit.contain,
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(60.0)),
+                borderRadius: BorderRadius.all(Radius.circular(en / 2)),
                 color: Colors.grey.shade300,
               ),
-              width: MediaQuery.of(context).size.width / 6,
-              height: MediaQuery.of(context).size.height / 12,
+              width: en / 6,
+              height: boy / 12,
             ),
           ),
-          Text(tumOneriler[index].oneriAd,style: TextStyle(fontSize: MediaQuery.of(context).size.width/35),)
+          Text(
+            tumOneriler[index].oneriAd,
+            style: TextStyle(fontSize: en / 35),
+          )
         ],
       ),
     );
   }
 
-  List<Widget> hareketBmiElemanlari() {
+  List<Widget> hareketBmiElemanlari(double en, boy) {
     return [
       Padding(
         padding: EdgeInsets.only(left: 10, top: 10),
@@ -284,7 +295,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
               children: [
                 Text(
                   "Size Özel",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: en / 26, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -301,8 +313,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
                               builder: (context) => HareketKaydediciSayfasi()));
                     },
                     child: Container(
-                        height: MediaQuery.of(context).size.height / 7.5,
-                        width: MediaQuery.of(context).size.width / 2.05,
+                        height: boy / 7.5,
+                        width: en / 2.05,
                         decoration: BoxDecoration(
                             color: Colors.blueGrey.shade900,
                             borderRadius: BorderRadius.all(Radius.circular(4))),
@@ -311,14 +323,15 @@ class _AnaSayfaState extends State<AnaSayfa> {
                             Padding(
                               padding: EdgeInsets.all(5),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.start, //en
                                 children: [
                                   Text(
                                     "Yaptığınız Hareketleri",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w300,
-                                        fontSize: 16),
+                                        fontSize: en / 30),
                                   ),
                                   Row(
                                     mainAxisAlignment:
@@ -329,8 +342,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
                                             top: 5.0, left: 12.0),
                                         child: Image.asset(
                                           "assets/images/general/kaydedici.png",
-                                          width: 45,
-                                          height: 45,
+                                          width: en / 9,
+                                          height: en / 9,
                                         ),
                                       ),
                                       Text(
@@ -338,7 +351,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 22),
+                                            fontSize: en / 20),
                                       ),
                                     ],
                                   ),
@@ -360,24 +373,25 @@ class _AnaSayfaState extends State<AnaSayfa> {
                               builder: (context) => VucutKitleSayfasi()));
                     },
                     child: Container(
-                      height: MediaQuery.of(context).size.height / 7.5,
-                      width: MediaQuery.of(context).size.width / 2.25,
+                      height: boy / 7.5,
+                      width: en / 2.25,
                       decoration: BoxDecoration(
                           color: Colors.grey.shade500,
                           borderRadius: BorderRadius.all(Radius.circular(4))),
                       child: Column(
+                        // crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
                             padding: EdgeInsets.all(6),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start, //en
                               children: [
                                 Text(
                                   "Vücut Kitle Endeksi",
                                   style: TextStyle(
                                       color: Colors.blueGrey.shade900,
                                       fontWeight: FontWeight.w300,
-                                      fontSize: 16),
+                                      fontSize: en / 30),
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -387,8 +401,8 @@ class _AnaSayfaState extends State<AnaSayfa> {
                                           top: 5.0, left: 7.0),
                                       child: Image.asset(
                                         "assets/images/general/bmi.png",
-                                        width: 45,
-                                        height: 45,
+                                        width: en / 9,
+                                        height: en / 9,
                                       ),
                                     ),
                                     Padding(
@@ -399,7 +413,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                                         style: TextStyle(
                                             color: Colors.blueGrey.shade900,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 22),
+                                            fontSize: en / 20),
                                       ),
                                     ),
                                   ],
@@ -417,6 +431,53 @@ class _AnaSayfaState extends State<AnaSayfa> {
           ],
         ),
       ),
+    ];
+  }
+
+  List<Widget> tavsiyeElemanlari(double en, boy) {
+    return [
+      Padding(
+        padding: const EdgeInsets.only(left: 10.0, right: 10),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(
+                  "Faydalı Bilgiler",
+                  style:
+                      TextStyle(fontSize: en / 26, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Column(
+                children: [
+                  Container(
+                    width: en,
+                    // margin: EdgeInsets.only(left:10,right:),
+                    height: boy/12,
+                    color: Colors.red,
+                    child: Text("Eleman C 0"),
+                  ),
+                  Card(
+                    color: Colors.red,
+                    child: ListTile(
+                      title: Text("Eleman 1"),
+                    ),
+                  ),
+                  Card(
+                    color: Colors.red,
+                    child: ListTile(
+                      title: Text("Eleman 2"),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      )
     ];
   }
 }

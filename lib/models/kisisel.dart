@@ -1,7 +1,7 @@
 class Kisisel {
   int _id;
   String _adSoyad;
-  int _yas;
+  // int _yas;
 
   int get id => _id;
 
@@ -11,19 +11,19 @@ class Kisisel {
 
   set adSoyad(String value) => this._adSoyad = value;
 
-  int get yas => _yas;
+  // int get yas => _yas;
 
-  set yas(int value) => this._yas = value;
+  // set yas(int value) => this._yas = value;
 
   Kisisel(
     this._adSoyad,
-    this._yas,
+    // this._yas,
   );
 
   Kisisel.withID(
     this._id,
     this._adSoyad,
-    this._yas,
+    // this._yas,
   );
 
   Map<String, dynamic> dbyeYazmakIcinMapeDonustur() {
@@ -31,18 +31,18 @@ class Kisisel {
 
     map["id"] = _id;
     map["adSoyad"] = _adSoyad;
-    map["yas"] = _yas;
+    // map["yas"] = _yas;
     return map;
   }
 
   Kisisel.dbdenOkudugunDegeriObjeyeDonustur(Map<String, dynamic> map) {
     this._id = map["id"];
     this._adSoyad = map["adSoyad"];
-    this._yas = map["yas"];
+    // this._yas = map["yas"];
   }
 
   @override
   String toString() {
-    return "Kisisel{id: $_id, Ad Soyad: $_adSoyad, Yaş: $_yas}";
+    return "Kisisel{id: $_id, Ad Soyad: $_adSoyad}";
   }
 }

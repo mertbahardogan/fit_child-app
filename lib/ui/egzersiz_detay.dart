@@ -1,3 +1,5 @@
+// import 'dart:convert';
+
 import 'package:cocuklar_icin_spor_app/methods/egzersiz_verileri_hazirla.dart';
 import 'package:cocuklar_icin_spor_app/models/egzersiz.dart';
 import 'package:cocuklar_icin_spor_app/models/favori_durum.dart';
@@ -50,6 +52,8 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
 
   @override
   Widget build(BuildContext context) {
+    double en = MediaQuery.of(context).size.width;
+    // double boy = MediaQuery.of(context).size.height;
     return Scaffold(
       key: _scaffoldKey,
       primary: true,
@@ -96,7 +100,7 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
             background: Image.asset(
               "assets/images/exercises/" + secilenEgzersiz.egzersizResim,
               fit: BoxFit.scaleDown,
-              cacheHeight: 130,
+              cacheHeight: (en / 1.5).round(),
               alignment: Alignment.bottomCenter,
             ),
           ),
