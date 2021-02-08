@@ -9,8 +9,13 @@ List<Oneri> oneriVerileriHazirla() {
   for (int i = 0; i < 7; i++) {
     String resim = Others.OTHERS_DOSYA_ADLARI[i] + "${i + 1}.png";
 
-    Oneri eklenecekOneri = Oneri(Others.OTHERS_ADLARI[i],
-        Others.OTHERS_DOSYA_ADLARI[i], Others.OTHERS_FAYDALARI[i], resim);
+    Oneri eklenecekOneri = Oneri(
+        Others.OTHERS_ADLARI[i],
+        Others.OTHERS_DOSYA_ADLARI[i],
+        Others.OTHERS_FAYDALARI[i],
+        resim,
+        Others.OTHERS_CALISAN_BOLGELER[i],
+        Others.OTHERS_TAVSIYE[i]);
     oneriler.add(eklenecekOneri);
   }
   return oneriler;

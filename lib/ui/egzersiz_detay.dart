@@ -1,5 +1,7 @@
 // import 'dart:convert';
 
+import 'dart:async';
+
 import 'package:cocuklar_icin_spor_app/methods/egzersiz_verileri_hazirla.dart';
 import 'package:cocuklar_icin_spor_app/models/egzersiz.dart';
 import 'package:cocuklar_icin_spor_app/models/favori_durum.dart';
@@ -50,10 +52,31 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
     }).catchError((hata) => print("İnit state hata alındı: " + hata));
   }
 
+  int _counter = 20;
+  Timer _timer;
+
+  void _sureBaslat() {
+    _counter = 20;
+    if (_timer != null) {
+      _timer.cancel();
+    }
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_counter > -1) {
+          _counter--;
+        } else {
+          _counter = 20;
+          tebrikAlertGoster(context, _counter);
+          _timer.cancel();
+        }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double en = MediaQuery.of(context).size.width;
-    // double boy = MediaQuery.of(context).size.height;
+
     return Scaffold(
       key: _scaffoldKey,
       primary: true,
@@ -63,7 +86,7 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
           pinned: true,
           title: Text(secilenEgzersiz.egzersizAdi),
           centerTitle: true,
-          backgroundColor: Colors.red[100 * ((widget.gelenIndex % 4) + 2)],
+          backgroundColor: Colors.blue[100 * ((widget.gelenIndex % 4) + 1)],
           expandedHeight: 200,
           actions: [
             IconButton(
@@ -115,6 +138,51 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _counter == -1 || _counter == 20
+                          ? RaisedButton(
+                              child: Text(
+                                "Süreyi Başlat!",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: en / 21,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              elevation: 0,
+                              color: Colors.deepOrange.shade800,
+                              onPressed: () {
+                                _sureBaslat();
+                              })
+                          : Container(
+                              color: Colors.deepOrange.shade300,
+                              width: en / 2,
+                              height: en / 7,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(_counter != -1 ? "Kalan Süre: " : "",
+                                      style: TextStyle(
+                                          color: Colors.blueGrey.shade900,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: en / 25)),
+                                  Text(
+                                      _counter == -1
+                                          ? "20"
+                                          : _counter.toString(),
+                                      style: TextStyle(
+                                          color: Colors.blueGrey.shade900,
+                                          fontSize: en / 23)),
+                                ],
+                              ),
+                            ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: en / 20,
+                  ),
                   Column(
                     children: [
                       Padding(
@@ -201,5 +269,58 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
         tumKaydedilenlerListesi.removeAt(forListtoDeleteIndex);
       });
     }
+  }
+
+  void tebrikAlertGoster(BuildContext ctx, int count) {
+    showDialog(
+        context: ctx,
+        barrierDismissible: false,
+        builder: (ctx) {
+          return AlertDialog(
+            title: Column(children: [
+              Text(
+                "Tebrikler, Tamamladınız!",
+                style: TextStyle(
+                    color: Colors.green.shade400,
+                    fontSize: MediaQuery.of(context).size.width / 22,
+                    fontWeight: FontWeight.bold),
+              ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 23.0),
+                  child: Image.asset(
+                    "assets/images/general/energy.png",
+                    width: MediaQuery.of(context).size.width / 4,
+                    height: MediaQuery.of(context).size.height / 7,
+                  ),
+                ),
+              ),
+            ]),
+            backgroundColor: Colors.blueGrey.shade900,
+            content: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.only(top: 10, left: 20),
+                child: Center(
+                  child: Text(
+                    "Hareketiniz $count saniye sürdü.",
+                    style: TextStyle(
+                        color: Colors.green.shade100,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14),
+                  ),
+                ),
+              ),
+            ),
+            actions: [
+              FlatButton(
+                child: Text(
+                  "Kapat",
+                  style: TextStyle(color: Colors.redAccent, fontSize: 12),
+                ),
+                onPressed: () => Navigator.of(ctx).pop(),
+              ),
+            ],
+          );
+        });
   }
 }

@@ -99,7 +99,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
             itemExtent: boy / 4.4),
         SliverFixedExtentList(
             delegate: SliverChildListDelegate(tavsiyeElemanlari(en, boy)),
-            itemExtent: boy / 4),
+            itemExtent: boy / 2.8),
       ],
     );
   }
@@ -167,7 +167,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
             },
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.redAccent,
+                color: Colors.blueAccent.shade100,
                 borderRadius: BorderRadius.all(Radius.circular(6)),
               ),
               margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
@@ -220,7 +220,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 10.0, top: 10, bottom: 10),
+            padding: const EdgeInsets.only(left: 10.0, bottom: 10),
             child: Text(
               "Önerilen Egzersizler",
               style: TextStyle(fontSize: en / 26, fontWeight: FontWeight.bold),
@@ -257,23 +257,27 @@ class _AnaSayfaState extends State<AnaSayfa> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          GestureDetector(
+          InkWell(
             onTap: () {
               Navigator.pushNamed(context, "/oneriDetay/$index");
             },
-            child: Container(
-              decoration: BoxDecoration(
-                image: new DecorationImage(
-                  image: new AssetImage(
-                    "assets/images/others/" + oAnEklenecek.oneriResim,
+            child: Hero(
+              tag: "assets/images/others/" + oAnEklenecek.oneriResim,
+              child: Container(
+                //Hata gelirse SingleChildScrollView
+                decoration: BoxDecoration(
+                  image: new DecorationImage(
+                    image: new AssetImage(
+                      "assets/images/others/" + oAnEklenecek.oneriResim,
+                    ),
+                    fit: BoxFit.contain,
                   ),
-                  fit: BoxFit.contain,
+                  borderRadius: BorderRadius.all(Radius.circular(en / 2)),
+                  color: Colors.grey.shade200,
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(en / 2)),
-                color: Colors.grey.shade300,
+                width: en / 6,
+                height: boy / 12,
               ),
-              width: en / 6,
-              height: boy / 12,
             ),
           ),
           Text(
@@ -285,10 +289,11 @@ class _AnaSayfaState extends State<AnaSayfa> {
     );
   }
 
+  //İkili Card
   List<Widget> hareketBmiElemanlari(double en, boy) {
     return [
       Padding(
-        padding: EdgeInsets.only(left: 10, top: 10),
+        padding: EdgeInsets.only(left: 10),
         child: Column(
           children: [
             Row(
@@ -434,6 +439,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
     ];
   }
 
+  //Faydalı Card
   List<Widget> tavsiyeElemanlari(double en, boy) {
     return [
       Padding(
@@ -450,31 +456,137 @@ class _AnaSayfaState extends State<AnaSayfa> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 10.0),
+              padding: const EdgeInsets.only(top: 20),
               child: Column(
                 children: [
                   Container(
-                    width: en,
-                    // margin: EdgeInsets.only(left:10,right:),
-                    height: boy/12,
-                    color: Colors.red,
-                    child: Text("Eleman C 0"),
-                  ),
-                  Card(
-                    color: Colors.red,
-                    child: ListTile(
-                      title: Text("Eleman 1"),
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        borderRadius: BorderRadius.all(Radius.circular(4))),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Beslenme",
+                                style: TextStyle(
+                                    color: Colors.blue.shade600,
+                                    fontSize: en / 26,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "Beslenmenin önemi ve detaylı bilgiler.",
+                                style: TextStyle(
+                                  fontSize: en / 33,
+                                  color: Colors.grey.shade700,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Image.asset(
+                            "assets/images/general/food.png",
+                            width: en / 8,
+                            height: boy / 16,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                  Card(
-                    color: Colors.red,
-                    child: ListTile(
-                      title: Text("Eleman 2"),
-                    ),
+                  SizedBox(
+                    height: en / 37,
                   ),
                 ],
               ),
-            )
+            ),
+            Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.grey.shade200,
+                      borderRadius: BorderRadius.all(Radius.circular(4))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Plan ve Düzen",
+                              style: TextStyle(
+                                  color: Colors.blue.shade600,
+                                  fontSize: en / 26,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              "Planlı ve düzenli olmanın sporda önemi.",
+                              style: TextStyle(
+                                fontSize: en / 33,
+                                color: Colors.grey.shade700,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Image.asset(
+                          "assets/images/general/plan.png",
+                          width: en / 8,
+                          height: boy / 16,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: en / 37,
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.grey.shade200,
+                      borderRadius: BorderRadius.all(Radius.circular(4))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Uyku",
+                              style: TextStyle(
+                                  color: Colors.blue.shade600,
+                                  fontSize: en / 26,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              "Uyku ve dinlenme hakkında detaylı bilgiler.",
+                              style: TextStyle(
+                                fontSize: en / 33,
+                                color: Colors.grey.shade700,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Image.asset(
+                          "assets/images/general/sleep.png",
+                          width: en / 8,
+                          height: boy / 16,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       )

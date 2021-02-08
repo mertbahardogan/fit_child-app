@@ -3,12 +3,16 @@ class Oneri {
   String _oneriDosyaAd;
   String _oneriFayda;
   String _oneriResim;
+  String _oneriBolge;
+  String _oneriTavsiye;
 
   Oneri(
     this._oneriAd,
     this._oneriDosyaAd,
     this._oneriFayda,
     this._oneriResim,
+    this._oneriBolge,
+    this._oneriTavsiye,
   );
 
   String get oneriAd => _oneriAd;
@@ -26,4 +30,12 @@ class Oneri {
   String get oneriResim => _oneriResim;
 
   set oneriResim(String value) => this._oneriResim = value;
+
+  String get oneriBolge => _oneriBolge;
+
+  set oneriBolge(String value) => this._oneriBolge = value;
+
+  String get oneriTavsiye => _oneriTavsiye;
+
+  set oneriTavsiye(String value) => this._oneriTavsiye = value;
 }

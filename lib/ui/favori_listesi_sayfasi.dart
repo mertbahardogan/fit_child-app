@@ -21,6 +21,8 @@ class _FavoriSayfasiState extends State<FavoriSayfasi> {
 
   @override
   Widget build(BuildContext context) {
+    double en = MediaQuery.of(context).size.width;
+    double boy = MediaQuery.of(context).size.height;
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomPadding: true,
@@ -28,11 +30,11 @@ class _FavoriSayfasiState extends State<FavoriSayfasi> {
         title: Text("Favori Hareketler"),
         centerTitle: true,
       ),
-      body: listeHazirla(),
+      body: listeHazirla(en, boy),
     );
   }
 
-  Widget listeHazirla() {
+  Widget listeHazirla(en, boy) {
     return FutureBuilder(
         future: _databaseHelper.favoriListesiniGetir(),
         builder: (context, AsyncSnapshot<List<FavoriDurum>> snapShot) {
@@ -41,7 +43,7 @@ class _FavoriSayfasiState extends State<FavoriSayfasi> {
             return ListView.builder(
                 itemCount: tumKaydedilenlerListesi.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return cardGetir(context, index);
+                  return cardGetir(context, index, en, boy);
                 });
           } else {
             return Center(child: CircularProgressIndicator());
@@ -49,7 +51,7 @@ class _FavoriSayfasiState extends State<FavoriSayfasi> {
         });
   }
 
-  Widget cardGetir(BuildContext context, int index) {
+  Widget cardGetir(BuildContext context, int index, double en, boy) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -66,23 +68,35 @@ class _FavoriSayfasiState extends State<FavoriSayfasi> {
           children: [
             Card(
               child: ListTile(
-                tileColor: Colors.red[100 * ((index % 3) + 1)],
+                tileColor: Colors.white,
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      width: 40,
-                      height: MediaQuery.of(context).size.height / 18,
+                      width: en / 10,
+                      height: boy / 18,
                       child: Center(child: Text((index + 1).toString())),
-                      color: Colors.grey.withOpacity(0.3),
+                      color: Colors.deepOrange.withOpacity(0.3),
                     ),
-                    Text(
-                      tumKaydedilenlerListesi[index].hareketAd.toString(),
-                      style: TextStyle(fontSize: 20),
+                    Column(
+                      children: [
+                        Text(
+                          tumKaydedilenlerListesi[index].hareketAd.toString(),
+                          style: TextStyle(
+                              fontSize: en / 24,
+                              color: Colors.blueGrey.shade900),
+                        ),
+                        Text(
+                          "Detaylar için dokunun." ,
+                          style:
+                              TextStyle(fontSize: en / 37, color: Colors.grey),
+                        ),
+                      ],
                     ),
                     Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      size: 17,
+                      Icons.favorite,
+                      color: Colors.deepOrange.shade800,
+                      size: en / 16,
                     )
                   ],
                 ),

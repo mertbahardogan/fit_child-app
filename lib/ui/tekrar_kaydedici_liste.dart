@@ -54,6 +54,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
       boyut = tumKaydedilenlerListesi.length;
     });
     double en = MediaQuery.of(context).size.width;
+    double boy = MediaQuery.of(context).size.height;
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomPadding: true,
@@ -96,8 +97,8 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width / 1.5,
-                          height: MediaQuery.of(context).size.height / 17,
+                          width: en / 1.5,
+                          height: boy / 17,
                           alignment: Alignment.center,
                           margin: EdgeInsets.only(bottom: 10, top: 5),
                           decoration: BoxDecoration(
@@ -117,7 +118,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w400,
-                                          fontSize: 21),
+                                          fontSize: en / 20),
                                     ),
                                   ),
                                   value: oankiEgzersiz,
@@ -171,9 +172,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                     color: Colors.green.shade600,
                     child: Text(
                       "Kaydet",
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
+                      style: TextStyle(color: Colors.white, fontSize: en / 27),
                     ),
                   ),
                   RaisedButton(
@@ -181,9 +180,8 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                       color: Colors.orange.shade500,
                       child: Text(
                         "Güncelle",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
+                        style:
+                            TextStyle(color: Colors.white, fontSize: en / 27),
                       ),
                       onPressed: tiklanilanCardID == null
                           ? null
@@ -206,9 +204,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                     color: Colors.red.shade800,
                     child: Text(
                       "Tüm Bilgileri Sil",
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
+                      style: TextStyle(color: Colors.white, fontSize: en / 27),
                     ),
                   ),
                 ],
@@ -224,7 +220,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                   children: [
                     Text(
                       "Kayıtlı Hareket Bilgilerim",
-                      style: TextStyle(fontSize: 17),
+                      style: TextStyle(fontSize: en/25),
                     ),
                     Text(
                         boyut.toString() == null ? "Boyut: 0" : "Boyut: $boyut",
@@ -259,13 +255,14 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                                 Text(
                                   tumKaydedilenlerListesi[index].hareketAd,
                                   style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500),
+                                      fontSize: en / 18,
+                                      fontWeight: FontWeight.w600),
                                 ),
-                                Text(
+                                // Text("Not: ",style: TextStyle(fontSize: en / 27),
+                                Text("Not: "+
                                   tumKaydedilenlerListesi[index]
                                       .hareketTekrarSayisi,
-                                  style: TextStyle(fontSize: 17),
+                                  style: TextStyle(fontSize: en / 27),
                                 )
                               ]),
                           subtitle: Text(
@@ -276,7 +273,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                           ),
                           trailing: GestureDetector(
                             child: Icon(Icons.delete,
-                                size: 25, color: Colors.grey.shade600),
+                                size: en/15, color: Colors.red.shade400),
                             onTap: () {
                               //Bir methoda bu şekilde değer gönderilir,incele!!
                               _hareketSil(
@@ -395,11 +392,11 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
             backgroundColor: Colors.blueGrey.shade900,
             content: SingleChildScrollView(
                 child: Center(
-                  child: Text(
-              "Tüm bilgilerin silinecek.",
-              style: TextStyle(color: Colors.white),
-            ),
-                )),
+              child: Text(
+                "Tüm bilgilerin silinecek.",
+                style: TextStyle(color: Colors.white),
+              ),
+            )),
             actions: [
               FlatButton(
                   child: Text(

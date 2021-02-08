@@ -101,26 +101,26 @@ class _SplashState extends State<Splash> {
             }
           },
         ),
-        title: Text(
-          'Fit Child',
-          textAlign: TextAlign.end,
-          textScaleFactor: 3,
-          style: TextStyle(
-              fontWeight: FontWeight.w500,
+        title: Text('Fit Child',
+            textAlign: TextAlign.end,
+            textScaleFactor: 3,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
               fontFamily: "Indie",
-              color: Colors.white),
-        ),
-        image: Image.asset("assets/images/fitness.png"),
+              fontSize: MediaQuery.of(context).size.width / 22,
+              color: Colors.blueGrey.shade900,
+            )),
+        // image: Image.asset("assets/images/fitness.png"),
         // loadingText: Text(
         //   // tumKisiselVerilerListesi.length == 0? "Hoşgeldiniz": "Hoşgeldiniz " + tumKisiselVerilerListesi[0].adSoyad,style: TextStyle(fontWeight: FontWeight.bold),
         // ),
         loadingText: Text(
-          "Version 1.0.0",
-          style: TextStyle(color: Colors.white),
+          "1.0.0",
+          style: TextStyle(color: Colors.grey),
         ),
-        photoSize: 50.0,
+        // photoSize: 50.0,
         useLoader: false,
-        backgroundColor: Colors.blueGrey.shade900);
+        backgroundColor: Colors.white);
   }
 }
 

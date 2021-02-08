@@ -48,10 +48,10 @@ class EgzersizSayfasi extends StatelessWidget {
     Egzersiz oAnEklenecek = tumEgzersizler[index]; //object
 
     return Container(
-      margin: EdgeInsets.all(8),
+      margin: EdgeInsets.all(6),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-        color: Colors.red[100 * ((index % 4) + 2)],
+        borderRadius: BorderRadius.all(Radius.circular(3)),
+        color: Colors.blue[100 * ((index % 4) + 1)],
       ),
       child: Padding(
         padding: const EdgeInsets.all(10),
@@ -64,8 +64,8 @@ class EgzersizSayfasi extends StatelessWidget {
               children: [
                 Image.asset(
                   "assets/images/exercises/" + oAnEklenecek.egzersizResim,
-                  width: en/3,
-                  height: boy/6.2,
+                  width: en / 3,
+                  height: boy / 6.2,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,21 +73,21 @@ class EgzersizSayfasi extends StatelessWidget {
                     Text(
                       oAnEklenecek.egzersizAdi,
                       style: TextStyle(
-                          fontSize: en/24,
+                          fontSize: en / 24,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                     ),
                     Container(
                       decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                          borderRadius: BorderRadius.all(Radius.circular(6))),
                       child: Padding(
                           padding: EdgeInsets.all(4),
                           child: Text(
                             tumEgzersizler[index].egzersizSeviye,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: en/35,
+                                fontSize: en / 35,
                                 color: Colors.blueGrey.shade900),
                           )),
                     )

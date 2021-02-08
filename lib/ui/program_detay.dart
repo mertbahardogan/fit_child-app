@@ -320,7 +320,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
         margin: EdgeInsets.only(top: 15, bottom: 15, left: 5, right: 5),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: Colors.grey,
+          color: Colors.blueGrey.shade200,
           borderRadius: BorderRadius.circular(5),
         ),
         child: Row(
