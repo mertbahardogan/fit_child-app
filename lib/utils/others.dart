@@ -4,9 +4,8 @@ class Others {
     "Bisiklete Binmek",
     "Koşu",
     "İp Atlamak",
-    "Koşu Bandı",
-    "ABS Teker",
-    "Lastik",
+    "Mekik Tekeri",
+    "Pilates Lastiği",
   ];
 
   static const List<String> OTHERS_DOSYA_ADLARI = [
@@ -14,35 +13,31 @@ class Others {
     "bisiklet",
     "kosu",
     "ip",
-    "kosuband",
     "teker",
     "lastik",
   ];
   static const List<String> OTHERS_FAYDALARI = [
-    "Kondisyon arttırır. Yağ yakımı sağlar.",
-    "Bacak kaslarını çalıştırır. Kondisyonu arttırır.",
-    "Bacak kasları başta olmak üzere tüm kaslar çalışır. Yağ yakımı sağlar.",
-    "Kol ve bacak kasları başta olmak üzere tüm kaslar çalışır.",
-    "Dışarda koşu yapamadığınız zaman yapabilirsiniz. Aynı etkiyi sağlar.",
-    "Karın ve sırt kaslarını çalıştırır.",
-    "Tüm kasları çalıştırır. Isınma hareketleri yapabilirsiniz.",
+    "Kondisyonunuzu artırır, stresi azaltır. Fazla kiloları vermenizi sağlar.",
+    "Kas gücü ve esnekliğinizi artırır. Stresi azaltır. Yağ yakımı sağlar.",
+    "Sakinleştirici etkisi vardır, moral ve motivasyon sağlar. Tempolu koşu yağ yakımını artırır.",
+    "Dayanıklılığı ve kondisyonu artırır. Stresi azaltır, rahatlamaya yardımcı olur.",
+    "Karın kaslarını güçlendirir. Aynı zamanda bir çok kasa etkisi vardır.",
+    "Kasları etkili bir şekilde çalıştırır. Kaslarınıza esneklik kazandırır."
   ];
   static const List<String> OTHERS_TAVSIYE = [
-    "Her gün 1 saat yapılabilir",
-    "Her gün 1 saat yapılabilir",
-    "Her gün 1 saat yapılabilir",
-    "Her gün 1 saat yapılabilir",
-    "Her gün 1 saat yapılabilir",
-    "Her gün 1 saat yapılabilir",
-    "Her gün 1 saat yapılabilir",
+    "Haftada 3 gün sistematik olarak günde yarım saat yüzmek faydalıdır.",
+    "Haftada 5 gün, günde yarım saat bisiklet sürmek faydalıdır. ",
+    "Haftada 3 gün, günde yarım saat - bir saat arası tempolu ve açık havada yapabilirsiniz.",
+    "Haftanın her günü sistematik olarak yapılabilir.",
+    "Her antrenmandan sonra veya önce yapılabilir.",
+    "Her antrenman başında yapılabilir."
   ];
   static const List<String> OTHERS_CALISAN_BOLGELER = [
-    "Omuz, Sırt, Göğüs, Bacak, Kalça ve Karın kasları.",
-    "Bacak, Kol, Göğüs ve Omuz kasları.",
-    "Tüm Vücut",
-    "Tüm Vücut",
-    "Tüm Vücut",
-    "Tüm Vücut",
-    "Tüm Vücut",
+    "Omuz, Sırt, Göğüs, Bacak, Kalça ve Karın kasları çalışır.",
+    "Bacak, Kol, Göğüs ve Omuz kasları çalışır.",
+    "Bacak kasları başta olmak üzere tüm kaslar çalışır.",
+    "Karın, Bacak ve Kalça kasları çalışır.",
+    "Başta Karın olmak üzere Kol, Sırt, Omuz ve Göğüs kaslarını çalıştırır.",
+    "Uygulanan hareket tipine göre değişiklik gösterir. Tüm kasları çalıştırabilir."
   ];
 }

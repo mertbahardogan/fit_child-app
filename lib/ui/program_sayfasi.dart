@@ -102,7 +102,10 @@ class ProgramSayfasi extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                    Text(oAnEklenecek.haftalikAciklama,
+                    Text(
+                        "Egzersizler " +
+                            oAnEklenecek.haftalikAciklama +
+                            " saniye 3-4 set yapılabilir.",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: en / 40,

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cocuklar_icin_spor_app/methods/egzersiz_verileri_hazirla.dart';
 import 'package:cocuklar_icin_spor_app/models/egzersiz.dart';
 import 'package:cocuklar_icin_spor_app/models/gunler.dart';
@@ -5,7 +7,7 @@ import 'package:cocuklar_icin_spor_app/models/haftalik.dart';
 import 'package:cocuklar_icin_spor_app/models/program_durum.dart';
 import 'package:cocuklar_icin_spor_app/ui/program_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
-import 'package:cocuklar_icin_spor_app/utils/strings.dart';
+// import 'package:cocuklar_icin_spor_app/utils/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -21,10 +23,6 @@ class _ProgramDetayState extends State<ProgramDetay> {
   DatabaseHelper _databaseHelper;
   List<ProgramDurum> tumKaydedilenlerListesi;
   bool secilenDurum = false;
-  // Image check = Image.asset("assets/images/general/check.png");
-  // Image checkLast = Image.asset("assets/images/general/trophy.png");
-
-  // bool deger = false;
   Color renk = Colors.grey.shade300;
   Haftalik secilenHafta;
   static List<Egzersiz> tumEgzersizler;
@@ -180,7 +178,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
       children: [
         InkWell(
           onTap: () {
-            aciklamaAlertDialog(context, index);
+            aciklamaAlertDialog(context, index, en);
           },
           child: Container(
             height: boy / 13,
@@ -363,24 +361,98 @@ class _ProgramDetayState extends State<ProgramDetay> {
     ];
   }
 
-  void aciklamaAlertDialog(BuildContext ctx, int index) {
+  void aciklamaAlertDialog(BuildContext ctx, int index, double en) {
+    int a = 20;
+    if (secilenHafta.haftalikAciklama == "15") a = 15;
+    if (secilenHafta.haftalikAciklama == "20") a = 20;
+    if (secilenHafta.haftalikAciklama == "25") a = 25;
+    if (secilenHafta.haftalikAciklama == "30") a = 30;
+
+    // int counter = 20;
+    Timer timer;
     showDialog(
         context: ctx,
         barrierDismissible: false,
         builder: (ctx) {
+          // return StatefulBuilder(builder: (ctx, StateSetter setState) {
           return AlertDialog(
             title: Center(
               child: Text(
                 tumGunler[index].icerik,
-                style: TextStyle(color: Colors.yellow.shade800),
+                style: TextStyle(color: Colors.deepOrange.shade700),
               ),
             ),
             backgroundColor: Colors.blueGrey.shade900,
-            content: SingleChildScrollView(
-                child: Text(
-              tumGunler[index].hareketDetay,
-              style: TextStyle(color: Colors.white),
-            )),
+            content: StatefulBuilder(
+              builder: (ctx, StateSetter setState) {
+                return SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      a == -1 || a == int.parse(secilenHafta.haftalikAciklama)
+                          ? RaisedButton(
+                              child: Text(
+                                "Süreyi Başlat!",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: en / 23,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              elevation: 0,
+                              color: Colors.deepOrange.shade800,
+                              onPressed: () {
+                                setState(() {
+                                  if (timer != null) {
+                                    timer.cancel();
+                                  }
+                                  timer = Timer.periodic(Duration(seconds: 1),
+                                      (timer) {
+                                    setState(() {
+                                      if (a > -1) {
+                                        a--;
+                                      } else {
+                                        a = int.parse(
+                                            secilenHafta.haftalikAciklama);
+                                        tebrikAlertGoster(context, a);
+                                        timer.cancel();
+                                      }
+                                    });
+                                  });
+                                });
+                              })
+                          : Container(
+                              color: Colors.deepOrange.shade300,
+                              width: en / 1.45,
+                              height: en / 9,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(a != -1 ? "Kalan Süre: " : "",
+                                      style: TextStyle(
+                                          color: Colors.blueGrey.shade900,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: en / 25)),
+                                  Text(
+                                    a == -1
+                                        ? secilenHafta.haftalikAciklama
+                                        : a.toString(),
+                                    style: TextStyle(
+                                        color: Colors.blueGrey.shade900,
+                                        fontSize: en / 23),
+                                  ),
+                                ],
+                              ),
+                            ),
+                      SizedBox(height: en / 11),
+                      Text(
+                        tumGunler[index].hareketDetay,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
             actions: [
               RaisedButton(
                   color: Colors.white,
@@ -388,7 +460,12 @@ class _ProgramDetayState extends State<ProgramDetay> {
                     "Anladım",
                     style: TextStyle(color: Colors.blueGrey.shade900),
                   ),
-                  onPressed: () => Navigator.of(ctx).pop()),
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                    if (timer != null) {
+                      timer.cancel();
+                    }
+                  }),
             ],
           );
         });
@@ -523,6 +600,59 @@ class _ProgramDetayState extends State<ProgramDetay> {
                     style: TextStyle(color: Colors.redAccent, fontSize: 12),
                   ),
                   onPressed: () => Navigator.of(ctx).pop()),
+            ],
+          );
+        });
+  }
+
+  void tebrikAlertGoster(BuildContext ctx, int count) {
+    showDialog(
+        context: ctx,
+        barrierDismissible: false,
+        builder: (ctx) {
+          return AlertDialog(
+            title: Column(children: [
+              Text(
+                "Tebrikler, Tamamladınız!",
+                style: TextStyle(
+                    color: Colors.green.shade400,
+                    fontSize: MediaQuery.of(context).size.width / 22,
+                    fontWeight: FontWeight.bold),
+              ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 23.0),
+                  child: Image.asset(
+                    "assets/images/general/energy.png",
+                    width: MediaQuery.of(context).size.width / 4,
+                    height: MediaQuery.of(context).size.height / 7,
+                  ),
+                ),
+              ),
+            ]),
+            backgroundColor: Colors.blueGrey.shade900,
+            content: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.only(top: 10, left: 20),
+                child: Center(
+                  child: Text(
+                    "Hareketiniz $count saniye sürdü.",
+                    style: TextStyle(
+                        color: Colors.green.shade100,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14),
+                  ),
+                ),
+              ),
+            ),
+            actions: [
+              FlatButton(
+                child: Text(
+                  "Kapat",
+                  style: TextStyle(color: Colors.redAccent, fontSize: 12),
+                ),
+                onPressed: () => Navigator.of(ctx).pop(),
+              ),
             ],
           );
         });

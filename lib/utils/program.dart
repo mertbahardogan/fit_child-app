@@ -17,9 +17,9 @@ class Program{
   ];
 
   static const List<String> PROGRAM_ACIKLAMA=[
-    "Egzersizler 2 set 10 tekrar yapılabilir.",
-    "Egzersizler 2 set 15 tekrar yapılabilir.",
-    "Egzersizler 3 set 10 tekrar yapılabilir.",
-    "Egzersizler 4 set 10 tekrar yapılabilir.",
+    "15",
+    "20",
+    "25",
+    "30"
   ];
 }

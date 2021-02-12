@@ -6,7 +6,7 @@ import 'package:cocuklar_icin_spor_app/utils/others.dart';
 List<Oneri> oneriVerileriHazirla() {
   List<Oneri> oneriler = [];
 
-  for (int i = 0; i < 7; i++) {
+  for (int i = 0; i < 6; i++) {
     String resim = Others.OTHERS_DOSYA_ADLARI[i] + "${i + 1}.png";
 
     Oneri eklenecekOneri = Oneri(

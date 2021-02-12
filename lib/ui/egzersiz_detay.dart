@@ -52,6 +52,15 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
     }).catchError((hata) => print("İnit state hata alındı: " + hata));
   }
 
+  @override
+  void dispose() {
+    // DO YOUR STUFF
+    if (_timer != null) {
+      _timer.cancel();
+    }
+    super.dispose();
+  }
+
   int _counter = 20;
   Timer _timer;
 
@@ -76,6 +85,7 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
   @override
   Widget build(BuildContext context) {
     double en = MediaQuery.of(context).size.width;
+    double boy = MediaQuery.of(context).size.height;
 
     return Scaffold(
       key: _scaffoldKey,
@@ -87,7 +97,7 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
           title: Text(secilenEgzersiz.egzersizAdi),
           centerTitle: true,
           backgroundColor: Colors.blue[100 * ((widget.gelenIndex % 4) + 1)],
-          expandedHeight: 200,
+          expandedHeight: boy / 3,
           actions: [
             IconButton(
               icon: Icon(
@@ -120,11 +130,14 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
             )
           ],
           flexibleSpace: FlexibleSpaceBar(
-            background: Image.asset(
-              "assets/images/exercises/" + secilenEgzersiz.egzersizResim,
-              fit: BoxFit.scaleDown,
-              cacheHeight: (en / 1.5).round(),
-              alignment: Alignment.bottomCenter,
+            background: Padding(
+              padding: const EdgeInsets.only(top: 60.0),
+              child: Image.asset(
+                "assets/images/exercises/" + secilenEgzersiz.egzersizResim,
+                fit: BoxFit.scaleDown,
+                cacheHeight: (en / 1.5).round(),
+                alignment: Alignment.bottomCenter,
+              ),
             ),
           ),
         ),
@@ -194,24 +207,9 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
                         ),
                       ),
                       Text(
-                        secilenEgzersiz.egzersizBolge +
-                            "  bölgelerini çalıştırır.",
+                        secilenEgzersiz.egzersizBolge,
                         style: TextStyle(fontSize: 18),
                       ),
-                      Divider(
-                        height: 20,
-                        thickness: 1,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: Icon(
-                          Icons.repeat,
-                          size: 27,
-                          color: Colors.deepOrange.shade800,
-                        ),
-                      ),
-                      Text(secilenEgzersiz.egzersizOneri,
-                          style: TextStyle(fontSize: 18)),
                       Divider(
                         height: 20,
                         thickness: 1,

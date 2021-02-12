@@ -3,7 +3,7 @@ class Egzersiz {
   String _egzersizAdi;
   String _egzersizDosya;
   String _egzersizBolge;
-  String _egzersizOneri;
+  // String _egzersizOneri;
   String _egzersizDetay;
   String _egzersizResim;
   String _egzersizSeviye;
@@ -16,7 +16,7 @@ class Egzersiz {
     this._egzersizAdi,
     this._egzersizDosya,
     this._egzersizBolge,
-    this._egzersizOneri,
+    // this._egzersizOneri,
     this._egzersizDetay,
     this._egzersizResim,
     this._egzersizSeviye,
@@ -41,9 +41,9 @@ class Egzersiz {
 
   set egzersizBolge(String value) => _egzersizBolge = value;
 
-  String get egzersizOneri => this._egzersizOneri;
+  // String get egzersizOneri => this._egzersizOneri;
 
-  set egzersizOneri(String value) => _egzersizOneri = value;
+  // set egzersizOneri(String value) => _egzersizOneri = value;
 
   String get egzersizDetay => this._egzersizDetay;
 
