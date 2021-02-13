@@ -18,8 +18,8 @@ class Strings {
     "Isınma 2",
     "Kedi Pozu",
     "Isınma 3",
-    "Eğilme 1",
-    "Eğilme 2",
+    "Eğilme", //19
+    "Esneme",
     "Savaşçı Pozu",
     "Geniş Üçgen",
     "Yarım Balık",
@@ -64,7 +64,7 @@ class Strings {
     "Göğüs, Kol, Karın, Omuz ve Sırt kaslarının çalışmasını sağlar.",
     "Sinir sistemi, eklem ve kasları egzersizlere hazırlar, esneklik sağlar.",
     "Yan Karın, Kol ve Omuz kaslarının çalışmasını sağlar.",
-    "Rahatlama sağlar ve stresi azaltır.",
+    "Rahatlama sağlar ve stresi azaltır. Postürü (duruşu) düzeltir.",
     "Bacak kasınız başta olmak üzere tüm kaslarının çalışmasını sağlar. Stresi azaltır.",
     "Bacak ve Kalça kaslarının çalışmasını sağlar.",
     "Omuz, Sırt ve Arka Kol kaslarının çalışmasını sağlar.",
@@ -72,9 +72,9 @@ class Strings {
     "Omuz kaslarının çalışmasını sağlar.",
     "Bacak ve Kalça kaslarının çalışmasını sağlar. Vücuda esneklik ve rahatlık kazandırır.",
     "Sırt kası başta olmak üzere tüm vücut bölgelerine esneklik ve rahatlık sağlar.",
-    "Köprü",
+    "Vücudun ön tarafındaki kasları esnetir, arka tarafındaki kasları ise kasarak vücudu rahatlatır.",
     "Bacak Isınma 2",
-    "Kedi",
+    "Boyun ve Sırt kaslarını esnetir, postürü (duruşu) düzeltir.",
     "Bacak Isınma 3",
     "Ayakta Öne Eğilme",
     "Öne Eğilme",
@@ -148,13 +148,26 @@ class Strings {
         "\t3-Bir nefeslik süre boyunca dengede kalın, sonra kollarınızı düz bir şekilde ileri doğrultun ve sol kolunuzu sağ kolunuzun altına koyun.\n\n"
         "\t4-Dirseklerinizi bükün, kollarınızı birbirine değdirerek, avuçlarınızı birbirine bastırın.\n\n"
         "\t5-Kalçalarınızı ve göğsünüzü duvara bastırarak karnınızı içeri çekin.\n\n"
-        "\t6-Seviyenize göre (ortalama 20 sn.)bekleyin, sonrasında kollarınızı ve bacaklarınızı çözüp diğer taraf için deneyin.\n\n",
-    "Köprü",
+        "\t6-Seviyenize göre (ortalama 20 sn.) bekleyin, sonrasında kollarınızı ve bacaklarınızı çözüp diğer taraf için deneyin.\n\n",
+    "\t1-Sırt üstü yatın. Ayaklarınızı omuz genişliğinde olacak şekilde açın ve kendinize çekip başlangıç pozisyonunu alın.\n\n"
+        "\t2-Yavaşça kalçanız ve karın kaslarınızdan güç alarak kalkmaya çalışın. Ellerinizi kalktıktan sonra açın ve yere koyun.\n\n"
+        "\t3-Bu pozisyonda 4-6 kez nefes alıp başlangıç pozisyonuna dönebilir ve hareketi tekrarlayabilirsiniz.\n\n",
     "Bacak Isınma 2",
-    "Kedi",
+    "\tNot:Bu pozdan sonra inek pozuna geçebilirsiniz.\n\n"
+        "\t1-Kollarınızı omuz hizanızda olacak şekilde başlangıç pozisyonunu alın. Ellerinizi avuç içleriniz yere değecek şekilde konumlandırın ve parmaklarınızı açın.\n\n"
+        "\t2-Nefes verirken karnınızı içeri çekin, sırtınızı kambur hale getirin. Başınızı öne doğru eğin ve dizlerinize bakmaya başlayın.\n\n"
+        "\t3-Bu sırada çenenizi göğsünüze değdirmemeye özen gösterin.\n\n"
+        "\t4-1 saniye beledikten sonra başlangıç pozisyonuna dönerek hareketi tekrarlayabilirsiniz.\n\n",
     "Bacak Isınma 3",
-    "Ayakta Öne Eğilme",
-    "Öne Eğilme",
+    "\t1-Ayakta dururken, nefes vererek avuçlarınızın yere değmesini sağlayacak kadar dizlerinizi kırarak eğilin.\n\n"
+        "\t2-Başınız bacaklarınıza değiyor olsun. Bacaklarınızı düz tutmaya özen gösterin.\n\n"
+        "\t3-Bir kaç saniye boyunca pozisyonu koruyun, sonra dizlerinizi büküp nefes alarak rahatlamaya çalışın. \n\n"
+        "\t4-Başlangıç pozisyonunuza geri dönüp hareketi tekrarlayabilirsiniz.\n\n",
+    "\t1-Oturur pozisyonda bacaklarınızı uzatın, sol bacağınızı büküp ayak tabanınızı sağ kalçanızın iç kısmına getirin.\n\n"
+        "\t2-ki elinizi de sağ bacağınızın iki yanına koyup nefes alırken uzatılmış olan bacağa dönün.\n\n"
+        "\t3-Nefes verip öne eğilin ve bir kaç saniye pozisyonu korumaya çalışın.\n\n"
+        "\t4-Başlangıç pozisyonuna dönüp diğer taraf için de uygulayabilirsiniz.\n\n",
+
     "Savaşçı",
     "Geniş Üçgen",
     "Yarım Balık",
@@ -194,12 +207,12 @@ class Strings {
     "Orta",
     "Zor",
     "Çok Zor",
-    "Köprü",
+    "Orta", //15
     "Kolay",
-    "Kedi",
+    "Orta",
     "Kolay",
-    "Kolay",
-    "Kolay",
+    "Çok Zor", //19
+    "Zor",
     "Zor",
     "Kolay",
     "Kolay",

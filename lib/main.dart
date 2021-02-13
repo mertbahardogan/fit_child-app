@@ -8,9 +8,30 @@ import 'package:cocuklar_icin_spor_app/ui/giris_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:splashscreen/splashscreen.dart';
-
 import 'models/kisisel.dart';
+
+/// OneSignal Initialization
+void initOneSignal(oneSignalAppId) async{
+  // var settings = {
+  //   OSiOSSettings.autoPrompt: true,
+  //   OSiOSSettings.inAppLaunchUrl: true
+  // };
+await OneSignal.shared.init(oneSignalAppId); //, iOSSettings: settings
+OneSignal.shared
+      .setInFocusDisplayType(OSNotificationDisplayType.notification);
+// will be called whenever a notification is received
+  OneSignal.shared
+      .setNotificationReceivedHandler((OSNotification notification) {
+    print('Received: ' + notification?.payload?.body ?? '');
+  });
+// will be called whenever a notification is opened/button pressed.
+  OneSignal.shared
+      .setNotificationOpenedHandler((OSNotificationOpenedResult result) {
+    print('Opened: ' + result.notification?.payload?.body ?? '');
+  });
+}
 
 void main() => runApp(MyApp());
 
@@ -72,6 +93,7 @@ class _SplashState extends State<Splash> {
     super.initState();
     tumKisiselVerilerListesi = List<Kisisel>();
     _databaseHelper = DatabaseHelper();
+    initOneSignal("183aa663-1626-4f22-83ac-07ebeeecf2a6");
     // _databaseHelper.tumKayitlar().then((tumKayitlariTutanMapList) {
     //   for (Map okunanKayitListesi in tumKayitlariTutanMapList) {
     //     tumKisiselVerilerListesi
