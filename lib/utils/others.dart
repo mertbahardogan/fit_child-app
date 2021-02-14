@@ -25,8 +25,8 @@ class Others {
     "Kasları etkili bir şekilde çalıştırır. Kaslarınıza esneklik kazandırır."
   ];
   static const List<String> OTHERS_TAVSIYE = [
-    "Haftada 3 gün sistematik olarak günde yarım saat yüzmek faydalıdır.",
-    "Haftada 5 gün, günde yarım saat bisiklet sürmek faydalıdır. ",
+    "Haftada 3 gün sistematik olarak günde yarım saat yüzülebilir.",
+    "Haftada 5 gün, günde yarım saat bisiklet sürülebilir. ",
     "Haftada 3 gün, günde yarım saat - bir saat arası tempolu ve açık havada yapabilirsiniz.",
     "Haftanın her günü sistematik olarak yapılabilir.",
     "Her antrenmandan sonra veya önce yapılabilir.",

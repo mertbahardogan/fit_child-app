@@ -1,5 +1,6 @@
 class Egzersiz {
   //Properties
+  int _egzersizID;
   String _egzersizAdi;
   String _egzersizDosya;
   String _egzersizBolge;
@@ -13,6 +14,7 @@ class Egzersiz {
 
   Egzersiz(
     //Default Constructor: Çağırılıp nesne oluşturulurken alacağı değerler.
+    this._egzersizID,
     this._egzersizAdi,
     this._egzersizDosya,
     this._egzersizBolge,
@@ -27,6 +29,9 @@ class Egzersiz {
     this._egzersizAdi,
   );
 
+  int get egzersizID => _egzersizID;
+
+  set egzersizID(int value) => this._egzersizID = value;
   //Var Olan Değeri Geri Döndürür
   String get egzersizAdi => this._egzersizAdi;
 

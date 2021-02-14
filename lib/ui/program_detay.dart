@@ -33,7 +33,6 @@ class _ProgramDetayState extends State<ProgramDetay> {
     secilenHafta = ProgramSayfasi.tumHaftalar[widget.gelenIndex];
 
     tumGunler = verileriDondur();
-
     super.initState();
 
     tumKaydedilenlerListesi = List<ProgramDurum>();
@@ -157,6 +156,11 @@ class _ProgramDetayState extends State<ProgramDetay> {
   Widget topluListe(BuildContext context, int index) {
     double en = MediaQuery.of(context).size.width;
     double boy = MediaQuery.of(context).size.height;
+    // String deger = tumGunler[index].baslik;
+    // int index2 = basProgramOlustur(deger);
+    tumEgzersizler = egzersizVerileriHazirla();
+    // int index2=tumEgzersizler[index].
+    int id = 0;
     return ExpansionTile(
       backgroundColor: renk,
       childrenPadding: EdgeInsets.all(10),
@@ -176,35 +180,90 @@ class _ProgramDetayState extends State<ProgramDetay> {
       ),
       initiallyExpanded: tumGunler[index].expanded,
       children: [
-        InkWell(
-          onTap: () {
-            aciklamaAlertDialog(context, index, en);
-          },
-          child: Container(
-            height: boy / 13,
-            width: en,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(
-                  color: Colors.grey.shade300,
-                  width: 3,
+        Container(
+          height: boy / 6,
+          width: en,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                color: Colors.grey.shade300,
+                width: 3,
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+          child: tumGunler[index].icerik != "Dinlenme"
+              ? Column(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        id = 0;
+                        aciklamaAlertDialog(context, index, id, en);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Image.asset(
+                            "assets/images/exercises/" +
+                                tumGunler[index].hareketResim,
+                            width: en / 8,
+                            height: boy / 15,
+                          ),
+                          Text(
+                            tumGunler[index].icerik,
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Divider(),
+                    InkWell(
+                      onTap: () {
+                        print(tumEgzersizler[index].egzersizID);
+                        id = 1;
+                        aciklamaAlertDialog(
+                            context, tumEgzersizler[index].egzersizID, id, en);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Image.asset(
+                            "assets/images/exercises/" +
+                                tumEgzersizler[index].egzersizResim,
+                            width: en / 8,
+                            height: boy / 15,
+                          ),
+                          Text(
+                            tumEgzersizler[index].egzersizAdi,
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              : InkWell(
+                  onTap: () {
+                    id = 0;
+                    aciklamaAlertDialog(context, index, id, en);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Image.asset(
+                        "assets/images/exercises/" +
+                            tumGunler[index].hareketResim,
+                        width: en / 8,
+                        height: boy / 15,
+                      ),
+                      Text(
+                        tumGunler[index].icerik,
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w400),
+                      ),
+                    ],
+                  ),
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(10))),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Image.asset(
-                  "assets/images/exercises/" + tumGunler[index].hareketResim,
-                  width: en / 8,
-                  height: boy / 15,
-                ),
-                Text(
-                  tumGunler[index].icerik,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
-          ),
         ),
       ],
     );
@@ -228,7 +287,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
   int gunDondur([String s]) {
     int deger = 7;
     if (widget.gelenIndex == 0) {
-      deger = basProgramOlustur(s);
+      deger = basProgramOlustur(s); //0
     }
     if (widget.gelenIndex == 1) {
       deger = iyiProgramOlustur(s);
@@ -274,11 +333,11 @@ class _ProgramDetayState extends State<ProgramDetay> {
     int value = 0;
     if (s == "Pazartesi") value = 0;
     if (s == "Sali") value = 1;
-    if (s == "Çarşamba") value = 8; //dinlenme
+    if (s == "Çarşamba") value = 25; //dinlenme
     if (s == "Perşembe") value = 5;
     if (s == "Cuma") value = 1;
-    if (s == "Cumartesi") value = 8;
-    if (s == "Pazar") value = 8;
+    if (s == "Cumartesi") value = 25;
+    if (s == "Pazar") value = 25;
     return value;
   }
 
@@ -286,11 +345,11 @@ class _ProgramDetayState extends State<ProgramDetay> {
     int value = 0;
     if (s == "Pazartesi") value = 0;
     if (s == "Sali") value = 1;
-    if (s == "Çarşamba") value = 8; //dinlenme
+    if (s == "Çarşamba") value = 25; //dinlenme
     if (s == "Perşembe") value = 5;
     if (s == "Cuma") value = 1;
     if (s == "Cumartesi") value = 0;
-    if (s == "Pazar") value = 8;
+    if (s == "Pazar") value = 25;
     return value;
   }
 
@@ -302,7 +361,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
     if (s == "Perşembe") value = 5;
     if (s == "Cuma") value = 0;
     if (s == "Cumartesi") value = 5;
-    if (s == "Pazar") value = 8;
+    if (s == "Pazar") value = 25;
     return value;
   }
 
@@ -361,7 +420,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
     ];
   }
 
-  void aciklamaAlertDialog(BuildContext ctx, int index, double en) {
+  void aciklamaAlertDialog(BuildContext ctx, int index, id, double en) {
     int a = 20;
     if (secilenHafta.haftalikAciklama == "15") a = 15;
     if (secilenHafta.haftalikAciklama == "20") a = 20;
@@ -378,7 +437,9 @@ class _ProgramDetayState extends State<ProgramDetay> {
           return AlertDialog(
             title: Center(
               child: Text(
-                tumGunler[index].icerik,
+                id == 0
+                    ? tumGunler[index].icerik
+                    : tumEgzersizler[index].egzersizAdi,
                 style: TextStyle(color: Colors.deepOrange.shade700),
               ),
             ),
@@ -445,7 +506,9 @@ class _ProgramDetayState extends State<ProgramDetay> {
                             ),
                       SizedBox(height: en / 11),
                       Text(
-                        tumGunler[index].hareketDetay,
+                        id == 0
+                            ? tumGunler[index].hareketDetay
+                            : tumEgzersizler[index].egzersizDetay,
                         style: TextStyle(color: Colors.white),
                       ),
                     ],

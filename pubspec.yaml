@@ -32,6 +32,7 @@ dependencies:
   path_provider: ^1.6.24
   date_format: ^1.0.9
   onesignal_flutter: ^2.3.4
+  launch_review: ^2.0.0
 
 dev_dependencies:
   flutter_test:

@@ -18,8 +18,8 @@ class Strings {
     "Isınma 2",
     "Kedi Pozu",
     "Isınma 3",
-    "Eğilme", //19
-    "Esneme",
+    "Eğilme 1", //19
+    "Eğilme 2",
     "Savaşçı Pozu",
     "Geniş Üçgen",
     "Yarım Balık",
@@ -64,7 +64,7 @@ class Strings {
     "Göğüs, Kol, Karın, Omuz ve Sırt kaslarının çalışmasını sağlar.",
     "Sinir sistemi, eklem ve kasları egzersizlere hazırlar, esneklik sağlar.",
     "Yan Karın, Kol ve Omuz kaslarının çalışmasını sağlar.",
-    "Rahatlama sağlar ve stresi azaltır. Postürü (duruşu) düzeltir.",
+    "Rahatlama sağlar ve stresi azaltır. Postürü düzeltir.",
     "Bacak kasınız başta olmak üzere tüm kaslarının çalışmasını sağlar. Stresi azaltır.",
     "Bacak ve Kalça kaslarının çalışmasını sağlar.",
     "Omuz, Sırt ve Arka Kol kaslarının çalışmasını sağlar.",
@@ -76,14 +76,14 @@ class Strings {
     "Bacak Isınma 2",
     "Boyun ve Sırt kaslarını esnetir, postürü (duruşu) düzeltir.",
     "Bacak Isınma 3",
-    "Ayakta Öne Eğilme",
-    "Öne Eğilme",
-    "Savaşçı",
-    "Geniş Üçgen",
-    "Yarım Balık",
-    "Lotus",
-    "Aşağı Bakan Köpek",
-    "Dinlenme"
+    "Sırt, Kalça ve Bacak bölgelerinin esnemesini sağlar. Stresi azaltır.",
+    "Sırt ve Bacak bölgelerinin esnemesini sağlar. Stresi azaltır.",
+    "Kalça ve Bacak kaslarını esnetir ve güçlendirir. Enerjinizi artırır.",
+    "Kalça, Bacak, Sırt ve Omuz kaslarını esnetir ve güçlendirir.",
+    "Omuz, Kalça ve Boynu esnetir ve rahatlama sağlar. Stresi azaltır.",
+    "Kalça, Diz ve Ayak bileklerini esnetir. Stresi azaltır ve rahatlık kazandırır. Postürü düzeltir.",
+    "Omuz, Bacak ve Kol kaslarını esnetir ve çalıştırır.",
+    "Tüm vücut dinlenme sırasında gelişir ve yenilenir."
   ];
 
   static const List<String> EGZERSIZ_NASIL_YAPILIR = [
@@ -93,7 +93,8 @@ class Strings {
         "\t4-Elleriniz omuz mesafesinden biraz daha aralıklı olmalı.\n\n"
         "\t5-Karnınızı sıkı tutun ve bedenini geri iterken nefes verin.\n\n"
         "\t6-Duruşu bozmadan yapmak çok önemlidir.\n\n",
-    "\t1-Yüzüstü yatarak avuç içlerinizi yere bastırın ve göğsünüzü yukarı kaldırın.\n\n"
+    "HAREKETİN TAM ADI: Yukarı Bakan Köpek Pozu\n\n"
+        "\t1-Yüzüstü yatarak avuç içlerinizi yere bastırın ve göğsünüzü yukarı kaldırın.\n\n"
         "\t2-Dizlerinizi yerden kaldırabilmek ayaklarınızı yere bastırın.\n\n"
         "\t2-Bu pozisyonda, sadece elleriniz ve ayaklarınızın üstünün yerde olması lazım.\n\n"
         "\t3-Nefes alıp vermeyi unutmayın.",
@@ -101,7 +102,7 @@ class Strings {
         "\t2-Ellerinizi başınızın arkasına yerleştirin ama parmaklarınızı birbirine geçirmeyin. Başparmaklarınız kulaklarınızın arkasına gelsin.\n\n"
         "\t3-Dirseklerini dışa doğru açık tutun, hafifçe içe dönük olsunlar. Çenenizi hafifçe yukarı kaldırın, göğüs ve çene arasında boşluk olsun.\n\n"
         "\t4-Karnınızı içeri çekin. Baş, boyun ve kürek kemikleriniz aynı anda yerden kalksın.\n\n"
-        "\t4-Tepe noktadayken 1–2 saniye bekleyin. Aşağı yavaşça inin.\n\n",
+        "\t5-Tepe noktadayken 1–2 saniye bekleyin. Aşağı yavaşça inin.\n\n",
     "\t1-Yüzüstü yere yatın. Dirseklerinizi dik hale getirip üstünde durun.\n\n"
         "\t2-Dirsekleriniz ile yerden destek alıp durun ve bu sırada dirseklerin omuz hizasında olduğuna dikkat edin.\n\n"
         "\t3-Ardından ayak parmaklarınızdan destek alın. Sadece dirsek ve ayak parmaklarınızdan destek alıyor olmalısınız.\n\n"
@@ -153,27 +154,55 @@ class Strings {
         "\t2-Yavaşça kalçanız ve karın kaslarınızdan güç alarak kalkmaya çalışın. Ellerinizi kalktıktan sonra açın ve yere koyun.\n\n"
         "\t3-Bu pozisyonda 4-6 kez nefes alıp başlangıç pozisyonuna dönebilir ve hareketi tekrarlayabilirsiniz.\n\n",
     "Bacak Isınma 2",
-    "\tNot:Bu pozdan sonra inek pozuna geçebilirsiniz.\n\n"
+    "Not:Bu pozdan sonra inek pozuna geçebilirsiniz.\n\n"
         "\t1-Kollarınızı omuz hizanızda olacak şekilde başlangıç pozisyonunu alın. Ellerinizi avuç içleriniz yere değecek şekilde konumlandırın ve parmaklarınızı açın.\n\n"
         "\t2-Nefes verirken karnınızı içeri çekin, sırtınızı kambur hale getirin. Başınızı öne doğru eğin ve dizlerinize bakmaya başlayın.\n\n"
         "\t3-Bu sırada çenenizi göğsünüze değdirmemeye özen gösterin.\n\n"
-        "\t4-1 saniye beledikten sonra başlangıç pozisyonuna dönerek hareketi tekrarlayabilirsiniz.\n\n",
+        "\t4-Bir kaç saniye bekleyin. Ardından başlangıç pozisyonuna dönerek hareketi tekrarlayabilirsiniz.\n\n",
     "Bacak Isınma 3",
-    "\t1-Ayakta dururken, nefes vererek avuçlarınızın yere değmesini sağlayacak kadar dizlerinizi kırarak eğilin.\n\n"
+    "HAREKETİN TAM ADI: Ayakta Öne Eğilme Pozu\n\n"
+        "\t1-Ayakta dururken, nefes vererek avuçlarınızın yere değmesini sağlayacak kadar dizlerinizi kırarak eğilin.\n\n"
         "\t2-Başınız bacaklarınıza değiyor olsun. Bacaklarınızı düz tutmaya özen gösterin.\n\n"
         "\t3-Bir kaç saniye boyunca pozisyonu koruyun, sonra dizlerinizi büküp nefes alarak rahatlamaya çalışın. \n\n"
         "\t4-Başlangıç pozisyonunuza geri dönüp hareketi tekrarlayabilirsiniz.\n\n",
-    "\t1-Oturur pozisyonda bacaklarınızı uzatın, sol bacağınızı büküp ayak tabanınızı sağ kalçanızın iç kısmına getirin.\n\n"
-        "\t2-ki elinizi de sağ bacağınızın iki yanına koyup nefes alırken uzatılmış olan bacağa dönün.\n\n"
-        "\t3-Nefes verip öne eğilin ve bir kaç saniye pozisyonu korumaya çalışın.\n\n"
-        "\t4-Başlangıç pozisyonuna dönüp diğer taraf için de uygulayabilirsiniz.\n\n",
+    "HAREKETİN TAM ADI: Oturarak Öne Eğilme Pozu\n\n"
+        "\t1-Oturur pozisyonda bacaklarınızı düz olacak şekilde uzatın. Omurganızı uzatmak için derin bir nefes alın.\n\n"
+        "\t2-Nefes verirken göbeğinizi içinize çekin ve gövdenizi ileriye doğru eğin. Ellerinizi, bacaklarınız ve belinizin izin verdiği kadar ileriye uzatın.\n\n"
+        "\t3-Alnınızı bacaklarınızın üzerine yaslayın ve gevşeyin. Bu pozisyonda en az üç derin nefes alın.\n\n"
+        "\t4-Başlangıç pozisyonuna dönüp ve dinlenip tekrar uygulayabilirsiniz.\n\n",
 
-    "Savaşçı",
-    "Geniş Üçgen",
-    "Yarım Balık",
-    "Lotus",
-    "Aşağı Bakan Köpek",
-    "Dinlenme"
+    "\t1-Bir ayağınızı öne uzatın, diğer ayağınız arkada olacak şekilde tutun.\n\n"
+        "\t2-Öndeki ayağınızın üzerine doğru bedeninizi ilerletin, arkadaki bacağınızın dizlerden kırılmasına izin verin.\n\n"
+        "\t3-Bunları uygularken dik durmaya ve kollarınızı açmaya özen gösterin.\n\n"
+        "\t4-Bu pozisyonda bir kaç saniye bekleyin. Ardından başlangıç pozisyonuna dönüp tekrarlayabilirsiniz.\n\n",
+
+    "HAREKETİN TAM ADI: Geniş Üçgen Pozu\n\n"
+        "\t1-Ayakta durarak başlayın. Nefes vererek bacaklarınızı açın ve ellerinizi yanlara doğru açıp, avuçlarınız yere bakacak şekilde durun.\n\n"
+        "\t2-Sağ ayağınızı 90 derecelik açıyla dışarı doğru döndürün, sol ayağınızı da sağa doğru döndürün.\n\n"
+        "\t3-Kalça kaslarınızı sıkın ve sağ kalçanızı dışa çevirin, sonra vücudu kalça tarafından sağ bacağa doğru bükün.\n\n"
+        "\t4-Vücudunuzu sola çevirin, sonrasında sol kalçanızı yavaşça ileri götürün.\n\n"
+        "\t5-Sağ elinizi ayak bilekleriniz de tutun, sol elinizi de yukarı kaldırın.\n\n"
+        "\t6-Kafanızı düz veya hafifçe sola yatık tutun, bu pozisyonda ortalama 20 saniye (seviyenize göre değişebilir) kalın.\n\n",
+    "HAREKETİN TAM ADI: Yarım Balık Kralı Pozu\n\n"
+        "\t1-Yere oturun, sırtınız dik olacak şekilde bacaklarınızı öne uzatın. \n\n"
+        "\t2-Dizlerinizi bükün, ayaklarınızı yere basın ve sol ayağınızı sağ bacağınızın altına, kalçanızın dışına doğru kaydırın. \n\n"
+        "\t3-Sol bacağınızın dışını yere yatırın. Sağ ayağınızı sol bacağınızın dışına yere basın ve sağ dizinizin tavana bakmalı. \n\n"
+        "\t4-Nefes vererek sağ kalçanızın dışına doğru dönün. Sağ elinizi sağ kalçanızın arkasında yere bastırın ve sol kolunuzu dirsek hizasından sağ dizinize geçirin. Sol el düz tavanı göstermeli. \n\n"
+        "\t5-Sağ ayağınızı yere basın. Sırtınızı da dik tutmaya özen gösterin. Başınızı kontrollü şekilde sağ tarafa döndürün.\n\n"
+        "\t6-Ortalama 20 saniye bu pozisyonu koruyun. \n\n"
+        "\t7-Ardından başlangıç pozisyonuna dönerek diğer taraftan pozu tekrarlayabilirsiniz.",
+    "\t1-Yere oturun ve ayaklarınızı dümdüz olacak şekilde uzatın.\n\n"
+        "\t2-Sağ dizinizi büküp, sağ ayak bileğinizi sol kasığınızın üzerine yerleştirin. \n\n"
+        "\t3-Sonrasında sol dizinizi büküp, sol ayağınızı bu sefer sağ kasığınızın üzerine çapraz bir şekilde yerleştirin. \n\n"
+        "\t4-Ellerinizi baş parmak ve işaret parmağı bitişik avuç içleri yukarı bakacak şekilde serbest bırakın. \n\n"
+        "\t5-Doğal bir şekilde burundan nefes alıp vermeye başlayın. Ortalama 20 saniye bu pozisyonda kalabilirsiniz. \n\n",
+    "HAREKETİN TAM ADI: Aşağı Bakan Köpek Pozu\n\n"
+        "\t1-Elleriniz ve dizleriniz yerde pozisyona başlayın. Kalçanız yukarıyı görecek ve topuklarınız yere değmeyecek şekilde pozisyon alın.\n\n"
+        "\t2-Boynunuzu uzatmak için başınızı eğin. \n\n"
+        "\t3-Bilekleriniz yerin kenarına paralel olmalıdır. Bu pozisyonda bir kaç saniye kalıp tekrarlayabilirsiniz.\n\n",
+    "\t1-Günlük dinlenmelerde, uykunuzu yeteri kadar aldığımızı düşünürsek egzersizlerden sonra vücudumuzu dinlendirmek çok önemlidir.\n\n"
+        "\t2-Antrenman sonraları yaptığınız dinlenmeler, antrenman öncesi yaptığınız dinlenmeler kadar vücudunuzun gelişmesi ve forma girmesine katkı sağlar. \n\n"
+        "\t3-Rahatlayıp yeniden sıradaki antrenmana hazırlanmak için dinlenme günlerine önem vermeliyiz.",
 
     // "\t1-Kol çevirme hareketi, Ayaklarınızı omuz genişliğinde açmış ve kollarınız yanınızda olacak şekilde ayakta durun.\n\n"
     //     "\tKollarınızı yavaşça öne doğru dairesel hareketlerle sallayın. Bunu yaparken, omuzlarını ısınıyor hissetmelisiniz.\n\n"
@@ -211,14 +240,14 @@ class Strings {
     "Kolay",
     "Orta",
     "Kolay",
-    "Çok Zor", //19
+    "Zor", //19
     "Zor",
+    "Orta",
+    "Orta",
     "Zor",
     "Kolay",
-    "Kolay",
-    "Lotus",
-    "Kolay",
-    "Dinlenme"
+    "Orta",
+    "Kolay"
   ];
 }
 //6 8 9 11 25 ve ilerisi

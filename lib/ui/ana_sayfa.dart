@@ -7,6 +7,7 @@ import 'package:cocuklar_icin_spor_app/ui/tekrar_kaydedici_liste.dart';
 import 'package:cocuklar_icin_spor_app/ui/vucut_kitle_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:launch_review/launch_review.dart';
 
 class AnaSayfa extends StatefulWidget {
   @override
@@ -50,35 +51,47 @@ class _AnaSayfaState extends State<AnaSayfa> {
           title: Padding(
             padding: const EdgeInsets.only(top: 15.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Center(
-                  child: Text(
-                    "Fit Child",
-                    style: TextStyle(
-                        fontSize: 33,
-                        color: Colors.blueGrey.shade900,
-                        fontFamily: "Indie",
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                IconButton(
-                    icon: Icon(
-                      Icons.account_circle_rounded,
-                      color: Colors.blueGrey.shade700,
-                      size: 30,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Center(
+                    child: Text(
+                      "Fit Child",
+                      style: TextStyle(
+                          fontSize: 33,
+                          color: Colors.blueGrey.shade900,
+                          fontFamily: "Indie",
+                          fontWeight: FontWeight.bold),
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => BilgileriGuncelle()))
-                          .then((value) {
-                        setState(() {});
-                      });
-                    }),
-              ],
-            ),
+                  ),
+                  ButtonBar(
+                    children: [
+                      IconButton(
+                          icon: Icon(Icons.stars,
+                              size: en / 12, color: Colors.blueAccent.shade100),
+                          onPressed: () {
+                            // LaunchReview.launch(
+                            //   androidAppId:
+                            //       "com.company.appname", //app id change
+                            // );
+                          }),
+                      IconButton(
+                          icon: Icon(
+                            Icons.account_circle_rounded,
+                            color: Colors.blueGrey.shade700,
+                            size: en / 12,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        BilgileriGuncelle())).then((value) {
+                              setState(() {});
+                            });
+                          }),
+                    ],
+                  ),
+                ]),
           ),
           centerTitle: true,
           backgroundColor: Colors.white,
@@ -479,7 +492,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                "Beslenmenin önemi ve detaylı bilgiler.",
+                                "Detaylı bilgiler için dokunun.",
                                 style: TextStyle(
                                   fontSize: en / 33,
                                   color: Colors.grey.shade700,
@@ -524,10 +537,11 @@ class _AnaSayfaState extends State<AnaSayfa> {
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              "Planlı ve düzenli olmanın sporda önemi.",
+                              // "Planlı ve düzenli olmanın sporda önemi.",
+                              "Çok yakında!",
                               style: TextStyle(
                                 fontSize: en / 33,
-                                color: Colors.grey.shade700,
+                                color: Colors.grey.shade500,
                               ),
                             ),
                           ],
@@ -568,10 +582,11 @@ class _AnaSayfaState extends State<AnaSayfa> {
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              "Uyku ve dinlenme hakkında detaylı bilgiler.",
+                              // "Uyku ve dinlenme hakkında detaylı bilgiler.",
+                              "Çok yakında!",
                               style: TextStyle(
                                 fontSize: en / 33,
-                                color: Colors.grey.shade700,
+                                color: Colors.grey.shade500,
                               ),
                             ),
                           ],

@@ -8,6 +8,7 @@ List<Egzersiz> egzersizVerileriHazirla() {
     String resim = Strings.EGZERSIZ_DOSYA_ADLARI[i] + "${i + 1}.png";
 
     Egzersiz eklenecekEgzersiz = Egzersiz(
+      i,
       Strings.EGZERSIZ_ADLARI[i],
       Strings.EGZERSIZ_DOSYA_ADLARI[i],
       Strings.EGZERSIZ_CALISAN_BOLGELER[i],
