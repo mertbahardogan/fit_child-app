@@ -60,13 +60,13 @@ class ProgramSayfasi extends StatelessWidget {
         width: en,
         height: boy / 2.9,
         decoration: BoxDecoration(
-            color: Colors.blueGrey.shade200,
+            color: Colors.blueAccent.shade100,
             borderRadius: BorderRadius.all(
               Radius.circular(14),
             ),
             boxShadow: [
               BoxShadow(
-                  color: Colors.blueGrey.shade900,
+                  color: Colors.blueAccent.shade100,
                   blurRadius: 1,
                   offset: Offset(0, 5))
             ]),

@@ -1,52 +1,57 @@
 class Strings {
   static const List<String> EGZERSIZ_ADLARI = [
+    "Isınma",
+    "Isınma",
+    "Isınma",
+    "Isınma",
+
     "Şınav",
-    "Yukarı Bakma",
     "Mekik",
     "Plank",
-    "Isınma 1",
     "Yan Plank",
-    "İnek Pozu",
-    "Yürüyüş", //8
     "Squad",
-    "Direnç Bandı",
-    "Pilates 1", //11
+
+    "Direnç Bandı", //10
+    "Pilates 1",
     "Omuz",
+
+    "İnek Pozu", //12
     "Sandalye Pozu",
-    "Kartal Pozu",
+    "Kartal Pozu",//14
     "Köprü Pozu",
-    "Isınma 2",
-    "Kedi Pozu",
-    "Isınma 3",
-    "Eğilme 1", //19
+    "Kedi Pozu",//16
+    "Eğilme 1",
     "Eğilme 2",
-    "Savaşçı Pozu",
+    "Savaşçı Pozu",//19
     "Geniş Üçgen",
     "Yarım Balık",
     "Lotus Pozu",
-    "Aşağı Bakma",
+    "Aşağı Bakma",//23
+    "Yukarı Bakma",
+    "Yürüyüş",
     "Dinlenme"
   ];
 
   static const List<String> EGZERSIZ_DOSYA_ADLARI = [
+    "aisinma",
+    "bisinma",
+    "cisinma",
+    "disinma",
     "sinav",
-    "yukarikopek",
     "mekik",
     "plank",
-    "aisinma",
     "yanplank",
-    "inek",
-    "yürüyüs",
     "squad",
+
     "direnc",
     "pilates",
     "omuz",
+    "inek",
+
     "sandalye",
     "kartal",
     "kopru", //15
-    "bisinma",
     "kedi",
-    "cisinma",
     "aoneeg",
     "oneeg",
     "savas",
@@ -54,28 +59,31 @@ class Strings {
     "yarimbalik",
     "lotus",
     "asagikopek",
+    "yukarikopek",
+    "yürüyüs",
     "dinlenme"
   ];
 
   static const List<String> EGZERSIZ_CALISAN_BOLGELER = [
+    "Sinir sistemi, eklem ve kasları egzersizlere hazırlar, esneklik sağlar.",
+    "Sinir sistemi, eklem ve kasları egzersizlere hazırlar, esneklik sağlar.",
+    "Sinir sistemi, eklem ve kasları egzersizlere hazırlar, esneklik sağlar.",
+    "Sinir sistemi, eklem ve kasları egzersizlere hazırlar, esneklik sağlar.",
     "Göğüs, Kol, Sırt ve Omuz kaslarının çalışmasını sağlar.",
-    "Rahatlama ve esneklik sağlar.",
     "Karın kaslarının çalışmasını sağlar.",
     "Göğüs, Kol, Karın, Omuz ve Sırt kaslarının çalışmasını sağlar.",
-    "Sinir sistemi, eklem ve kasları egzersizlere hazırlar, esneklik sağlar.",
     "Yan Karın, Kol ve Omuz kaslarının çalışmasını sağlar.",
-    "Rahatlama sağlar ve stresi azaltır. Postürü düzeltir.",
-    "Bacak kasınız başta olmak üzere tüm kaslarının çalışmasını sağlar. Stresi azaltır.",
     "Bacak ve Kalça kaslarının çalışmasını sağlar.",
+
     "Omuz, Sırt ve Arka Kol kaslarının çalışmasını sağlar.",
     "Kol, Bel, Karın ve Sırt kaslarının esnemesini sağlar.", //11
     "Omuz kaslarının çalışmasını sağlar.",
+    "Rahatlama sağlar ve stresi azaltır. Postürü düzeltir.",
+
     "Bacak ve Kalça kaslarının çalışmasını sağlar. Vücuda esneklik ve rahatlık kazandırır.",
     "Sırt kası başta olmak üzere tüm vücut bölgelerine esneklik ve rahatlık sağlar.",
     "Vücudun ön tarafındaki kasları esnetir, arka tarafındaki kasları ise kasarak vücudu rahatlatır.",
-    "Bacak Isınma 2",
     "Boyun ve Sırt kaslarını esnetir, postürü (duruşu) düzeltir.",
-    "Bacak Isınma 3",
     "Sırt, Kalça ve Bacak bölgelerinin esnemesini sağlar. Stresi azaltır.",
     "Sırt ve Bacak bölgelerinin esnemesini sağlar. Stresi azaltır.",
     "Kalça ve Bacak kaslarını esnetir ve güçlendirir. Enerjinizi artırır.",
@@ -83,21 +91,29 @@ class Strings {
     "Omuz, Kalça ve Boynu esnetir ve rahatlama sağlar. Stresi azaltır.",
     "Kalça, Diz ve Ayak bileklerini esnetir. Stresi azaltır ve rahatlık kazandırır. Postürü düzeltir.",
     "Omuz, Bacak ve Kol kaslarını esnetir ve çalıştırır.",
+    "Rahatlama ve esneklik sağlar.", //Yukarı Bakma
+    "Bacak kasınız başta olmak üzere tüm kaslarının çalışmasını sağlar. Stresi azaltır.", //yürüyüş
     "Tüm vücut dinlenme sırasında gelişir ve yenilenir."
   ];
 
   static const List<String> EGZERSIZ_NASIL_YAPILIR = [
+    "\t1-Yere oturun, bacaklarınızı düz ve gergin duracak şekilde açın.\n\n"
+        "\t2-İki elinizi de kullanarak ilk önce sağ, sonra sol ayak ucuna dokunmaya çalışın.\n\n"
+        "\t3-Hareketi tekrarlayın.\n\n",
+    "Bacak Isınma 2",
+    "Bacak Isınma 3",
+    "\t1-Ayakta postürünüz düz olacak şekilde durun. Ayaklarınızı omuz hizasında açın.\n\n"
+        "\t2-Yapacağınız egzersize göre ısınma hareketine başlayın.(Omuz, Kol veya Göğüs olabilir.)\n\n"
+        "\t3-Isınma hareketi örneğin omuz kası için; yavaşça kollarınızı öne doğru çevirin. 10 tekrar sonra bunu arkadaya doğru tekrarlayın.\n\n"
+        "\t4-Isınma hareketi örneğin kol kası için; yavaşça bileklerinizi omzunuza doğru ağırlık kaldırır gibi getirin. 10 tekrar yapabilirsiniz.\n\n"
+        "\t5-Isınma hareketi örneğin göğüs kası için; kollarınızı omuz hizasında düz duracak şekilde durun. Yana doğru açın ve tekrar eski pozisyona gönün. 10 tekrar yapılabilir.\n\n",
     "\t1-Yüzüstü yere uzanın.\n\n"
         "\t2-Ayaklarınızı birbirinden ayırmayın.\n\n"
         "\t3-Kollarınızı kullanarak kendinizi kaldırın.\n\n"
         "\t4-Elleriniz omuz mesafesinden biraz daha aralıklı olmalı.\n\n"
         "\t5-Karnınızı sıkı tutun ve bedenini geri iterken nefes verin.\n\n"
         "\t6-Duruşu bozmadan yapmak çok önemlidir.\n\n",
-    "HAREKETİN TAM ADI: Yukarı Bakan Köpek Pozu\n\n"
-        "\t1-Yüzüstü yatarak avuç içlerinizi yere bastırın ve göğsünüzü yukarı kaldırın.\n\n"
-        "\t2-Dizlerinizi yerden kaldırabilmek ayaklarınızı yere bastırın.\n\n"
-        "\t2-Bu pozisyonda, sadece elleriniz ve ayaklarınızın üstünün yerde olması lazım.\n\n"
-        "\t3-Nefes alıp vermeyi unutmayın.",
+
     "\t1-Sırt üstü yatın, dizleriniz kırılı ve ayak tabanlarınız yerde olsun. Dizleriniz kalça hizasında açık olmalı.\n\n"
         "\t2-Ellerinizi başınızın arkasına yerleştirin ama parmaklarınızı birbirine geçirmeyin. Başparmaklarınız kulaklarınızın arkasına gelsin.\n\n"
         "\t3-Dirseklerini dışa doğru açık tutun, hafifçe içe dönük olsunlar. Çenenizi hafifçe yukarı kaldırın, göğüs ve çene arasında boşluk olsun.\n\n"
@@ -108,23 +124,14 @@ class Strings {
         "\t3-Ardından ayak parmaklarınızdan destek alın. Sadece dirsek ve ayak parmaklarınızdan destek alıyor olmalısınız.\n\n"
         "\t4-Bacaklarınızı omuz hizasında tutunuz. Kalçanızı ne yukarı kaldırın ne de aşağıya indirin. Düz olmasını sağlayın.\n\n"
         "\t4-Derin nefes alıp verin.\n\n",
-    "\t1-Yere oturun, bacaklarınızı düz ve gergin duracak şekilde açın.\n\n"
-        "\t2-İki elinizi de kullanarak ilk önce sağ, sonra sol ayak ucuna dokunmaya çalışın.\n\n"
-        "\t3-Hareketi tekrarlayın.\n\n",
     "\t1-Plank pozisyonuna geçtikten sonra sağ eliniz ile gücünüzü ve dengenizi sağladıktan sonra yavaşça dönerek yan plank pozuna geçin.\n\n"
         "\t2-Düz ve dengede olduktan sonra sağ/sol kolunuzu yukarıya kaldırın ve bu pozisyonda kalın.\n\n"
         "\t3-Daha sonra başlangıç pozisyonuna dönün. Bu sefer diğer tarafınıza aynı hareketi uygulayın.\n\n",
-    "\t1-Yerde elleriniz ve dizleriniz üzerinde masa pozisyonunda durun. Dizlerinizin tam kalçalarınızın altına denk gelmesine, omuzlarınız ile el bileklerinizin aynı hizada ve yere paralel olmasına dikkat edin. Başınız tam merkezde olsun ve gözler yere baksın.\n\n"
-        "\t2-Nefes vererek oturma kemiklerinizi ve göğsünüzü tavana doğru kaldırın. Karnınız yere doğru yaklaşsın.\n\n"
-        "\t3-Nefes verin ve tekrar masa pozisyonuna geçin.\n\n",
-    "\t1-Yürüyüşe başlamadan önce ısınma egzersizlerini uygulayabilirsiniz.\n\n"
-        "\t2-Nefesinizi düzenli alıp vermeye özen gösterin.\n\n"
-        "\t3-Belirli bir tempo yakalayın ve yürüyüş sonuna kadar korumaya özen gösterin.\n\n"
-        "\t4-Tempolu yürümek 30 dakikadan sonra yağ yakımınızı önemli derecede artırmaktadır.\n\n",
     "\t1-Bacak ve omuzlarınız aynı hizada olacak şekilde pozisyon alın.\n\n"
         "\t2-Dizlerinizin ayak hizasını geçmemesine dikkat edin ve başınızı düz pozisyonda tutun.\n\n"
         "\t3-Ayarladığınız pozisyonu koruyarak karnınızın sıkı, belinizin düz olduğundan emin olup sadece kalça bölgenizin dışarı çıkaracak şekilde eğilin.\n\n"
         "\t4-Daha sonra başlangıç pozisyonuna gelerek hareketi tekrarlayın.\n\n",
+
     "\t1-Direnç bandı kullanıyorsanız tutma yerlerinden, lastik kullanıyorsanız elinizi saracak şekilde tutun.\n\n"
         "\t2-Ellerinizi omuz yüksekliğine getirin, düz duracak şekilde pozisyonunuzu alın.\n\n"
         "\t3-Direnç bandını - lastiği kollarınız düz olana kadar gerin, 1 saniye bekleyin. (Bu sırada kollarınız omuz yükseklğini korumalı.)\n\n"
@@ -138,6 +145,10 @@ class Strings {
         "\t2-Kollarınız bacaklarınızın yanında olacak şekilde başlangıç pozisyonunu alın.\n\n"
         "\t3-Dirseklerinizi bükmeden ellerinizi omuz seviyesine kadar (direnç bandı - lastik gerginliğine dikkat ederek) yukarı çıkartın.\n\n"
         "\t4-1 saniye bekledikten sonra tekrar başlangıç pozisyonuna dönerek hareketi tekrarlayabilirsiniz.",
+    "\t1-Yerde elleriniz ve dizleriniz üzerinde masa pozisyonunda durun. Dizlerinizin tam kalçalarınızın altına denk gelmesine, omuzlarınız ile el bileklerinizin aynı hizada ve yere paralel olmasına dikkat edin. Başınız tam merkezde olsun ve gözler yere baksın.\n\n"
+        "\t2-Nefes vererek oturma kemiklerinizi ve göğsünüzü tavana doğru kaldırın. Karnınız yere doğru yaklaşsın.\n\n"
+        "\t3-Nefes verin ve tekrar masa pozisyonuna geçin.\n\n",
+
     "\t1-Ayakta dik bir şekilde durun.\n\n"
         "\t2-Ardından ayaklarınızı hafifçe açın, kollarınızı başınızın üzerine doğru kaldırın ve ileri doğru uzatın.\n\n"
         "\t3-Harekete yavaş bir şekilde arkanızda sandalye varmış ve oturuyormuş gibi çömelerek devam edin. \n\n"
@@ -153,13 +164,13 @@ class Strings {
     "\t1-Sırt üstü yatın. Ayaklarınızı omuz genişliğinde olacak şekilde açın ve kendinize çekip başlangıç pozisyonunu alın.\n\n"
         "\t2-Yavaşça kalçanız ve karın kaslarınızdan güç alarak kalkmaya çalışın. Ellerinizi kalktıktan sonra açın ve yere koyun.\n\n"
         "\t3-Bu pozisyonda 4-6 kez nefes alıp başlangıç pozisyonuna dönebilir ve hareketi tekrarlayabilirsiniz.\n\n",
-    "Bacak Isınma 2",
+
     "Not:Bu pozdan sonra inek pozuna geçebilirsiniz.\n\n"
         "\t1-Kollarınızı omuz hizanızda olacak şekilde başlangıç pozisyonunu alın. Ellerinizi avuç içleriniz yere değecek şekilde konumlandırın ve parmaklarınızı açın.\n\n"
         "\t2-Nefes verirken karnınızı içeri çekin, sırtınızı kambur hale getirin. Başınızı öne doğru eğin ve dizlerinize bakmaya başlayın.\n\n"
         "\t3-Bu sırada çenenizi göğsünüze değdirmemeye özen gösterin.\n\n"
         "\t4-Bir kaç saniye bekleyin. Ardından başlangıç pozisyonuna dönerek hareketi tekrarlayabilirsiniz.\n\n",
-    "Bacak Isınma 3",
+
     "HAREKETİN TAM ADI: Ayakta Öne Eğilme Pozu\n\n"
         "\t1-Ayakta dururken, nefes vererek avuçlarınızın yere değmesini sağlayacak kadar dizlerinizi kırarak eğilin.\n\n"
         "\t2-Başınız bacaklarınıza değiyor olsun. Bacaklarınızı düz tutmaya özen gösterin.\n\n"
@@ -200,6 +211,15 @@ class Strings {
         "\t1-Elleriniz ve dizleriniz yerde pozisyona başlayın. Kalçanız yukarıyı görecek ve topuklarınız yere değmeyecek şekilde pozisyon alın.\n\n"
         "\t2-Boynunuzu uzatmak için başınızı eğin. \n\n"
         "\t3-Bilekleriniz yerin kenarına paralel olmalıdır. Bu pozisyonda bir kaç saniye kalıp tekrarlayabilirsiniz.\n\n",
+    "HAREKETİN TAM ADI: Yukarı Bakan Köpek Pozu\n\n" //Yukarı Bakma
+        "\t1-Yüzüstü yatarak avuç içlerinizi yere bastırın ve göğsünüzü yukarı kaldırın.\n\n"
+        "\t2-Dizlerinizi yerden kaldırabilmek ayaklarınızı yere bastırın.\n\n"
+        "\t2-Bu pozisyonda, sadece elleriniz ve ayaklarınızın üstünün yerde olması lazım.\n\n"
+        "\t3-Nefes alıp vermeyi unutmayın.",
+    "\t1-Yürüyüşe başlamadan önce ısınma egzersizlerini uygulayabilirsiniz.\n\n"
+        "\t2-Nefesinizi düzenli alıp vermeye özen gösterin.\n\n"
+        "\t3-Belirli bir tempo yakalayın ve yürüyüş sonuna kadar korumaya özen gösterin.\n\n"
+        "\t4-Tempolu yürümek 30 dakikadan sonra yağ yakımınızı önemli derecede artırmaktadır.\n\n",
     "\t1-Günlük dinlenmelerde, uykunuzu yeteri kadar aldığımızı düşünürsek egzersizlerden sonra vücudumuzu dinlendirmek çok önemlidir.\n\n"
         "\t2-Antrenman sonraları yaptığınız dinlenmeler, antrenman öncesi yaptığınız dinlenmeler kadar vücudunuzun gelişmesi ve forma girmesine katkı sağlar. \n\n"
         "\t3-Rahatlayıp yeniden sıradaki antrenmana hazırlanmak için dinlenme günlerine önem vermeliyiz.",
@@ -222,24 +242,23 @@ class Strings {
   ];
 
   static const List<String> EGZERSIZ_SEVIYE = [
-    "Zor",
+    "Kolay",
+    "Kolay",
+    "Kolay",
+    "Kolay",
+    "Orta",
     "Orta",
     "Zor",
     "Zor",
+    "Orta",
+    "Orta",
     "Kolay",
     "Zor",
-    "Orta",
-    "Kolay", //8
-    "Zor",
-    "Orta",
-    "Kolay", //11
     "Orta",
     "Zor",
     "Çok Zor",
     "Orta", //15
-    "Kolay",
     "Orta",
-    "Kolay",
     "Zor", //19
     "Zor",
     "Orta",
@@ -247,6 +266,8 @@ class Strings {
     "Zor",
     "Kolay",
     "Orta",
+    "Orta", //yukarı bakma
+    "Kolay",
     "Kolay"
   ];
 }

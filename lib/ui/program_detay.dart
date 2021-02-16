@@ -7,7 +7,6 @@ import 'package:cocuklar_icin_spor_app/models/haftalik.dart';
 import 'package:cocuklar_icin_spor_app/models/program_durum.dart';
 import 'package:cocuklar_icin_spor_app/ui/program_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
-// import 'package:cocuklar_icin_spor_app/utils/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -156,10 +155,11 @@ class _ProgramDetayState extends State<ProgramDetay> {
   Widget topluListe(BuildContext context, int index) {
     double en = MediaQuery.of(context).size.width;
     double boy = MediaQuery.of(context).size.height;
-    // String deger = tumGunler[index].baslik;
-    // int index2 = basProgramOlustur(deger);
     tumEgzersizler = egzersizVerileriHazirla();
-    // int index2=tumEgzersizler[index].
+    int isinmaIndex = index % 3;
+    int fitIndex = index + 4;
+    int fitIndex2 = index + 5;
+    // int yogIndex = index + 1;
     int id = 0;
     return ExpansionTile(
       backgroundColor: renk,
@@ -181,7 +181,9 @@ class _ProgramDetayState extends State<ProgramDetay> {
       initiallyExpanded: tumGunler[index].expanded,
       children: [
         Container(
-          height: boy / 6,
+          height: tumGunler[index].icerik != "Dinlenme"
+              ? boy / 2.15
+              : boy / 11, //1.9
           width: en,
           decoration: BoxDecoration(
               color: Colors.white,
@@ -193,6 +195,108 @@ class _ProgramDetayState extends State<ProgramDetay> {
           child: tumGunler[index].icerik != "Dinlenme"
               ? Column(
                   children: [
+                    Divider(),
+                    //Sabit Isınma
+                    InkWell(
+                      onTap: () {
+                        id = 1;
+                        aciklamaAlertDialog(
+                            context, tumEgzersizler[3].egzersizID, id, en);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Image.asset(
+                            "assets/images/exercises/" +
+                                tumEgzersizler[3].egzersizResim,
+                            width: en / 8,
+                            height: boy / 15,
+                          ),
+                          Text(
+                            tumEgzersizler[3].egzersizAdi,
+                            style: TextStyle(
+                                fontSize: en / 24, fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Divider(),
+                    //Dinamik Isınma
+                    InkWell(
+                      onTap: () {
+                        id = 1;
+                        aciklamaAlertDialog(context,
+                            tumEgzersizler[isinmaIndex].egzersizID, id, en);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Image.asset(
+                            "assets/images/exercises/" +
+                                tumEgzersizler[isinmaIndex].egzersizResim,
+                            width: en / 8,
+                            height: boy / 15,
+                          ),
+                          Text(
+                            tumEgzersizler[isinmaIndex].egzersizAdi,
+                            style: TextStyle(
+                                fontSize: en / 24, fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Divider(),
+                    //Dinamik Fitness
+                    InkWell(
+                      onTap: () {
+                        id = 1;
+                        aciklamaAlertDialog(context,
+                            tumEgzersizler[fitIndex].egzersizID, id, en);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Image.asset(
+                            "assets/images/exercises/" +
+                                tumEgzersizler[fitIndex].egzersizResim,
+                            width: en / 8,
+                            height: boy / 15,
+                          ),
+                          Text(
+                            tumEgzersizler[fitIndex].egzersizAdi,
+                            style: TextStyle(
+                                fontSize: en / 24, fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Divider(),
+                    //Dinamik Fitness2
+                    InkWell(
+                      onTap: () {
+                        id = 1;
+                        aciklamaAlertDialog(context,
+                            tumEgzersizler[fitIndex2].egzersizID, id, en);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Image.asset(
+                            "assets/images/exercises/" +
+                                tumEgzersizler[fitIndex2].egzersizResim,
+                            width: en / 8,
+                            height: boy / 15,
+                          ),
+                          Text(
+                            tumEgzersizler[fitIndex2].egzersizAdi,
+                            style: TextStyle(
+                                fontSize: en / 24, fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Divider(),
+                    //Dinamik Yoga
                     InkWell(
                       onTap: () {
                         id = 0;
@@ -210,36 +314,35 @@ class _ProgramDetayState extends State<ProgramDetay> {
                           Text(
                             tumGunler[index].icerik,
                             style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w400),
+                                fontSize: en / 24, fontWeight: FontWeight.w400),
                           ),
                         ],
                       ),
                     ),
                     Divider(),
-                    InkWell(
-                      onTap: () {
-                        print(tumEgzersizler[index].egzersizID);
-                        id = 1;
-                        aciklamaAlertDialog(
-                            context, tumEgzersizler[index].egzersizID, id, en);
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Image.asset(
-                            "assets/images/exercises/" +
-                                tumEgzersizler[index].egzersizResim,
-                            width: en / 8,
-                            height: boy / 15,
-                          ),
-                          Text(
-                            tumEgzersizler[index].egzersizAdi,
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w400),
-                          ),
-                        ],
-                      ),
-                    ),
+                    //Dinamik Yoga2
+                    // InkWell(
+                    //   onTap: () {
+                    //     id = 0;
+                    //     aciklamaAlertDialog(context, index, id, en);
+                    //   },
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //     children: [
+                    //       Image.asset(
+                    //         "assets/images/exercises/" +
+                    //             tumGunler[index].hareketResim,
+                    //         width: en / 8,
+                    //         height: boy / 15,
+                    //       ),
+                    //       Text(
+                    //         tumGunler[index].icerik,
+                    //         style: TextStyle(
+                    //             fontSize: en / 24, fontWeight: FontWeight.w400),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                   ],
                 )
               : InkWell(
@@ -259,7 +362,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
                       Text(
                         tumGunler[index].icerik,
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w400),
+                            fontSize: en / 24, fontWeight: FontWeight.w400),
                       ),
                     ],
                   ),
@@ -272,6 +375,11 @@ class _ProgramDetayState extends State<ProgramDetay> {
   String degerDondur(String s) {
     tumEgzersizler = egzersizVerileriHazirla(); //Nesne
     return tumEgzersizler[gunDondur(s)].egzersizAdi;
+  }
+
+  String degerDondur2(String s) {
+    tumEgzersizler = egzersizVerileriHazirla(); //Nesne
+    return tumEgzersizler[gunDondur(s) + 1].egzersizAdi;
   }
 
   String resimDondur([String s]) {
@@ -290,10 +398,10 @@ class _ProgramDetayState extends State<ProgramDetay> {
       deger = basProgramOlustur(s); //0
     }
     if (widget.gelenIndex == 1) {
-      deger = iyiProgramOlustur(s);
+      deger = ortaProgramOlustur(s);
     }
     if (widget.gelenIndex == 2) {
-      deger = ortaProgramOlustur(s);
+      deger = iyiProgramOlustur(s);
     }
     if (widget.gelenIndex == 3) {
       deger = ustProgramOlustur(s);
@@ -305,63 +413,63 @@ class _ProgramDetayState extends State<ProgramDetay> {
     int value = 7;
     switch (s) {
       case "Pazartesi":
-        value = 0;
+        value = 12;
         break;
       case "Sali":
-        value = 1;
+        value = 26;
         break;
       case "Çarşamba":
-        value = 8;
+        value = 16;
         break;
       case "Perşembe":
-        value = 0;
+        value = 26;
         break;
       case "Cuma":
-        value = 1;
+        value = 22;
         break;
       case "Cumartesi":
-        value = 8;
+        value = 26;
         break;
       case "Pazar":
-        value = 8;
+        value = 26;
         break;
     }
     return value;
   }
 
-  int iyiProgramOlustur(String s) {
+  int ortaProgramOlustur(String s) {
     int value = 0;
-    if (s == "Pazartesi") value = 0;
-    if (s == "Sali") value = 1;
-    if (s == "Çarşamba") value = 25; //dinlenme
-    if (s == "Perşembe") value = 5;
-    if (s == "Cuma") value = 1;
-    if (s == "Cumartesi") value = 25;
-    if (s == "Pazar") value = 25;
+    if (s == "Pazartesi") value = 19;
+    if (s == "Sali") value = 20;
+    if (s == "Çarşamba") value = 26; //dinlenme
+    if (s == "Perşembe") value = 21;
+    if (s == "Cuma") value = 15;
+    if (s == "Cumartesi") value = 26;
+    if (s == "Pazar") value = 26;
     return value;
   }
 
-  int ortaProgramOlustur(String s) {
+  int iyiProgramOlustur(String s) {
     int value = 0;
-    if (s == "Pazartesi") value = 0;
-    if (s == "Sali") value = 1;
-    if (s == "Çarşamba") value = 25; //dinlenme
-    if (s == "Perşembe") value = 5;
-    if (s == "Cuma") value = 1;
-    if (s == "Cumartesi") value = 0;
-    if (s == "Pazar") value = 25;
+    if (s == "Pazartesi") value = 13;
+    if (s == "Sali") value = 17;
+    if (s == "Çarşamba") value = 26; //dinlenme
+    if (s == "Perşembe") value = 23;
+    if (s == "Cuma") value = 24;
+    if (s == "Cumartesi") value = 18;
+    if (s == "Pazar") value = 26;
     return value;
   }
 
   int ustProgramOlustur(String s) {
     int value = 0;
-    if (s == "Pazartesi") value = 0;
-    if (s == "Sali") value = 1;
-    if (s == "Çarşamba") value = 0;
-    if (s == "Perşembe") value = 5;
-    if (s == "Cuma") value = 0;
-    if (s == "Cumartesi") value = 5;
-    if (s == "Pazar") value = 25;
+    if (s == "Pazartesi") value = 21;
+    if (s == "Sali") value = 14;
+    if (s == "Çarşamba") value = 26;
+    if (s == "Perşembe") value = 17;
+    if (s == "Cuma") value = 18;
+    if (s == "Cumartesi") value = 14;
+    if (s == "Pazar") value = 26;
     return value;
   }
 
@@ -377,7 +485,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
         margin: EdgeInsets.only(top: 15, bottom: 15, left: 5, right: 5),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: Colors.blueGrey.shade200,
+          // color: Colors.blueAccent.shade50,
           borderRadius: BorderRadius.circular(5),
         ),
         child: Row(
@@ -400,14 +508,14 @@ class _ProgramDetayState extends State<ProgramDetay> {
               child: Column(
                 children: [
                   Text(
-                    "UYARI:",
+                    "NOT:",
                     style: TextStyle(
-                        color: Colors.red, fontWeight: FontWeight.bold),
+                        color: Colors.orange, fontWeight: FontWeight.bold),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 14.0, top: 0),
                     child: Text(
-                      "Egzersizlerden önce ısınma hareketleri yapılması kaslarınızı spora hazırlar.",
+                      "Programınıza ekleme ve çıkarmalar yapabilirsiniz. İyi sporlar!",
                       style: TextStyle(fontSize: en / 36, color: Colors.white),
                     ),
                   ),

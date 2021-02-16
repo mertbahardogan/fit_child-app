@@ -4,7 +4,7 @@ import 'package:cocuklar_icin_spor_app/utils/strings.dart';
 List<Egzersiz> egzersizVerileriHazirla() {
   List<Egzersiz> egzersizler = [];
 
-  for (int i = 0; i < 26; i++) {
+  for (int i = 0; i < 27; i++) {
     String resim = Strings.EGZERSIZ_DOSYA_ADLARI[i] + "${i + 1}.png";
 
     Egzersiz eklenecekEgzersiz = Egzersiz(
