@@ -67,8 +67,7 @@ class _VucutKitleSayfasiState extends State<VucutKitleSayfasi> {
                   "Hesapla",
                   style: TextStyle(color: Colors.white),
                 ),
-                color: Colors.red.shade800,
-                elevation: 10,
+                color: Colors.blueGrey.shade900,
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     _oraniHesapla(int.parse(_controllerBoy.text),

@@ -60,16 +60,17 @@ class ProgramSayfasi extends StatelessWidget {
         width: en,
         height: boy / 2.9,
         decoration: BoxDecoration(
-            color: Colors.blueAccent.shade100,
-            borderRadius: BorderRadius.all(
-              Radius.circular(14),
-            ),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.blueAccent.shade100,
-                  blurRadius: 1,
-                  offset: Offset(0, 5))
-            ]),
+          color: Colors.grey.shade500, //blue.shade400
+          borderRadius: BorderRadius.all(
+            Radius.circular(14),
+          ),
+          // boxShadow: [
+          //   BoxShadow(
+          //       color: Colors.blueAccent.shade100,
+          //       blurRadius: 1,
+          //       offset: Offset(0, 5))
+          // ],
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -85,7 +86,7 @@ class ProgramSayfasi extends StatelessWidget {
                 Text(
                   oAnEklenecek.haftalikAd + " Seviye",
                   style: TextStyle(
-                      color: Colors.blueGrey.shade900,
+                      color: renkUret(oAnEklenecek.haftalikAd),
                       fontSize: en / 16,
                       fontWeight: FontWeight.w600),
                 ),
@@ -97,7 +98,7 @@ class ProgramSayfasi extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(right: 6, left: 6),
                       child: Icon(
-                        Icons.info,
+                        Icons.timer,
                         size: en / 25,
                         color: Colors.white,
                       ),
@@ -121,5 +122,15 @@ class ProgramSayfasi extends StatelessWidget {
         Navigator.pushNamed(context, "/programDetay/$index");
       },
     );
+  }
+
+  Color renkUret(String level) {
+    Color renk;
+    if (level == "Başlangıç") renk = Colors.greenAccent;
+    if (level == "Orta") renk = Colors.yellowAccent;
+    if (level == "İyi") renk = Colors.redAccent;
+    if (level == "Üst") renk = Colors.black;
+
+    return renk;
   }
 }

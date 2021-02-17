@@ -41,7 +41,6 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey.shade900,
         title: Text("Yenilik Zamanı"),
         centerTitle: true,
       ),
@@ -74,33 +73,12 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
                   controller: _controller,
                   validator: _isimKontrol,
                 ),
-                // SizedBox(
-                //   height: 25,
-                // ),
-                // Text("Yaşınızı Seçiniz:"),
-                // Slider(
-                //     min: 7,
-                //     max: 17,
-                //     divisions: 10,
-                //     activeColor: Colors.redAccent,
-                //     label: _yasForm.toInt().toString(),
-                //     inactiveColor: Colors.blueGrey.shade900,
-                //     value: _yasForm,
-                //     onChanged: (secilen) {
-                //       setState(() {
-                //         _yasForm = secilen;
-                //       });
-                //     }),
-                // SizedBox(
-                //   height: 25,
-                // ),
                 RaisedButton(
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
                       _kayitGuncelle(Kisisel.withID(1, _controller.text));
                     }
                   },
-                  // color: Colors.red.withBlue(200),
                   color: Colors.orange.shade300,
                   child: Text(
                     "Güncelle",

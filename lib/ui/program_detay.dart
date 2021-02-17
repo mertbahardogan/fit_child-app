@@ -502,20 +502,24 @@ class _ProgramDetayState extends State<ProgramDetay> {
               width: en / 1.6,
               height: boy / 10,
               decoration: BoxDecoration(
-                color: Colors.blueGrey.shade900,
+                color: Colors.grey.shade500,
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "NOT:",
-                    style: TextStyle(
-                        color: Colors.orange, fontWeight: FontWeight.bold),
+                  Padding(
+                    padding: const EdgeInsets.only(left:14.0),
+                    child: Text(
+                      "NOT:",
+                      style: TextStyle(
+                          color: Colors.orange, fontWeight: FontWeight.bold),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 14.0, top: 0),
                     child: Text(
-                      "Programınıza ekleme ve çıkarmalar yapabilirsiniz. İyi sporlar!",
+                      "Egzersiz sonunda ekleme ve çıkarmalar yapabilirsiniz. İyi sporlar!",
                       style: TextStyle(fontSize: en / 36, color: Colors.white),
                     ),
                   ),
@@ -548,10 +552,10 @@ class _ProgramDetayState extends State<ProgramDetay> {
                 id == 0
                     ? tumGunler[index].icerik
                     : tumEgzersizler[index].egzersizAdi,
-                style: TextStyle(color: Colors.deepOrange.shade700),
+                style: TextStyle(color: Colors.orange),
               ),
             ),
-            backgroundColor: Colors.blueGrey.shade900,
+            backgroundColor: Colors.blueAccent.shade200,
             content: StatefulBuilder(
               builder: (ctx, StateSetter setState) {
                 return SingleChildScrollView(
@@ -567,7 +571,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
                                     fontWeight: FontWeight.bold),
                               ),
                               elevation: 0,
-                              color: Colors.deepOrange.shade800,
+                              color: Colors.orange,
                               onPressed: () {
                                 setState(() {
                                   if (timer != null) {

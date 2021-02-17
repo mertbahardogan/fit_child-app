@@ -54,7 +54,8 @@ class _MyAppState extends State<MyApp> {
         fontFamily: "Poppins",
         visualDensity: VisualDensity.adaptivePlatformDensity,
         accentColor: Colors.black54,
-        primaryColor: Colors.blueGrey.shade900,
+        // primaryColor: Colors.blueGrey.shade900,
+        primaryColor: Colors.blueAccent.shade100,
       ),
       home: Splash(),
       onGenerateRoute: (RouteSettings settings) {

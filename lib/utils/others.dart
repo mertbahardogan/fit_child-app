@@ -19,18 +19,18 @@ class Others {
   static const List<String> OTHERS_FAYDALARI = [
     "Kondisyonunuzu artırır, stresi azaltır. Fazla kiloları vermenizi sağlar.",
     "Kas gücü ve esnekliğinizi artırır. Stresi azaltır. Yağ yakımı sağlar.",
-    "Sakinleştirici etkisi vardır, moral ve motivasyon sağlar. Tempolu koşu yağ yakımını artırır.",
+    "Sakinleştirici etkisi vardır, moral ve motivasyon sağlar. Tempolu koşu, yağ yakımını artırır.",
     "Dayanıklılığı ve kondisyonu artırır. Stresi azaltır, rahatlamaya yardımcı olur.",
     "Karın kaslarını güçlendirir. Aynı zamanda bir çok kasa etkisi vardır.",
     "Kasları etkili bir şekilde çalıştırır. Kaslarınıza esneklik kazandırır."
   ];
   static const List<String> OTHERS_TAVSIYE = [
-    "Haftada 3 gün sistematik olarak günde yarım saat yüzülebilir.",
-    "Haftada 5 gün, günde yarım saat bisiklet sürülebilir. ",
-    "Haftada 3 gün, günde yarım saat - bir saat arası tempolu ve açık havada yapabilirsiniz.",
+    "Haftada 3 gün sistematik olarak günde yarım saat yüzebilirsiniz.",
+    "Haftada 5 gün, günde yarım saat bisiklet sürebilirsiniz.",
+    "Haftada 3 gün, günde yarım saat - bir saat arası açık havada tempolu koşu yapabilirsiniz.",
     "Haftanın her günü sistematik olarak yapılabilir.",
     "Her antrenmandan sonra veya önce yapılabilir.",
-    "Her antrenman başında yapılabilir."
+    "Her antrenmandan önce yapılabilir."
   ];
   static const List<String> OTHERS_CALISAN_BOLGELER = [
     "Omuz, Sırt, Göğüs, Bacak, Kalça ve Karın kasları çalışır.",

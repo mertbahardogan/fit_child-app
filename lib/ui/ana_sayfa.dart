@@ -3,6 +3,7 @@ import 'package:cocuklar_icin_spor_app/models/kisisel.dart';
 import 'package:cocuklar_icin_spor_app/models/oneri.dart';
 import 'package:cocuklar_icin_spor_app/ui/bilgileri_guncelle.dart';
 import 'package:cocuklar_icin_spor_app/ui/favori_listesi_sayfasi.dart';
+import 'package:cocuklar_icin_spor_app/ui/faydali_bilgiler_beslenme.dart';
 import 'package:cocuklar_icin_spor_app/ui/tekrar_kaydedici_liste.dart';
 import 'package:cocuklar_icin_spor_app/ui/vucut_kitle_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
@@ -478,34 +479,42 @@ class _AnaSayfaState extends State<AnaSayfa> {
                         borderRadius: BorderRadius.all(Radius.circular(4))),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Beslenme",
-                                style: TextStyle(
-                                    color: Colors.blue.shade600,
-                                    fontSize: en / 26,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                "Detaylı bilgiler için dokunun.",
-                                style: TextStyle(
-                                  fontSize: en / 33,
-                                  color: Colors.grey.shade700,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => BeslenmeSayfasi()));
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Beslenme",
+                                  style: TextStyle(
+                                      color: Colors.blue.shade600,
+                                      fontSize: en / 26,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Image.asset(
-                            "assets/images/general/food.png",
-                            width: en / 8,
-                            height: boy / 16,
-                          ),
-                        ],
+                                Text(
+                                  "Detaylı bilgiler için dokunun.",
+                                  style: TextStyle(
+                                    fontSize: en / 33,
+                                    color: Colors.grey.shade700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Image.asset(
+                              "assets/images/general/food.png",
+                              width: en / 8,
+                              height: boy / 16,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -532,7 +541,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                             Text(
                               "Plan ve Düzen",
                               style: TextStyle(
-                                  color: Colors.blue.shade600,
+                                  color: Colors.grey.shade600, //blue.shade600
                                   fontSize: en / 26,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -546,10 +555,13 @@ class _AnaSayfaState extends State<AnaSayfa> {
                             ),
                           ],
                         ),
-                        Image.asset(
-                          "assets/images/general/plan.png",
-                          width: en / 8,
-                          height: boy / 16,
+                        Opacity(
+                          opacity: 0.3,
+                          child: Image.asset(
+                            "assets/images/general/plan_passive.png", //change plan.png
+                            width: en / 8,
+                            height: boy / 16,
+                          ),
                         ),
                       ],
                     ),
@@ -577,7 +589,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                             Text(
                               "Uyku",
                               style: TextStyle(
-                                  color: Colors.blue.shade600,
+                                  color: Colors.grey.shade600,
                                   fontSize: en / 26,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -591,10 +603,13 @@ class _AnaSayfaState extends State<AnaSayfa> {
                             ),
                           ],
                         ),
-                        Image.asset(
-                          "assets/images/general/sleep.png",
-                          width: en / 8,
-                          height: boy / 16,
+                        Opacity(
+                          opacity: 0.3,
+                          child: Image.asset(
+                            "assets/images/general/sleep_passive.png", //change sleep.png
+                            width: en / 8,
+                            height: boy / 16,
+                          ),
                         ),
                       ],
                     ),
