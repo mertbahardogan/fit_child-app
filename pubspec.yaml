@@ -33,6 +33,9 @@ dependencies:
   date_format: ^1.0.9
   onesignal_flutter: ^2.3.4
   launch_review: ^2.0.0
+  firebase_admob: ^0.11.0+1
+  flushbar: ^1.10.4
+  connectivity: ^2.0.2
 
 dev_dependencies:
   flutter_test:

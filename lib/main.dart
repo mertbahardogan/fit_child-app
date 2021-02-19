@@ -13,13 +13,13 @@ import 'package:splashscreen/splashscreen.dart';
 import 'models/kisisel.dart';
 
 /// OneSignal Initialization
-void initOneSignal(oneSignalAppId) async{
+void initOneSignal(oneSignalAppId) async {
   // var settings = {
   //   OSiOSSettings.autoPrompt: true,
   //   OSiOSSettings.inAppLaunchUrl: true
   // };
-await OneSignal.shared.init(oneSignalAppId); //, iOSSettings: settings
-OneSignal.shared
+  await OneSignal.shared.init(oneSignalAppId); //, iOSSettings: settings
+  OneSignal.shared
       .setInFocusDisplayType(OSNotificationDisplayType.notification);
 // will be called whenever a notification is received
   OneSignal.shared
@@ -32,6 +32,22 @@ OneSignal.shared
     print('Opened: ' + result.notification?.payload?.body ?? '');
   });
 }
+
+// Future<String> initConnectionControl() async {
+//   String deger;
+//   var connectivityResult = await (Connectivity().checkConnectivity());
+//   if (connectivityResult == ConnectivityResult.mobile) {
+//     print("I am connected to a mobile network.");
+//     deger = "aktif";
+//   } else if (connectivityResult == ConnectivityResult.wifi) {
+//     print("I am connected to a wifi network.");
+//     deger = "aktif";
+//   } else if (connectivityResult == ConnectivityResult.none) {
+//     print("HAVE NOT network.");
+//     deger = "pasif";
+//   }
+//   return deger;
+// }
 
 void main() => runApp(MyApp());
 
@@ -49,7 +65,7 @@ class _MyAppState extends State<MyApp> {
     ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter First App',
+      title: 'Fit Child App',
       theme: ThemeData(
         fontFamily: "Poppins",
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -88,6 +104,7 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   DatabaseHelper _databaseHelper;
   List<Kisisel> tumKisiselVerilerListesi;
+  String connection;
 
   @override
   void initState() {
@@ -95,22 +112,13 @@ class _SplashState extends State<Splash> {
     tumKisiselVerilerListesi = List<Kisisel>();
     _databaseHelper = DatabaseHelper();
     initOneSignal("183aa663-1626-4f22-83ac-07ebeeecf2a6");
-    // _databaseHelper.tumKayitlar().then((tumKayitlariTutanMapList) {
-    //   for (Map okunanKayitListesi in tumKayitlariTutanMapList) {
-    //     tumKisiselVerilerListesi
-    //         .add(Kisisel.dbdenOkudugunDegeriObjeyeDonustur(okunanKayitListesi));
-    //   }
-    //   setState(() {});
-    // }).catchError((hata) => print("Init state hata fonk: " + hata.toString()));
+    // connection = initConnectionControl().toString();
   }
 
   @override
   Widget build(BuildContext context) {
     return SplashScreen(
         seconds: 2,
-        // navigateAfterSeconds: tumKisiselVerilerListesi.length == 0
-        //     ? GirisSayfasi()
-        //     : MyHomePage(),
         navigateAfterSeconds: FutureBuilder(
           future: _databaseHelper.kisiselListesiniGetir(),
           builder: (context, AsyncSnapshot<List<Kisisel>> snapShot) {

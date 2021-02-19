@@ -1,6 +1,8 @@
+import 'package:cocuklar_icin_spor_app/admob/admob_islemleri.dart';
 import 'package:cocuklar_icin_spor_app/models/favori_durum.dart';
 import 'package:cocuklar_icin_spor_app/ui/egzersiz_detay.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 
 class FavoriSayfasi extends StatefulWidget {
@@ -12,17 +14,30 @@ class _FavoriSayfasiState extends State<FavoriSayfasi> {
   DatabaseHelper _databaseHelper;
   List<FavoriDurum> tumKaydedilenlerListesi;
   var _scaffoldKey = GlobalKey<ScaffoldState>();
+  InterstitialAd myInterstitialAd;
   @override
   void initState() {
     super.initState();
+    AdmobIslemleri.admobInitialize();
+    myInterstitialAd = AdmobIslemleri.buildInterstitialAd();
     tumKaydedilenlerListesi = List<FavoriDurum>();
     _databaseHelper = DatabaseHelper();
+  }
+
+  @override
+  void dispose() {
+    myInterstitialAd.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     double en = MediaQuery.of(context).size.width;
     double boy = MediaQuery.of(context).size.height;
+
+    myInterstitialAd
+      ..load()
+      ..show();
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomPadding: true,
@@ -87,7 +102,7 @@ class _FavoriSayfasiState extends State<FavoriSayfasi> {
                               color: Colors.blueGrey.shade900),
                         ),
                         Text(
-                          "Detaylar için dokunun." ,
+                          "Detaylar için dokunun.",
                           style:
                               TextStyle(fontSize: en / 37, color: Colors.grey),
                         ),

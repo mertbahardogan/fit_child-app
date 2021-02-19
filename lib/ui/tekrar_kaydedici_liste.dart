@@ -1,5 +1,7 @@
+import 'package:cocuklar_icin_spor_app/admob/admob_islemleri.dart';
 import 'package:cocuklar_icin_spor_app/models/hareket.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:date_format/date_format.dart';
 
@@ -15,6 +17,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
   DatabaseHelper _databaseHelper;
   var _controller = TextEditingController();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
+  InterstitialAd myInterstitialAd;
 
   List<Hareket> tumKaydedilenlerListesi;
   DateTime suan = DateTime.now();
@@ -46,6 +49,17 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
       }
       setState(() {});
     }).catchError((hata) => print("İnit state hata alındı: " + hata));
+    AdmobIslemleri.admobInitialize();
+    myInterstitialAd = AdmobIslemleri.buildInterstitialAd();
+    myInterstitialAd
+      ..load()
+      ..show();
+  }
+
+  @override
+  void dispose() {
+    myInterstitialAd.dispose();
+    super.dispose();
   }
 
   @override
@@ -220,7 +234,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                   children: [
                     Text(
                       "Kayıtlı Hareket Bilgilerim",
-                      style: TextStyle(fontSize: en/25),
+                      style: TextStyle(fontSize: en / 25),
                     ),
                     Text(
                         boyut.toString() == null ? "Boyut: 0" : "Boyut: $boyut",
@@ -259,9 +273,10 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                                       fontWeight: FontWeight.w600),
                                 ),
                                 // Text("Not: ",style: TextStyle(fontSize: en / 27),
-                                Text("Not: "+
-                                  tumKaydedilenlerListesi[index]
-                                      .hareketTekrarSayisi,
+                                Text(
+                                  "Not: " +
+                                      tumKaydedilenlerListesi[index]
+                                          .hareketTekrarSayisi,
                                   style: TextStyle(fontSize: en / 27),
                                 )
                               ]),
@@ -273,7 +288,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                           ),
                           trailing: GestureDetector(
                             child: Icon(Icons.delete,
-                                size: en/15, color: Colors.red.shade400),
+                                size: en / 15, color: Colors.red.shade400),
                             onTap: () {
                               //Bir methoda bu şekilde değer gönderilir,incele!!
                               _hareketSil(

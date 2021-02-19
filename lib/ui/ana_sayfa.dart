@@ -8,7 +8,7 @@ import 'package:cocuklar_icin_spor_app/ui/tekrar_kaydedici_liste.dart';
 import 'package:cocuklar_icin_spor_app/ui/vucut_kitle_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:launch_review/launch_review.dart';
+// import 'package:launch_review/launch_review.dart';
 
 class AnaSayfa extends StatefulWidget {
   @override
@@ -150,7 +150,6 @@ class _AnaSayfaState extends State<AnaSayfa> {
                             return Text(
                               tumKisiselVerilerListesi[0].adSoyad,
                               style: TextStyle(
-                                  // color: Colors.deepOrange.shade900,
                                   color: Colors.blueAccent.shade100,
                                   fontSize: en / 19,
                                   fontWeight: FontWeight.bold),
@@ -278,7 +277,6 @@ class _AnaSayfaState extends State<AnaSayfa> {
             child: Hero(
               tag: "assets/images/others/" + oAnEklenecek.oneriResim,
               child: Container(
-                //Hata gelirse SingleChildScrollView
                 decoration: BoxDecoration(
                   image: new DecorationImage(
                     image: new AssetImage(

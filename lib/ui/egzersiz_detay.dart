@@ -1,11 +1,13 @@
 // import 'dart:convert';
 
 import 'dart:async';
-
+import 'package:cocuklar_icin_spor_app/admob/admob_islemleri.dart';
 import 'package:cocuklar_icin_spor_app/methods/egzersiz_verileri_hazirla.dart';
 import 'package:cocuklar_icin_spor_app/models/egzersiz.dart';
 import 'package:cocuklar_icin_spor_app/models/favori_durum.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
+import 'package:firebase_admob/firebase_admob.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 
 class EgzersizDetay extends StatefulWidget {
@@ -20,18 +22,21 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
 
   IconData iconMod = Icons.favorite_border;
 
-  //
+  BannerAd myBannerAd;
   static List<Egzersiz> tumEgzersizler;
-
   var _scaffoldKey = GlobalKey<ScaffoldState>();
   bool secilenDurum = false;
   DatabaseHelper _databaseHelper;
   List<FavoriDurum> tumKaydedilenlerListesi;
+
   @override
   void initState() {
+    super.initState();
     tumEgzersizler = egzersizVerileriHazirla();
     secilenEgzersiz = tumEgzersizler[widget.gelenIndex];
-    super.initState();
+
+    AdmobIslemleri.admobInitialize();
+    myBannerAd = AdmobIslemleri.buildBannerAd();
 
     tumKaydedilenlerListesi = List<FavoriDurum>();
     _databaseHelper = DatabaseHelper();
@@ -54,10 +59,10 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
 
   @override
   void dispose() {
-    // DO YOUR STUFF
     if (_timer != null) {
       _timer.cancel();
     }
+    myBannerAd.dispose();
     super.dispose();
   }
 
@@ -84,7 +89,11 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
 
   @override
   Widget build(BuildContext context) {
-    double en = MediaQuery.of(context).size.width;
+    myBannerAd
+      ..load()
+      ..show();
+
+    final double en = MediaQuery.of(context).size.width;
     double boy = MediaQuery.of(context).size.height;
 
     return Scaffold(
@@ -202,16 +211,16 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
                         padding: const EdgeInsets.only(bottom: 8),
                         child: Icon(
                           Icons.fitness_center,
-                          size: 27,
+                          size: en / 14,
                           color: Colors.deepOrange.shade800,
                         ),
                       ),
                       Text(
                         secilenEgzersiz.egzersizBolge,
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: en / 22),
                       ),
                       Divider(
-                        height: 20,
+                        height: boy / 18,
                         thickness: 1,
                       ),
                       Padding(
@@ -220,16 +229,21 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
                           "Nasıl Yapabilirim?",
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 20,
+                            fontSize: en / 20,
                             color: Colors.deepOrange.shade800,
                           ),
                         ),
                       ),
-                      Text(
-                        secilenEgzersiz.egzersizDetay,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w400, fontSize: 18),
-                      ),
+                      Column(children: [
+                        Text(
+                          secilenEgzersiz.egzersizDetay,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400, fontSize: en / 22),
+                        ),
+                        SizedBox(
+                          height: boy / 10,
+                        ),
+                      ]),
                     ],
                   ),
                 ],
@@ -244,11 +258,19 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
   void _favoriEkle(FavoriDurum favoriDurum) async {
     var eklenenID = await _databaseHelper.favoriEkle(favoriDurum);
     favoriDurum.id = eklenenID;
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
-      backgroundColor: Colors.green.shade600,
-      content: Text("${secilenEgzersiz.egzersizAdi} favori listesine eklendi."),
+    Flushbar(
+      flushbarPosition: FlushbarPosition.TOP,
+      margin: EdgeInsets.only(top: 80, left: 5, right: 5),
+      borderRadius: 8,
+      message: "${secilenEgzersiz.egzersizAdi} favori listesine eklendi.",
+      icon: Icon(
+        Icons.check,
+        size: 28.0,
+        color: Colors.green[600],
+      ),
       duration: Duration(seconds: 2),
-    ));
+      leftBarIndicatorColor: Colors.green[300],
+    )..show(context);
     setState(() {
       tumKaydedilenlerListesi.insert(0, favoriDurum);
     });
@@ -256,12 +278,20 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
 
   void _favoriSil(int forDBtoDeleteID, int forListtoDeleteIndex) async {
     var sonuc = await _databaseHelper.favoriSil(forDBtoDeleteID);
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
-      backgroundColor: Colors.red.shade800,
-      content:
-          Text("${secilenEgzersiz.egzersizAdi} favori listesinden silindi."),
+    // _scaffoldKey.currentState.showSnackBar()
+    Flushbar(
+      flushbarPosition: FlushbarPosition.TOP,
+      margin: EdgeInsets.only(top: 80, left: 5, right: 5),
+      borderRadius: 8,
+      message: "${secilenEgzersiz.egzersizAdi} favori listesinden silindi.",
+      icon: Icon(
+        Icons.delete,
+        size: 28.0,
+        color: Colors.red[600],
+      ),
       duration: Duration(seconds: 2),
-    ));
+      leftBarIndicatorColor: Colors.red[300],
+    )..show(context);
     if (sonuc == 1) {
       setState(() {
         tumKaydedilenlerListesi.removeAt(forListtoDeleteIndex);

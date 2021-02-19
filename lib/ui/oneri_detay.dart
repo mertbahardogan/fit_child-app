@@ -1,5 +1,7 @@
+import 'package:cocuklar_icin_spor_app/admob/admob_islemleri.dart';
 import 'package:cocuklar_icin_spor_app/methods/oneri_verileri_hazirla.dart';
 import 'package:cocuklar_icin_spor_app/models/oneri.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 
 class OneriDetay extends StatefulWidget {
@@ -11,11 +13,23 @@ class OneriDetay extends StatefulWidget {
 
 class _OneriDetayState extends State<OneriDetay> {
   static List<Oneri> secilenOneri;
+  InterstitialAd myInterstitialAd;
 
   @override
   void initState() {
-    secilenOneri = oneriVerileriHazirla();
     super.initState();
+    secilenOneri = oneriVerileriHazirla();
+    AdmobIslemleri.admobInitialize();
+    myInterstitialAd = AdmobIslemleri.buildInterstitialAd();
+    myInterstitialAd
+      ..load()
+      ..show();
+  }
+
+  @override
+  void dispose() {
+    myInterstitialAd.dispose();
+    super.dispose();
   }
 
   @override

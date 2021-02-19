@@ -1,5 +1,7 @@
+import 'package:cocuklar_icin_spor_app/admob/admob_islemleri.dart';
 import 'package:cocuklar_icin_spor_app/models/kisisel.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 
 class BilgileriGuncelle extends StatefulWidget {
@@ -8,13 +10,13 @@ class BilgileriGuncelle extends StatefulWidget {
 }
 
 class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
-  // double _yasForm = 7;
   var otomatikKontrol = AutovalidateMode.disabled;
   var _formKey = GlobalKey<FormState>();
 
   DatabaseHelper _databaseHelper;
   List<Kisisel> tumKisiselVerilerListesi;
   var _controller = TextEditingController();
+  BannerAd myBannerAd;
 
   @override
   void initState() {
@@ -28,13 +30,24 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
       }
       setState(() {
         _controller.text = tumKisiselVerilerListesi[0].adSoyad;
-        // _yasForm = tumKisiselVerilerListesi[0].yas.toDouble();
       });
     }).catchError((hata) => print("İnit state hata fonk: " + hata));
+    AdmobIslemleri.admobInitialize();
+    myBannerAd = AdmobIslemleri.buildBannerAd();
+  }
+
+  @override
+  void dispose() {
+    myBannerAd.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    myBannerAd
+      ..load()
+      ..show();
+      
     double ekranHeight = MediaQuery.of(context).size.height;
     double ekranWidth = MediaQuery.of(context).size.width;
 
@@ -79,7 +92,7 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
                       _kayitGuncelle(Kisisel.withID(1, _controller.text));
                     }
                   },
-                  color: Colors.orange.shade300,
+                  color: Colors.blueGrey.shade900,
                   child: Text(
                     "Güncelle",
                     style: TextStyle(

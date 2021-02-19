@@ -513,7 +513,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
                     child: Text(
                       "NOT:",
                       style: TextStyle(
-                          color: Colors.orange, fontWeight: FontWeight.bold),
+                          color: Colors.blueGrey.shade700, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Padding(

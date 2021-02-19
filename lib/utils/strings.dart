@@ -197,12 +197,12 @@ class Strings {
         "\t6-Kafanızı düz veya hafifçe sola yatık tutun, bu pozisyonda ortalama 20 saniye (seviyenize göre değişebilir) kalın.\n\n",
     "HAREKETİN TAM ADI: Yarım Balık Kralı Pozu\n\n"
         "\t1-Yere oturun, sırtınız dik olacak şekilde bacaklarınızı öne uzatın. \n\n"
-        "\t2-Dizlerinizi bükün, ayaklarınızı yere basın ve sol ayağınızı sağ bacağınızın altına, kalçanızın dışına doğru kaydırın. \n\n"
+        "\t2-Dizlerinizi bükün, ayaklarınızı yere basın ve sol ayağınızı sağ bacağınızın altına, kalçanızın dışına doğru ilerletin. \n\n"
         "\t3-Sol bacağınızın dışını yere yatırın. Sağ ayağınızı sol bacağınızın dışına yere basın ve sağ dizinizin tavana bakmalı. \n\n"
         "\t4-Nefes vererek sağ kalçanızın dışına doğru dönün. Sağ elinizi sağ kalçanızın arkasında yere bastırın ve sol kolunuzu dirsek hizasından sağ dizinize geçirin. Sol el düz tavanı göstermeli. \n\n"
         "\t5-Sağ ayağınızı yere basın. Sırtınızı da dik tutmaya özen gösterin. Başınızı kontrollü şekilde sağ tarafa döndürün.\n\n"
         "\t6-Ortalama 20 saniye bu pozisyonu koruyun. \n\n"
-        "\t7-Ardından başlangıç pozisyonuna dönerek diğer taraftan pozu tekrarlayabilirsiniz.",
+        "\t7-Ardından başlangıç pozisyonuna dönerek diğer taraftan hareketi tekrarlayabilirsiniz.",
     "\t1-Yere oturun ve ayaklarınızı dümdüz olacak şekilde uzatın.\n\n"
         "\t2-Sağ dizinizi büküp, sağ ayak bileğinizi sol kasığınızın üzerine yerleştirin. \n\n"
         "\t3-Sonrasında sol dizinizi büküp, sol ayağınızı bu sefer sağ kasığınızın üzerine çapraz bir şekilde yerleştirin. \n\n"

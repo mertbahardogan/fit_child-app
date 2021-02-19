@@ -1,3 +1,5 @@
+import 'package:cocuklar_icin_spor_app/admob/admob_islemleri.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 
 class VucutKitleSayfasi extends StatefulWidget {
@@ -11,9 +13,26 @@ class _VucutKitleSayfasiState extends State<VucutKitleSayfasi> {
   var _controllerKilo = TextEditingController();
   double bmi;
   String stringOneri;
+  BannerAd myBannerAd;
+
+  @override
+  void initState() {
+    super.initState();
+    AdmobIslemleri.admobInitialize();
+    myBannerAd = AdmobIslemleri.buildBannerAd();
+  }
+
+  @override
+  void dispose() {
+     myBannerAd.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    myBannerAd
+      ..load()
+      ..show();
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: AppBar(
@@ -24,6 +43,7 @@ class _VucutKitleSayfasiState extends State<VucutKitleSayfasi> {
       ),
       body: Container(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Form(
               key: _formKey,
@@ -72,28 +92,9 @@ class _VucutKitleSayfasiState extends State<VucutKitleSayfasi> {
                   if (_formKey.currentState.validate()) {
                     _oraniHesapla(int.parse(_controllerBoy.text),
                         int.parse(_controllerKilo.text));
+                    bmiGoster(context, bmi, stringOneri);
                   }
                 },
-              ),
-            ),
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height / 2,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      bmi != null ? "Vücut Kitle Endeksiniz: $bmi \n" : "",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                    ),
-                    Text(
-                      stringOneri != null ? "$stringOneri" : "",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
-                ),
               ),
             ),
           ],
@@ -137,5 +138,46 @@ class _VucutKitleSayfasiState extends State<VucutKitleSayfasi> {
     } else {
       return "Lütfen boş değer girmeyin.";
     }
+  }
+
+  bmiGoster(BuildContext ctx, double bmi, String stringOneri) {
+    showDialog(
+        context: ctx,
+        barrierDismissible: false,
+        builder: (ctx) {
+          return AlertDialog(
+            title: Center(
+              child: Text(
+                "Vücut Kitle Endeksiniz:",
+                style: TextStyle(color: Colors.yellow.shade800),
+              ),
+            ),
+            backgroundColor: Colors.blueGrey.shade900,
+            content: SingleChildScrollView(
+              child: Center(
+                child: Column(
+                  children: [
+                    Text(
+                      "$bmi\n",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Text(
+                      "$stringOneri",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            actions: [
+              FlatButton(
+                  child: Text(
+                    "Kapat",
+                    style: TextStyle(color: Colors.redAccent, fontSize: 12),
+                  ),
+                  onPressed: () => Navigator.of(ctx).pop()),
+            ],
+          );
+        });
   }
 }
