@@ -26,7 +26,7 @@ class _FavoriSayfasiState extends State<FavoriSayfasi> {
 
   @override
   void dispose() {
-    myInterstitialAd.dispose();
+    if (myInterstitialAd != null) myInterstitialAd.dispose();
     super.dispose();
   }
 

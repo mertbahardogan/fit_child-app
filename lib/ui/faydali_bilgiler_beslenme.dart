@@ -1,3 +1,5 @@
+import 'package:cocuklar_icin_spor_app/admob/admob_islemleri.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 
 class BeslenmeSayfasi extends StatefulWidget {
@@ -7,10 +9,28 @@ class BeslenmeSayfasi extends StatefulWidget {
 
 class _BeslenmeSayfasiState extends State<BeslenmeSayfasi> {
   final controller = PageController(initialPage: 0);
+
+  InterstitialAd myInterstitialAd;
+
+  @override
+  void initState() {
+    super.initState();
+    AdmobIslemleri.admobInitialize();
+    myInterstitialAd = AdmobIslemleri.buildInterstitialAd();
+    myInterstitialAd
+      ..load()
+      ..show();
+  }
+
+  @override
+  void dispose() {
+    if (myInterstitialAd != null) myInterstitialAd.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double en = MediaQuery.of(context).size.width;
-    // double boy = MediaQuery.of(context).size.height;
 
     return Scaffold(
       body: Center(

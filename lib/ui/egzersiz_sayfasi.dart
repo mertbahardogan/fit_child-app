@@ -1,15 +1,43 @@
+import 'package:cocuklar_icin_spor_app/admob/admob_islemleri.dart';
 import 'package:cocuklar_icin_spor_app/methods/egzersiz_verileri_hazirla.dart';
 import 'package:cocuklar_icin_spor_app/models/egzersiz.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 
-class EgzersizSayfasi extends StatelessWidget {
+class EgzersizSayfasi extends StatefulWidget {
   static List<Egzersiz> tumEgzersizler;
 
   @override
+  _EgzersizSayfasiState createState() => _EgzersizSayfasiState();
+}
+
+class _EgzersizSayfasiState extends State<EgzersizSayfasi> {
+  InterstitialAd myInterstitialAd;
+
+  @override
+  void initState() {
+    super.initState();
+    if (AdmobIslemleri.gosterimSayac < 15) {
+      AdmobIslemleri.admobInitialize();
+      myInterstitialAd = AdmobIslemleri.buildInterstitialAd();
+      myInterstitialAd
+        ..load()
+        ..show();
+      AdmobIslemleri.gosterimSayac++;
+    }
+  }
+
+  @override
+  void dispose() {
+    if (myInterstitialAd != null) myInterstitialAd.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final boy = MediaQuery.of(context).size.height;
-    final en = MediaQuery.of(context).size.width;
-    tumEgzersizler = egzersizVerileriHazirla();
+    double boy = MediaQuery.of(context).size.height;
+    double en = MediaQuery.of(context).size.width;
+    EgzersizSayfasi.tumEgzersizler = egzersizVerileriHazirla();
     return Scaffold(
       body: listeyiHazirla(en, boy),
       appBar: AppBar(
@@ -24,28 +52,19 @@ class EgzersizSayfasi extends StatelessWidget {
     );
   }
 
-  // Widget listeyiHazirla() {
-  //   return ListView.builder(
-  //     itemBuilder: (BuildContext context, int index) {
-  //       return tekSatirCard(context, index);
-  //     },
-  //     itemCount: tumEgzersizler.length,
-  //   );
-  // }
-
   Widget listeyiHazirla(en, boy) {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, childAspectRatio: boy / 800),
+          crossAxisCount: 2, childAspectRatio: boy / 900),
       itemBuilder: (BuildContext context, int index) {
         return tekSatirCard(context, index, en, boy);
       },
-      itemCount: tumEgzersizler.length,
+      itemCount: EgzersizSayfasi.tumEgzersizler.length,
     );
   }
 
   Widget tekSatirCard(BuildContext context, int index, double en, boy) {
-    Egzersiz oAnEklenecek = tumEgzersizler[index]; //object
+    Egzersiz oAnEklenecek = EgzersizSayfasi.tumEgzersizler[index]; //object
 
     return Container(
       margin: EdgeInsets.all(6),
@@ -84,7 +103,8 @@ class EgzersizSayfasi extends StatelessWidget {
                       child: Padding(
                           padding: EdgeInsets.all(4),
                           child: Text(
-                            tumEgzersizler[index].egzersizSeviye,
+                            EgzersizSayfasi
+                                .tumEgzersizler[index].egzersizSeviye,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: en / 35,

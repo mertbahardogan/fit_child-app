@@ -20,15 +20,18 @@ class _OneriDetayState extends State<OneriDetay> {
     super.initState();
     secilenOneri = oneriVerileriHazirla();
     AdmobIslemleri.admobInitialize();
-    myInterstitialAd = AdmobIslemleri.buildInterstitialAd();
-    myInterstitialAd
-      ..load()
-      ..show();
+    if (AdmobIslemleri.gosterimSayac <= 10) {
+      myInterstitialAd = AdmobIslemleri.buildInterstitialAd();
+      myInterstitialAd
+        ..load()
+        ..show();
+      AdmobIslemleri.gosterimSayac++;
+    }
   }
 
   @override
   void dispose() {
-    myInterstitialAd.dispose();
+    if (myInterstitialAd != null) myInterstitialAd.dispose();
     super.dispose();
   }
 

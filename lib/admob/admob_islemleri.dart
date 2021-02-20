@@ -4,7 +4,16 @@ class AdmobIslemleri {
   static final String appIdCanli = "ca-app-pub-3430256037879691~9194949650";
   static final String appIdTest = FirebaseAdMob.testAppId;
 
-  static final String banner1Canli = "ca-app-pub-3430256037879691/4170047203";
+  static int gosterimSayac = 0;
+
+  static final String bannerIdCanli = "ca-app-pub-3430256037879691/4170047203";
+
+  static final String gecisIdCanli = "ca-app-pub-3430256037879691/1248440203";
+
+  static final String odulIdCanli = "ca-app-pub-3430256037879691/1804448757";
+  static final String odulIdTest = RewardedVideoAd.testAdUnitId;
+
+  static int odulSayac = 0;
 
   static admobInitialize() {
     FirebaseAdMob.instance.initialize(appId: appIdTest);
@@ -33,7 +42,7 @@ class AdmobIslemleri {
 
   static InterstitialAd buildInterstitialAd() {
     return InterstitialAd(
-      adUnitId: InterstitialAd.testAdUnitId, //ID
+      adUnitId: InterstitialAd.testAdUnitId,
       targetingInfo: targetingInfo,
       listener: (MobileAdEvent event) {
         print("InterstitialAd event is $event");

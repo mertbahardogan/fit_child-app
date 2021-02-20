@@ -38,7 +38,7 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
 
   @override
   void dispose() {
-    myBannerAd.dispose();
+    if (myBannerAd != null) myBannerAd.dispose();
     super.dispose();
   }
 
@@ -47,7 +47,7 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
     myBannerAd
       ..load()
       ..show();
-      
+
     double ekranHeight = MediaQuery.of(context).size.height;
     double ekranWidth = MediaQuery.of(context).size.width;
 

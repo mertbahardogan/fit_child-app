@@ -37,6 +37,9 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
 
     AdmobIslemleri.admobInitialize();
     myBannerAd = AdmobIslemleri.buildBannerAd();
+    myBannerAd
+      ..load()
+      ..show();
 
     tumKaydedilenlerListesi = List<FavoriDurum>();
     _databaseHelper = DatabaseHelper();
@@ -62,7 +65,7 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
     if (_timer != null) {
       _timer.cancel();
     }
-    myBannerAd.dispose();
+    if (myBannerAd.listener != null) myBannerAd.dispose();
     super.dispose();
   }
 
@@ -89,11 +92,7 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
 
   @override
   Widget build(BuildContext context) {
-    myBannerAd
-      ..load()
-      ..show();
-
-    final double en = MediaQuery.of(context).size.width;
+    double en = MediaQuery.of(context).size.width;
     double boy = MediaQuery.of(context).size.height;
 
     return Scaffold(

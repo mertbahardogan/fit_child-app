@@ -27,9 +27,12 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
     "Mekik",
     "Plank",
     "Yan Plank",
+    "Direnç Bandı",
     "Koşu",
+    "Yürüyüş",
     "Squad",
     "Isınma",
+    "Pilates",
     "Yoga"
   ];
   String secilenEgzersiz = "Şınav";
@@ -58,7 +61,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
 
   @override
   void dispose() {
-    myInterstitialAd.dispose();
+    if (myInterstitialAd != null) myInterstitialAd.dispose();
     super.dispose();
   }
 
@@ -122,6 +125,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                                   BorderRadius.all(Radius.circular(2))),
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
+                              dropdownColor: Colors.white,
                               iconSize: 30,
                               items: tumEgzersizler.map((oankiEgzersiz) {
                                 return DropdownMenuItem<String>(
@@ -183,19 +187,20 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                       _hareketEkle(Hareket(
                           secilenEgzersiz, suan.toString(), _controller.text));
                     },
-                    color: Colors.green.shade600,
+                    color: Colors.blueGrey.shade900,
                     child: Text(
                       "Kaydet",
-                      style: TextStyle(color: Colors.white, fontSize: en / 27),
+                      style: TextStyle(
+                          color: Colors.greenAccent, fontSize: en / 27),
                     ),
                   ),
                   RaisedButton(
-                      disabledColor: Colors.orange.shade500,
-                      color: Colors.orange.shade500,
+                      disabledColor: Colors.blueGrey.shade900,
+                      color: Colors.blueGrey.shade900,
                       child: Text(
                         "Güncelle",
-                        style:
-                            TextStyle(color: Colors.white, fontSize: en / 27),
+                        style: TextStyle(
+                            color: Colors.orangeAccent, fontSize: en / 27),
                       ),
                       onPressed: tiklanilanCardID == null
                           ? null
@@ -215,10 +220,11 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                         alertEminMi(context);
                       }
                     },
-                    color: Colors.red.shade800,
+                    color: Colors.blueGrey.shade900,
                     child: Text(
                       "Tüm Bilgileri Sil",
-                      style: TextStyle(color: Colors.white, fontSize: en / 27),
+                      style:
+                          TextStyle(color: Colors.redAccent, fontSize: en / 27),
                     ),
                   ),
                 ],
@@ -272,7 +278,6 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                                       fontSize: en / 18,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                // Text("Not: ",style: TextStyle(fontSize: en / 27),
                                 Text(
                                   "Not: " +
                                       tumKaydedilenlerListesi[index]
@@ -290,10 +295,9 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                             child: Icon(Icons.delete,
                                 size: en / 15, color: Colors.red.shade400),
                             onTap: () {
-                              //Bir methoda bu şekilde değer gönderilir,incele!!
                               _hareketSil(
                                   tumKaydedilenlerListesi[index].hareketID,
-                                  index); //buna tıklanınca bir popup açılsın eminse silsin değilse silmesin
+                                  index);
                             },
                           ),
                         ),
@@ -314,9 +318,8 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
   }
 
   void _hareketEkle(Hareket hareket) async {
-    //
     if (_formKey.currentState.validate() &&
-        tumKaydedilenlerListesi.length < 13) {
+        tumKaydedilenlerListesi.length < 15) {
       var eklenenHareketID = await _databaseHelper.hareketEkle(hareket);
       hareket.hareketID = eklenenHareketID;
       _scaffoldKey.currentState.showSnackBar(SnackBar(
@@ -328,10 +331,10 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
         tumKaydedilenlerListesi.insert(0, hareket);
       });
     } else {
-      if (tumKaydedilenlerListesi.length >= 13) {
+      if (tumKaydedilenlerListesi.length >= 15) {
         _scaffoldKey.currentState.showSnackBar(SnackBar(
           backgroundColor: Colors.black,
-          content: Text("Hatırlatıcı boyutunda 14 kayıt sınırı bulunmaktadır."),
+          content: Text("Hatırlatıcı boyut sınırına ulaştınız: 15 kayıt."),
           duration: Duration(seconds: 1),
         ));
       }
@@ -351,7 +354,6 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
       ));
       setState(() {
         tumKaydedilenlerListesi[tiklanilanCardIndex] = hareket;
-        //Demekki böyle index atılabiliyor, incele!!
       });
     }
   }

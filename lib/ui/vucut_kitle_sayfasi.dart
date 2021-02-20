@@ -24,7 +24,7 @@ class _VucutKitleSayfasiState extends State<VucutKitleSayfasi> {
 
   @override
   void dispose() {
-     myBannerAd.dispose();
+    if (myBannerAd != null) myBannerAd.dispose();
     super.dispose();
   }
 

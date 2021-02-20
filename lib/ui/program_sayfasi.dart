@@ -1,15 +1,44 @@
+import 'package:cocuklar_icin_spor_app/admob/admob_islemleri.dart';
 import 'package:cocuklar_icin_spor_app/models/haftalik.dart';
 import 'package:cocuklar_icin_spor_app/utils/program.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class ProgramSayfasi extends StatelessWidget {
+class ProgramSayfasi extends StatefulWidget {
   static List<Haftalik> tumHaftalar;
+
+  @override
+  _ProgramSayfasiState createState() => _ProgramSayfasiState();
+}
+
+class _ProgramSayfasiState extends State<ProgramSayfasi> {
+  InterstitialAd myInterstitialAd;
+
+  @override
+  void initState() {
+    super.initState();
+    AdmobIslemleri.admobInitialize();
+    if (AdmobIslemleri.gosterimSayac <= 6) {
+      myInterstitialAd = AdmobIslemleri.buildInterstitialAd();
+      myInterstitialAd
+        ..load()
+        ..show();
+      AdmobIslemleri.gosterimSayac++;
+    }
+  }
+
+  @override
+  void dispose() {
+    if (myInterstitialAd != null) myInterstitialAd.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double en = MediaQuery.of(context).size.width;
     double boy = MediaQuery.of(context).size.width;
-    tumHaftalar = verileriHazirla();
+    ProgramSayfasi.tumHaftalar = verileriHazirla();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -46,12 +75,12 @@ class ProgramSayfasi extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return tekSatirContainer(context, index, en, boy);
       },
-      itemCount: tumHaftalar.length,
+      itemCount: ProgramSayfasi.tumHaftalar.length,
     );
   }
 
   Widget tekSatirContainer(BuildContext context, int index, double en, boy) {
-    Haftalik oAnEklenecek = tumHaftalar[index];
+    Haftalik oAnEklenecek = ProgramSayfasi.tumHaftalar[index];
 
     return GestureDetector(
       child: Container(
