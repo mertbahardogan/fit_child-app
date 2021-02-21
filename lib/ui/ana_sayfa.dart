@@ -27,15 +27,6 @@ class _AnaSayfaState extends State<AnaSayfa> {
     super.initState();
     tumKisiselVerilerListesi = List<Kisisel>();
     _databaseHelper = DatabaseHelper();
-    // _databaseHelper.tumKayitlar().then((tumKayitlariTutanMapList) {
-    //   for (Map okunanKayitListesi in tumKayitlariTutanMapList) {
-    //     tumKisiselVerilerListesi
-    //         .add(Kisisel.dbdenOkudugunDegeriObjeyeDonustur(okunanKayitListesi));
-    //   }
-    //   setState(() {});
-    // }).catchError((hata) => print("Init state hata fonk: " + hata));
-
-    //Bu doldurma olayını artık hep methoddan çağırmayı her sayfada deneyelim!!!!
   }
 
   @override
@@ -58,7 +49,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     child: Text(
                       "Fit Child",
                       style: TextStyle(
-                          fontSize: 33,
+                          fontSize: en/15,
                           color: Colors.blueGrey.shade900,
                           fontFamily: "Indie",
                           fontWeight: FontWeight.bold),
@@ -98,7 +89,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
           backgroundColor: Colors.white,
           pinned: true,
           primary: true,
-          expandedHeight: 70,
+          expandedHeight:80,
           elevation: 4,
         ),
         SliverFixedExtentList(
@@ -113,7 +104,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
             itemExtent: boy / 4.4),
         SliverFixedExtentList(
             delegate: SliverChildListDelegate(tavsiyeElemanlari(en, boy)),
-            itemExtent: boy / 2.8),
+            itemExtent: boy / 2.6),
       ],
     );
   }

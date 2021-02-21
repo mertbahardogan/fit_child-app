@@ -9,7 +9,6 @@ class GirisSayfasi extends StatefulWidget {
 }
 
 class _GirisSayfasiState extends State<GirisSayfasi> {
-  // double _yasForm = 7;
   var otomatikKontrol = AutovalidateMode.disabled;
   var _formKey = GlobalKey<FormState>();
 
@@ -71,36 +70,15 @@ class _GirisSayfasiState extends State<GirisSayfasi> {
                   controller: _controller,
                   validator: _isimKontrol,
                 ),
-                // SizedBox(
-                //   height: 25,
-                // ),
-                // Text("Yaşınızı Seçiniz:"),
-                // Slider(
-                //     min: 7,
-                //     max: 17,
-                //     divisions: 10,
-                //     activeColor: Colors.redAccent,
-                //     label: _yasForm.toInt().toString(),
-                //     inactiveColor: Colors.blueGrey.shade900,
-                //     value: _yasForm,
-                //     onChanged: (secilen) {
-                //       setState(() {
-                //         _yasForm = secilen;
-                //         debugPrint("Girilen yaş değeri: $_yasForm");
-                //       });
-                //     }),
-                // SizedBox(
-                //   height: 25,
-                // ),
                 RaisedButton(
                   onPressed: () {
                     _kayitEkle(Kisisel(_controller.text));
                   },
-                  color: Colors.green.shade400,
+                  color: Colors.blueGrey.shade900,
                   child: Text(
                     "Kaydet",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.orangeAccent,
                     ),
                   ),
                 ),
@@ -126,7 +104,7 @@ class _GirisSayfasiState extends State<GirisSayfasi> {
   String _isimKontrol(String deger) {
     RegExp regex = RegExp("[a-zA-Z]+\$");
     if (!regex.hasMatch(deger))
-      return 'Ad alanı sayısal değer içermemeli.';
+      return 'Lütfen boş/sayısal değer girmeyin.';
     else
       return null;
   }

@@ -52,31 +52,6 @@ class _ProgramDetayState extends State<ProgramDetay> {
       debugPrint(secilenDurum.toString());
       setState(() {});
     }).catchError((hata) => print("İnit state hata alındı: " + hata));
-
-    // AdmobIslemleri.admobInitialize();
-
-    // odulReklamYukle();
-
-    // RewardedVideoAd.instance.listener =
-    //     (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
-    //   if (event == RewardedVideoAdEvent.rewarded) {
-    //     setState(() {
-    //       print("**************ÖDÜL KAZANDINIZ*****************" +
-    //           AdmobIslemleri.odulSayac.toString());
-    //       AdmobIslemleri.odulSayac++;
-    //       odulReklamYukle();
-    //     });
-    //   } else if (event == RewardedVideoAdEvent.loaded) {
-    //     RewardedVideoAd.instance.show();
-    //     print("**************REKLAM YÜKLENDİ GELECEK*****************");
-    //   } else if (event == RewardedVideoAdEvent.closed) {
-    //     print("**************REKLAM KAPANDI*****************" +
-    //         AdmobIslemleri.odulSayac.toString()); //bool
-    //   } else if (event == RewardedVideoAdEvent.failedToLoad) {
-    //     print("**************REKLAM BULUNAMADI*****************");
-    //     odulReklamYukle();
-    //   }
-    // };
   }
 
   void odulReklamYukle() {
@@ -202,7 +177,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
             tumGunler[index].baslik,
             style: TextStyle(
               fontWeight: FontWeight.w400,
-              fontSize: 22,
+              fontSize: en/20,
             ),
             textAlign: TextAlign.center,
           ),
@@ -213,7 +188,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
         Container(
           height: tumGunler[index].icerik != "Dinlenme" &&
                   AdmobIslemleri.odulSayac >= 1
-              ? boy / 2.15
+              ? boy / 2.05
               : boy / 11,
           width: en,
           decoration: BoxDecoration(
@@ -424,7 +399,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
                         "Programlara erişmek için buraya dokun, reklamı görüntüle.",
                         style: TextStyle(
                             color: Colors.deepOrange.shade700,
-                            fontSize: en / 28),
+                            fontSize: en / 29),
                       )),
                     ),
                   )),
@@ -613,7 +588,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
                 id == 0
                     ? tumGunler[index].icerik
                     : tumEgzersizler[index].egzersizAdi,
-                style: TextStyle(color: Colors.orange),
+                style: TextStyle(color: Colors.orange,fontSize: en/20),
               ),
             ),
             backgroundColor: Colors.blueAccent.shade200,
@@ -682,7 +657,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
                         id == 0
                             ? tumGunler[index].hareketDetay
                             : tumEgzersizler[index].egzersizDetay,
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.white,fontSize: en/25),
                       ),
                     ],
                   ),
@@ -875,7 +850,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
                     style: TextStyle(
                         color: Colors.green.shade100,
                         fontWeight: FontWeight.bold,
-                        fontSize: 14),
+                        fontSize: MediaQuery.of(context).size.width/24),
                   ),
                 ),
               ),
@@ -884,7 +859,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
               FlatButton(
                 child: Text(
                   "Kapat",
-                  style: TextStyle(color: Colors.redAccent, fontSize: 12),
+                  style: TextStyle(color: Colors.redAccent, fontSize:  MediaQuery.of(context).size.width/30),
                 ),
                 onPressed: () => Navigator.of(ctx).pop(),
               ),

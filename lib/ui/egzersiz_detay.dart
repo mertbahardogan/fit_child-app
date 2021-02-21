@@ -333,7 +333,7 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
                     style: TextStyle(
                         color: Colors.green.shade100,
                         fontWeight: FontWeight.bold,
-                        fontSize: 14),
+                        fontSize: MediaQuery.of(context).size.width/24),
                   ),
                 ),
               ),
@@ -342,7 +342,7 @@ class _EgzersizDetayState extends State<EgzersizDetay> {
               FlatButton(
                 child: Text(
                   "Kapat",
-                  style: TextStyle(color: Colors.redAccent, fontSize: 12),
+                  style: TextStyle(color: Colors.redAccent, fontSize: MediaQuery.of(context).size.width/30),
                 ),
                 onPressed: () => Navigator.of(ctx).pop(),
               ),
