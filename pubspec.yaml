@@ -36,6 +36,8 @@ dependencies:
   firebase_admob: ^0.11.0+1
   flushbar: ^1.10.4
   connectivity: ^2.0.2
+  firebase_core: ^0.7.0
+
 
 dev_dependencies:
   flutter_test:
