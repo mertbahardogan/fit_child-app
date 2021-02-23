@@ -56,7 +56,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
 
   void odulReklamYukle() {
     RewardedVideoAd.instance.load(
-        adUnitId: AdmobIslemleri.odulIdTest,
+        adUnitId: AdmobIslemleri.odulIdCanli,
         targetingInfo: AdmobIslemleri.targetingInfo);
   }
 
@@ -177,7 +177,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
             tumGunler[index].baslik,
             style: TextStyle(
               fontWeight: FontWeight.w400,
-              fontSize: en/20,
+              fontSize: en / 20,
             ),
             textAlign: TextAlign.center,
           ),
@@ -363,7 +363,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
 
                     // odulReklamYukle();
                     RewardedVideoAd.instance.load(
-                        adUnitId: AdmobIslemleri.odulIdTest,
+                        adUnitId: AdmobIslemleri.odulIdCanli,
                         targetingInfo: AdmobIslemleri.targetingInfo);
 
                     RewardedVideoAd.instance.listener =
@@ -588,7 +588,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
                 id == 0
                     ? tumGunler[index].icerik
                     : tumEgzersizler[index].egzersizAdi,
-                style: TextStyle(color: Colors.orange,fontSize: en/20),
+                style: TextStyle(color: Colors.orange, fontSize: en / 20),
               ),
             ),
             backgroundColor: Colors.blueAccent.shade200,
@@ -657,7 +657,8 @@ class _ProgramDetayState extends State<ProgramDetay> {
                         id == 0
                             ? tumGunler[index].hareketDetay
                             : tumEgzersizler[index].egzersizDetay,
-                        style: TextStyle(color: Colors.white,fontSize: en/25),
+                        style:
+                            TextStyle(color: Colors.white, fontSize: en / 25),
                       ),
                     ],
                   ),
@@ -850,7 +851,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
                     style: TextStyle(
                         color: Colors.green.shade100,
                         fontWeight: FontWeight.bold,
-                        fontSize: MediaQuery.of(context).size.width/24),
+                        fontSize: MediaQuery.of(context).size.width / 24),
                   ),
                 ),
               ),
@@ -859,7 +860,9 @@ class _ProgramDetayState extends State<ProgramDetay> {
               FlatButton(
                 child: Text(
                   "Kapat",
-                  style: TextStyle(color: Colors.redAccent, fontSize:  MediaQuery.of(context).size.width/30),
+                  style: TextStyle(
+                      color: Colors.redAccent,
+                      fontSize: MediaQuery.of(context).size.width / 30),
                 ),
                 onPressed: () => Navigator.of(ctx).pop(),
               ),

@@ -12,7 +12,7 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'models/kisisel.dart';
 
-/// OneSignal Initialization
+// OneSignal Initialization
 void initOneSignal(oneSignalAppId) async {
   // var settings = {
   //   OSiOSSettings.autoPrompt: true,
