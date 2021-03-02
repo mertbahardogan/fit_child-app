@@ -1,4 +1,4 @@
-package com.example.cocuklar_icin_spor_app
+package com.lmonosoft.fitchild
 
 import io.flutter.embedding.android.FlutterActivity
 

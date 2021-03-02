@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:394419533349:android:54ab18cd348bc69661f1cc",
+        "mobilesdk_app_id": "1:394419533349:android:9717ac6b761efb5661f1cc",
         "android_client_info": {
-          "package_name": "com.example.cocuklar_icin_spor_app"
+          "package_name": "com.lmonosoft.fitchild"
         }
       },
       "oauth_client": [
