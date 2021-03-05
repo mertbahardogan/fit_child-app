@@ -19,7 +19,13 @@ class _FavoriSayfasiState extends State<FavoriSayfasi> {
   void initState() {
     super.initState();
     AdmobIslemleri.admobInitialize();
-    myInterstitialAd = AdmobIslemleri.buildInterstitialAd();
+    if (AdmobIslemleri.favoriGosterimSayac < 1) {
+      myInterstitialAd = AdmobIslemleri.buildInterstitialAd();
+      myInterstitialAd
+        ..load()
+        ..show();
+      AdmobIslemleri.favoriGosterimSayac++;
+    }
     tumKaydedilenlerListesi = List<FavoriDurum>();
     _databaseHelper = DatabaseHelper();
   }
@@ -35,9 +41,6 @@ class _FavoriSayfasiState extends State<FavoriSayfasi> {
     double en = MediaQuery.of(context).size.width;
     double boy = MediaQuery.of(context).size.height;
 
-    myInterstitialAd
-      ..load()
-      ..show();
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomPadding: true,
@@ -55,11 +58,18 @@ class _FavoriSayfasiState extends State<FavoriSayfasi> {
         builder: (context, AsyncSnapshot<List<FavoriDurum>> snapShot) {
           if (snapShot.connectionState == ConnectionState.done) {
             tumKaydedilenlerListesi = snapShot.data;
-            return ListView.builder(
-                itemCount: tumKaydedilenlerListesi.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return cardGetir(context, index, en, boy);
-                });
+            return tumKaydedilenlerListesi.length == 0
+                ? Center(
+                    child: Text(
+                    "Henüz favori hareket eklenmedi.",
+                    style: TextStyle(
+                        color: Colors.blueGrey.shade900, fontSize: en / 27),
+                  ))
+                : ListView.builder(
+                    itemCount: tumKaydedilenlerListesi.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return cardGetir(context, index, en, boy);
+                    });
           } else {
             return Center(child: CircularProgressIndicator());
           }

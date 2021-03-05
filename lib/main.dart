@@ -70,7 +70,6 @@ class _MyAppState extends State<MyApp> {
         fontFamily: "Poppins",
         visualDensity: VisualDensity.adaptivePlatformDensity,
         accentColor: Colors.black54,
-        // primaryColor: Colors.blueGrey.shade900,
         primaryColor: Colors.blueAccent.shade100,
       ),
       home: Splash(),
@@ -146,7 +145,7 @@ class _SplashState extends State<Splash> {
         //   // tumKisiselVerilerListesi.length == 0? "Hoşgeldiniz": "Hoşgeldiniz " + tumKisiselVerilerListesi[0].adSoyad,style: TextStyle(fontWeight: FontWeight.bold),
         // ),
         loadingText: Text(
-          "1.0.0",
+          "1.0.1",
           style: TextStyle(color: Colors.grey),
         ),
         // photoSize: 50.0,

@@ -17,13 +17,13 @@ class _EgzersizSayfasiState extends State<EgzersizSayfasi> {
   @override
   void initState() {
     super.initState();
-    if (AdmobIslemleri.gosterimSayac < 15) {
+    if (AdmobIslemleri.egzersizGosterimSayac < 2) {
       AdmobIslemleri.admobInitialize();
       myInterstitialAd = AdmobIslemleri.buildInterstitialAd();
       myInterstitialAd
         ..load()
         ..show();
-      AdmobIslemleri.gosterimSayac++;
+      AdmobIslemleri.egzersizGosterimSayac++;
     }
   }
 

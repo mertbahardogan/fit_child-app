@@ -8,7 +8,7 @@ import 'package:cocuklar_icin_spor_app/ui/tekrar_kaydedici_liste.dart';
 import 'package:cocuklar_icin_spor_app/ui/vucut_kitle_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
 import 'package:flutter/material.dart';
-// import 'package:launch_review/launch_review.dart';
+import 'package:launch_review/launch_review.dart';
 
 class AnaSayfa extends StatefulWidget {
   @override
@@ -49,7 +49,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                     child: Text(
                       "Fit Child",
                       style: TextStyle(
-                          fontSize: en/15,
+                          fontSize: en / 15,
                           color: Colors.blueGrey.shade900,
                           fontFamily: "Indie",
                           fontWeight: FontWeight.bold),
@@ -61,10 +61,9 @@ class _AnaSayfaState extends State<AnaSayfa> {
                           icon: Icon(Icons.stars,
                               size: en / 12, color: Colors.blueAccent.shade100),
                           onPressed: () {
-                            // LaunchReview.launch(
-                            //   androidAppId:
-                            //       "com.company.appname", //app id change
-                            // );
+                            LaunchReview.launch(
+                              androidAppId: "com.lmonosoft.fitchild",
+                            );
                           }),
                       IconButton(
                           icon: Icon(
@@ -89,7 +88,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
           backgroundColor: Colors.white,
           pinned: true,
           primary: true,
-          expandedHeight:80,
+          expandedHeight: 80,
           elevation: 4,
         ),
         SliverFixedExtentList(

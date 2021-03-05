@@ -19,12 +19,12 @@ class _ProgramSayfasiState extends State<ProgramSayfasi> {
   void initState() {
     super.initState();
     AdmobIslemleri.admobInitialize();
-    if (AdmobIslemleri.gosterimSayac <= 6) {
+    if (AdmobIslemleri.programGosterimSayac < 2) {
       myInterstitialAd = AdmobIslemleri.buildInterstitialAd();
       myInterstitialAd
         ..load()
         ..show();
-      AdmobIslemleri.gosterimSayac++;
+      AdmobIslemleri.programGosterimSayac++;
     }
   }
 

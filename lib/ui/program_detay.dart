@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:cocuklar_icin_spor_app/admob/admob_islemleri.dart';
+// import 'package:cocuklar_icin_spor_app/admob/admob_islemleri.dart';
 import 'package:cocuklar_icin_spor_app/methods/egzersiz_verileri_hazirla.dart';
 import 'package:cocuklar_icin_spor_app/models/egzersiz.dart';
 import 'package:cocuklar_icin_spor_app/models/gunler.dart';
@@ -8,7 +8,7 @@ import 'package:cocuklar_icin_spor_app/models/haftalik.dart';
 import 'package:cocuklar_icin_spor_app/models/program_durum.dart';
 import 'package:cocuklar_icin_spor_app/ui/program_sayfasi.dart';
 import 'package:cocuklar_icin_spor_app/utils/database_helper.dart';
-import 'package:firebase_admob/firebase_admob.dart';
+// import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -54,11 +54,12 @@ class _ProgramDetayState extends State<ProgramDetay> {
     }).catchError((hata) => print("İnit state hata alındı: " + hata));
   }
 
-  void odulReklamYukle() {
-    RewardedVideoAd.instance.load(
-        adUnitId: AdmobIslemleri.odulIdCanli,
-        targetingInfo: AdmobIslemleri.targetingInfo);
-  }
+  // void odulReklamYukle() {
+  //   RewardedVideoAd.instance.load(
+  //       // adUnitId: AdmobIslemleri.odulIdCanli,
+  //       adUnitId: AdmobIslemleri.odulIdTest,
+  //       targetingInfo: AdmobIslemleri.targetingInfo);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -186,224 +187,228 @@ class _ProgramDetayState extends State<ProgramDetay> {
       initiallyExpanded: tumGunler[index].expanded,
       children: [
         Container(
-          height: tumGunler[index].icerik != "Dinlenme" &&
-                  AdmobIslemleri.odulSayac >= 1
-              ? boy / 2.05
-              : boy / 11,
-          width: en,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                color: Colors.grey.shade300,
-                width: 3,
-              ),
-              borderRadius: BorderRadius.all(Radius.circular(10))),
-          child: AdmobIslemleri.odulSayac >= 1
-              ? tumGunler[index].icerik != "Dinlenme"
-                  ? Column(
-                      children: [
-                        Divider(),
-                        //Sabit Isınma
-                        InkWell(
-                          onTap: () {
-                            id = 1;
-                            aciklamaAlertDialog(
-                                context, tumEgzersizler[3].egzersizID, id, en);
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset(
-                                "assets/images/exercises/" +
-                                    tumEgzersizler[3].egzersizResim,
-                                width: en / 8,
-                                height: boy / 15,
-                              ),
-                              Text(
-                                tumEgzersizler[3].egzersizAdi,
-                                style: TextStyle(
-                                    fontSize: en / 24,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Divider(),
-                        //Dinamik Isınma
-                        InkWell(
-                          onTap: () {
-                            id = 1;
-                            aciklamaAlertDialog(context,
-                                tumEgzersizler[isinmaIndex].egzersizID, id, en);
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset(
-                                "assets/images/exercises/" +
-                                    tumEgzersizler[isinmaIndex].egzersizResim,
-                                width: en / 8,
-                                height: boy / 15,
-                              ),
-                              Text(
-                                tumEgzersizler[isinmaIndex].egzersizAdi,
-                                style: TextStyle(
-                                    fontSize: en / 24,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Divider(),
-                        //Dinamik Fitness
-                        InkWell(
-                          onTap: () {
-                            id = 1;
-                            aciklamaAlertDialog(context,
-                                tumEgzersizler[fitIndex].egzersizID, id, en);
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset(
-                                "assets/images/exercises/" +
-                                    tumEgzersizler[fitIndex].egzersizResim,
-                                width: en / 8,
-                                height: boy / 15,
-                              ),
-                              Text(
-                                tumEgzersizler[fitIndex].egzersizAdi,
-                                style: TextStyle(
-                                    fontSize: en / 24,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Divider(),
-                        //Dinamik Fitness2
-                        InkWell(
-                          onTap: () {
-                            id = 1;
-                            aciklamaAlertDialog(context,
-                                tumEgzersizler[fitIndex2].egzersizID, id, en);
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset(
-                                "assets/images/exercises/" +
-                                    tumEgzersizler[fitIndex2].egzersizResim,
-                                width: en / 8,
-                                height: boy / 15,
-                              ),
-                              Text(
-                                tumEgzersizler[fitIndex2].egzersizAdi,
-                                style: TextStyle(
-                                    fontSize: en / 24,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Divider(),
-                        //Dinamik Yoga
-                        InkWell(
-                          onTap: () {
-                            id = 0;
-                            aciklamaAlertDialog(context, index, id, en);
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset(
-                                "assets/images/exercises/" +
-                                    tumGunler[index].hareketResim,
-                                width: en / 8,
-                                height: boy / 15,
-                              ),
-                              Text(
-                                tumGunler[index].icerik,
-                                style: TextStyle(
-                                    fontSize: en / 24,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Divider(),
-                      ],
-                    )
-                  : InkWell(
-                      onTap: () {
-                        id = 0;
-                        aciklamaAlertDialog(context, index, id, en);
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+            height: tumGunler[index].icerik != "Dinlenme"
+                //&&AdmobIslemleri.odulSayac >= 1
+                ? boy / 2.05
+                : boy / 11,
+            width: en,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(
+                  color: Colors.grey.shade300,
+                  width: 3,
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(10))),
+            child:
+                //  AdmobIslemleri.odulSayac >= 1
+                //     ?
+                tumGunler[index].icerik != "Dinlenme"
+                    ? Column(
                         children: [
-                          Image.asset(
-                            "assets/images/exercises/" +
-                                tumGunler[index].hareketResim,
-                            width: en / 8,
-                            height: boy / 15,
+                          Divider(),
+                          //Sabit Isınma
+                          InkWell(
+                            onTap: () {
+                              id = 1;
+                              aciklamaAlertDialog(context,
+                                  tumEgzersizler[3].egzersizID, id, en);
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Image.asset(
+                                  "assets/images/exercises/" +
+                                      tumEgzersizler[3].egzersizResim,
+                                  width: en / 8,
+                                  height: boy / 15,
+                                ),
+                                Text(
+                                  tumEgzersizler[3].egzersizAdi,
+                                  style: TextStyle(
+                                      fontSize: en / 24,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ],
+                            ),
                           ),
-                          Text(
-                            tumGunler[index].icerik,
-                            style: TextStyle(
-                                fontSize: en / 24, fontWeight: FontWeight.w400),
+                          Divider(),
+                          //Dinamik Isınma
+                          InkWell(
+                            onTap: () {
+                              id = 1;
+                              aciklamaAlertDialog(
+                                  context,
+                                  tumEgzersizler[isinmaIndex].egzersizID,
+                                  id,
+                                  en);
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Image.asset(
+                                  "assets/images/exercises/" +
+                                      tumEgzersizler[isinmaIndex].egzersizResim,
+                                  width: en / 8,
+                                  height: boy / 15,
+                                ),
+                                Text(
+                                  tumEgzersizler[isinmaIndex].egzersizAdi,
+                                  style: TextStyle(
+                                      fontSize: en / 24,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ],
+                            ),
                           ),
+                          Divider(),
+                          //Dinamik Fitness
+                          InkWell(
+                            onTap: () {
+                              id = 1;
+                              aciklamaAlertDialog(context,
+                                  tumEgzersizler[fitIndex].egzersizID, id, en);
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Image.asset(
+                                  "assets/images/exercises/" +
+                                      tumEgzersizler[fitIndex].egzersizResim,
+                                  width: en / 8,
+                                  height: boy / 15,
+                                ),
+                                Text(
+                                  tumEgzersizler[fitIndex].egzersizAdi,
+                                  style: TextStyle(
+                                      fontSize: en / 24,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          //Dinamik Fitness2
+                          InkWell(
+                            onTap: () {
+                              id = 1;
+                              aciklamaAlertDialog(context,
+                                  tumEgzersizler[fitIndex2].egzersizID, id, en);
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Image.asset(
+                                  "assets/images/exercises/" +
+                                      tumEgzersizler[fitIndex2].egzersizResim,
+                                  width: en / 8,
+                                  height: boy / 15,
+                                ),
+                                Text(
+                                  tumEgzersizler[fitIndex2].egzersizAdi,
+                                  style: TextStyle(
+                                      fontSize: en / 24,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+                          //Dinamik Yoga
+                          InkWell(
+                            onTap: () {
+                              id = 0;
+                              aciklamaAlertDialog(context, index, id, en);
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Image.asset(
+                                  "assets/images/exercises/" +
+                                      tumGunler[index].hareketResim,
+                                  width: en / 8,
+                                  height: boy / 15,
+                                ),
+                                Text(
+                                  tumGunler[index].icerik,
+                                  style: TextStyle(
+                                      fontSize: en / 24,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
                         ],
-                      ),
-                    )
-              : GestureDetector(
-                  onTap: () {
-                    print("TIKKK");
-                    AdmobIslemleri.admobInitialize();
+                      )
+                    : InkWell(
+                        onTap: () {
+                          id = 0;
+                          aciklamaAlertDialog(context, index, id, en);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Image.asset(
+                              "assets/images/exercises/" +
+                                  tumGunler[index].hareketResim,
+                              width: en / 8,
+                              height: boy / 15,
+                            ),
+                            Text(
+                              tumGunler[index].icerik,
+                              style: TextStyle(
+                                  fontSize: en / 24,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ],
+                        ),
+                      )
+            // : GestureDetector(
+            //     onTap: () {
+            //       AdmobIslemleri.admobInitialize();
+            //       RewardedVideoAd.instance.load(
+            //           // adUnitId: AdmobIslemleri.odulIdCanli,
+            //           adUnitId: AdmobIslemleri.odulIdTest,
+            //           targetingInfo: AdmobIslemleri.targetingInfo);
 
-                    // odulReklamYukle();
-                    RewardedVideoAd.instance.load(
-                        adUnitId: AdmobIslemleri.odulIdCanli,
-                        targetingInfo: AdmobIslemleri.targetingInfo);
-
-                    RewardedVideoAd.instance.listener =
-                        (RewardedVideoAdEvent event,
-                            {String rewardType, int rewardAmount}) {
-                      if (event == RewardedVideoAdEvent.rewarded) {
-                        setState(() {
-                          print(
-                              "**************ÖDÜL KAZANDINIZ*****************" +
-                                  AdmobIslemleri.odulSayac.toString());
-                          AdmobIslemleri.odulSayac++;
-                          odulReklamYukle();
-                        });
-                      } else if (event == RewardedVideoAdEvent.loaded) {
-                        RewardedVideoAd.instance.show();
-                        print(
-                            "**************REKLAM YÜKLENDİ GELECEK*****************");
-                      } else if (event == RewardedVideoAdEvent.closed) {
-                        print("**************REKLAM KAPANDI*****************" +
-                            AdmobIslemleri.odulSayac.toString()); //bool
-                      } else if (event == RewardedVideoAdEvent.failedToLoad) {
-                        print(
-                            "**************REKLAM BULUNAMADI*****************");
-                        odulReklamYukle();
-                      }
-                    };
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      child: Center(
-                          child: Text(
-                        "Programlara erişmek için buraya dokun, reklamı görüntüle.",
-                        style: TextStyle(
-                            color: Colors.deepOrange.shade700,
-                            fontSize: en / 29),
-                      )),
-                    ),
-                  )),
-        ),
+            //       RewardedVideoAd.instance.listener =
+            //           (RewardedVideoAdEvent event,
+            //               {String rewardType, int rewardAmount}) {
+            //         if (event == RewardedVideoAdEvent.rewarded) {
+            //           setState(() {
+            //             print(
+            //                 "**************ÖDÜL KAZANDINIZ*****************" +
+            //                     AdmobIslemleri.odulSayac.toString());
+            //             AdmobIslemleri.odulSayac++;
+            //             odulReklamYukle();
+            //           });
+            //         } else if (event == RewardedVideoAdEvent.loaded) {
+            //           RewardedVideoAd.instance.show();
+            //           print(
+            //               "**************REKLAM YÜKLENDİ GELECEK*****************");
+            //         } else if (event == RewardedVideoAdEvent.closed) {
+            //           print("**************REKLAM KAPANDI*****************" +
+            //               AdmobIslemleri.odulSayac.toString()); //bool
+            //         } else if (event == RewardedVideoAdEvent.failedToLoad) {
+            //           print(
+            //               "**************REKLAM BULUNAMADI*****************");
+            //           odulReklamYukle();
+            //         }
+            //       };
+            //     },
+            //     child: Padding(
+            //       padding: const EdgeInsets.all(8.0),
+            //       child: Container(
+            //         child: Center(
+            //             child: Text(
+            //           "Programlara erişmek için buraya dokun, reklamı görüntüle.",
+            //           style: TextStyle(
+            //               color: Colors.deepOrange.shade700,
+            //               fontSize: en / 29),
+            //         )),
+            //       ),
+            //     )),
+            ),
       ],
     );
   }

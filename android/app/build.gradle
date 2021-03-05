@@ -13,12 +13,12 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
+    flutterVersionCode = '2' 
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
+    flutterVersionName = '1.1' 
 }
 
 apply plugin: 'com.android.application'
@@ -35,7 +35,7 @@ def keystoreProperties = new Properties()
    if (keystorePropertiesFile.exists()) {
        keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
    }
-
+//DEBUG VERSİYONDA DEF İLE BAŞLAYAN KISIM YOK
    android {
     compileSdkVersion 29
 
@@ -45,7 +45,6 @@ def keystoreProperties = new Properties()
 
     lintOptions {
         disable 'InvalidPackage'
-        //deneme
         checkReleaseBuilds false
 
     }
@@ -60,6 +59,17 @@ def keystoreProperties = new Properties()
         versionName flutterVersionName
         
     }
+
+    /*AŞAĞI KISMIN DEBUG VERSİYONU:
+      buildTypes {
+       release {
+           // TODO: Add your own signing config for the release build.
+           // Signing with the debug keys for now,
+           // so `flutter run --release` works.
+           signingConfig signingConfigs.debug
+       }
+   }
+    */
 
      signingConfigs {
        release {
