@@ -45,8 +45,10 @@ class _FavoriSayfasiState extends State<FavoriSayfasi> {
       key: _scaffoldKey,
       resizeToAvoidBottomPadding: true,
       appBar: AppBar(
-        title: Text("Favori Hareketler"),
-        centerTitle: true,
+        title: Text(
+          "Favori Hareketler",
+          style: Theme.of(context).appBarTheme.textTheme.headline1,
+        ),
       ),
       body: listeHazirla(en, boy),
     );

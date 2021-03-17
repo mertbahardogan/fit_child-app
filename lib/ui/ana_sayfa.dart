@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cocuklar_icin_spor_app/methods/oneri_verileri_hazirla.dart';
 import 'package:cocuklar_icin_spor_app/models/kisisel.dart';
 import 'package:cocuklar_icin_spor_app/models/oneri.dart';
@@ -18,8 +19,8 @@ class AnaSayfa extends StatefulWidget {
 class _AnaSayfaState extends State<AnaSayfa> {
   DatabaseHelper _databaseHelper;
   List<Kisisel> tumKisiselVerilerListesi;
+  int titleValue = 0;
 
-  //
   static List<Oneri> tumOneriler;
 
   @override
@@ -46,20 +47,35 @@ class _AnaSayfaState extends State<AnaSayfa> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Center(
-                    child: Text(
-                      "Fit Child",
-                      style: TextStyle(
-                          fontSize: en / 15,
-                          color: Colors.blueGrey.shade900,
-                          fontFamily: "Indie",
-                          fontWeight: FontWeight.bold),
+                    child: Row(
+                      children: [
+                        titleValue == 0
+                            ? Text(
+                                "Fit ",
+                                style: Theme.of(context).textTheme.headline1,
+                              )
+                            : Text(
+                                "Fit Child ",
+                                style: Theme.of(context).textTheme.headline1,
+                              ),
+                        RotateAnimatedTextKit(
+                            onFinished: () {
+                              setState(() {
+                                titleValue = 1;
+                              });
+                            },
+                            text: ["Child", "Teen", "Adult"],
+                            textStyle: Theme.of(context).textTheme.headline1,
+                            textAlign: TextAlign.start),
+                      ],
                     ),
                   ),
                   ButtonBar(
                     children: [
                       IconButton(
                           icon: Icon(Icons.stars,
-                              size: en / 12, color: Colors.blueAccent.shade100),
+                              size: en / 12,
+                              color: Theme.of(context).primaryColor),
                           onPressed: () {
                             LaunchReview.launch(
                               androidAppId: "com.lmonosoft.fitchild",
@@ -68,7 +84,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                       IconButton(
                           icon: Icon(
                             Icons.account_circle_rounded,
-                            color: Colors.blueGrey.shade700,
+                            color: Theme.of(context).accentColor,
                             size: en / 12,
                           ),
                           onPressed: () {
@@ -89,6 +105,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
           pinned: true,
           primary: true,
           expandedHeight: 80,
+          collapsedHeight: 70,
           elevation: 4,
         ),
         SliverFixedExtentList(
@@ -127,7 +144,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                       "Merhaba,",
                       style: TextStyle(
                           color: Colors.blueGrey.shade900,
-                          fontSize: en / 25,
+                          fontSize: en / 24,
                           fontWeight: FontWeight.w600),
                     ),
                     FutureBuilder(
@@ -142,7 +159,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                               style: TextStyle(
                                   color: Colors.blueAccent.shade100,
                                   fontSize: en / 19,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.w800),
                             );
                           } else {
                             return Center(child: CircularProgressIndicator());
@@ -170,7 +187,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
             },
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.blueAccent.shade100,
+                color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.all(Radius.circular(6)),
               ),
               margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
@@ -226,7 +243,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
             padding: const EdgeInsets.only(left: 10.0, bottom: 10),
             child: Text(
               "Önerilen Egzersizler",
-              style: TextStyle(fontSize: en / 26, fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.headline4,
             ),
           ),
           Padding(
@@ -302,8 +319,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
               children: [
                 Text(
                   "Size Özel",
-                  style:
-                      TextStyle(fontSize: en / 26, fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.headline4,
                 ),
               ],
             ),
@@ -323,7 +339,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
                         height: boy / 7.5,
                         width: en / 2.05,
                         decoration: BoxDecoration(
-                            color: Colors.blueGrey.shade900,
+                            color: Theme.of(context).accentColor,
                             borderRadius: BorderRadius.all(Radius.circular(4))),
                         child: Column(
                           children: [
@@ -452,8 +468,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
               children: [
                 Text(
                   "Faydalı Bilgiler",
-                  style:
-                      TextStyle(fontSize: en / 26, fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.headline4,
                 ),
               ],
             ),

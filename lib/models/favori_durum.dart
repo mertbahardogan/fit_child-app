@@ -28,7 +28,6 @@ class FavoriDurum {
 
   Map<String, dynamic> dbyeYazmakIcinMapeDonustur() {
     var map = Map<String, dynamic>();
-
     map["favoriID"] = _id;
     map["favoriDurum"] = _durum;
     map["favoriHareketID"] = _hareketID;

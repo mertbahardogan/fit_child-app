@@ -1,5 +1,4 @@
 import 'dart:async';
-
 // import 'package:cocuklar_icin_spor_app/admob/admob_islemleri.dart';
 import 'package:cocuklar_icin_spor_app/methods/egzersiz_verileri_hazirla.dart';
 import 'package:cocuklar_icin_spor_app/models/egzersiz.dart';
@@ -68,21 +67,25 @@ class _ProgramDetayState extends State<ProgramDetay> {
         scrollDirection: Axis.vertical,
         slivers: [
           SliverAppBar(
-            iconTheme: IconThemeData(
-              color: Colors.black,
-            ),
+            pinned: true,
+            primary: true,
+            expandedHeight: 55,
+            elevation: 4,
+            backgroundColor: Colors.blueAccent.shade100,
+            shadowColor: Colors.blueAccent,
+            collapsedHeight: 60,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   secilenHafta.haftalikAd + " Seviye",
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.w600),
+                  style: Theme.of(context).appBarTheme.textTheme.headline1,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 15),
                   child: Checkbox(
-                    activeColor: Colors.blueGrey.shade900,
+                    activeColor: Colors.lightGreen,
+                    checkColor: Colors.blueGrey.shade900,
                     value: secilenDurum,
                     onChanged: (value) {
                       setState(() {
@@ -109,12 +112,6 @@ class _ProgramDetayState extends State<ProgramDetay> {
                 )
               ],
             ),
-            centerTitle: true,
-            backgroundColor: Colors.grey.shade200,
-            pinned: true,
-            primary: true,
-            expandedHeight: 55,
-            elevation: 4,
           ),
           SliverFixedExtentList(
               delegate: SliverChildListDelegate(sabitListeElemanlari()),
@@ -545,27 +542,15 @@ class _ProgramDetayState extends State<ProgramDetay> {
                 color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(5),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 14.0, top: 2),
-                    child: Text(
-                      "Hatırlatma",
-                      style: TextStyle(
-                          color: Colors.blueGrey.shade700,
-                          fontWeight: FontWeight.bold),
-                    ),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 14.0),
+                  child: Text(
+                    "Programınıza egzersizler bölümünden farklı yoga hareketleri ekleyebilirsiniz.",
+                    style: TextStyle(
+                        fontSize: en / 36, color: Colors.blueGrey.shade600),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 14.0, top: 0),
-                    child: Text(
-                      "Programınıza egzersizler bölümünden farklı yoga hareketleri ekleyebilirsiniz.",
-                      style: TextStyle(
-                          fontSize: en / 36, color: Colors.blueGrey.shade400),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
           ],
@@ -596,7 +581,7 @@ class _ProgramDetayState extends State<ProgramDetay> {
                 style: TextStyle(color: Colors.orange, fontSize: en / 20),
               ),
             ),
-            backgroundColor: Colors.blueAccent.shade200,
+            backgroundColor: Theme.of(context).accentColor,
             content: StatefulBuilder(
               builder: (ctx, StateSetter setState) {
                 return SingleChildScrollView(

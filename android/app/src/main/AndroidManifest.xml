@@ -42,6 +42,7 @@
         <meta-data
            android:name="com.google.android.gms.ads.APPLICATION_ID"
          android:value="ca-app-pub-3430256037879691~9194949650"/>
+         <!-- android:value="ca-app-pub-3940256099942544~1458002511"/> -->
         <!-- Don't delete the meta-data below.
               Gerçek App ID:   ca-app-pub-3430256037879691~9194949650
               Test App ID:     ca-app-pub-3940256099942544~1458002511

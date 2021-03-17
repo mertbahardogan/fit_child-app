@@ -44,10 +44,8 @@ class _ProgramSayfasiState extends State<ProgramSayfasi> {
         backgroundColor: Colors.white,
         title: Text(
           "Haftalık Spor Programı",
-          style: TextStyle(
-              color: Colors.blueGrey.shade900, fontWeight: FontWeight.w600),
+          style: Theme.of(context).appBarTheme.textTheme.headline1,
         ),
-        centerTitle: true,
       ),
       body: listeHazirla(en, boy),
     );
@@ -93,15 +91,9 @@ class _ProgramSayfasiState extends State<ProgramSayfasi> {
           borderRadius: BorderRadius.all(
             Radius.circular(14),
           ),
-          // boxShadow: [
-          //   BoxShadow(
-          //       color: Colors.blueAccent.shade100,
-          //       blurRadius: 1,
-          //       offset: Offset(0, 5))
-          // ],
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Image.asset(
               "assets/images/levels/" + oAnEklenecek.haftalikResim,
@@ -122,26 +114,14 @@ class _ProgramSayfasiState extends State<ProgramSayfasi> {
                 SizedBox(
                   height: en / 20,
                 ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 6, left: 6),
-                      child: Icon(
-                        Icons.timer,
-                        size: en / 25,
+                Text(
+                    "Egzersizler " +
+                        oAnEklenecek.haftalikAciklama +
+                        " saniye 3-4 set yapılabilir.",
+                    style: TextStyle(
                         color: Colors.white,
-                      ),
-                    ),
-                    Text(
-                        "Egzersizler " +
-                            oAnEklenecek.haftalikAciklama +
-                            " saniye 3-4 set yapılabilir.",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: en / 40,
-                            fontWeight: FontWeight.w400)),
-                  ],
-                )
+                        fontSize: en / 40,
+                        fontWeight: FontWeight.w400)),
               ],
             )
           ],

@@ -48,20 +48,22 @@ class _BilgileriGuncelleState extends State<BilgileriGuncelle> {
       ..load()
       ..show();
 
-    double ekranHeight = MediaQuery.of(context).size.height;
-    double ekranWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: AppBar(
-        title: Text("Yenilik Zamanı"),
-        centerTitle: true,
+        title: Text(
+          "Yenilik Zamanı",
+          style: Theme.of(context).appBarTheme.textTheme.headline1,
+        ),
       ),
       body: Padding(
           padding: EdgeInsets.only(
-              top: ekranHeight / 7,
-              left: ekranWidth / 10,
-              right: ekranWidth / 10),
+              top: screenHeight / 7,
+              left: screenWidth / 10,
+              right: screenWidth / 10),
           child: Form(
             key: _formKey,
             autovalidateMode: otomatikKontrol,

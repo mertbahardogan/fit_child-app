@@ -9,10 +9,10 @@ class VucutKitleSayfasi extends StatefulWidget {
 
 class _VucutKitleSayfasiState extends State<VucutKitleSayfasi> {
   var _formKey = GlobalKey<FormState>();
-  var _controllerBoy = TextEditingController();
-  var _controllerKilo = TextEditingController();
+  var _controllerTall = TextEditingController();
+  var _controllerWeight = TextEditingController();
   double bmi;
-  String stringOneri;
+  String myAdvice;
   BannerAd myBannerAd;
 
   @override
@@ -24,6 +24,9 @@ class _VucutKitleSayfasiState extends State<VucutKitleSayfasi> {
 
   @override
   void dispose() {
+    _controllerTall.dispose();
+    _controllerWeight.dispose();
+
     if (myBannerAd != null) myBannerAd.dispose();
     super.dispose();
   }
@@ -38,8 +41,8 @@ class _VucutKitleSayfasiState extends State<VucutKitleSayfasi> {
       appBar: AppBar(
         title: Text(
           "Vücut Kitle Endeksi",
+          style: Theme.of(context).appBarTheme.textTheme.headline1,
         ),
-        centerTitle: true,
       ),
       body: Container(
         child: Column(
@@ -52,10 +55,10 @@ class _VucutKitleSayfasiState extends State<VucutKitleSayfasi> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
                     child: TextFormField(
-                      controller: _controllerBoy,
+                      controller: _controllerTall,
                       cursorColor: Colors.red,
                       autofocus: false,
-                      validator: _olcuKontrol,
+                      validator: _checkValues,
                       decoration: InputDecoration(
                         labelText: "Boy",
                         hintText: "Boyunuz (cm)",
@@ -68,8 +71,8 @@ class _VucutKitleSayfasiState extends State<VucutKitleSayfasi> {
                     child: TextFormField(
                       autofocus: false,
                       cursorColor: Colors.red,
-                      controller: _controllerKilo,
-                      validator: _olcuKontrol,
+                      controller: _controllerWeight,
+                      validator: _checkValues,
                       decoration: InputDecoration(
                         labelText: "Kilo",
                         hintText: "Kilonuz (kg)",
@@ -90,9 +93,9 @@ class _VucutKitleSayfasiState extends State<VucutKitleSayfasi> {
                 color: Colors.blueGrey.shade900,
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
-                    _oraniHesapla(int.parse(_controllerBoy.text),
-                        int.parse(_controllerKilo.text));
-                    bmiGoster(context, bmi, stringOneri);
+                    _oraniHesapla(int.parse(_controllerTall.text),
+                        int.parse(_controllerWeight.text));
+                    bmiGoster(context, bmi, myAdvice);
                   }
                 },
               ),
@@ -103,32 +106,32 @@ class _VucutKitleSayfasiState extends State<VucutKitleSayfasi> {
     );
   }
 
-  void _oraniHesapla(int boy, int kilo) {
-    var sonuc = ((kilo / (boy * boy)) * 10000).toStringAsFixed(1);
+  void _oraniHesapla(int tall, int weight) {
+    var sonuc = ((weight / (tall * tall)) * 10000).toStringAsFixed(1);
 
     setState(() {
       bmi = double.parse(sonuc);
       if (bmi <= 18.5) {
-        stringOneri = "Kilo almanız öneriliyor.";
+        myAdvice = "Kilo almanız öneriliyor.";
       }
       if (bmi > 18.5 && bmi <= 25) {
-        stringOneri = "Kilonuzu korumanız öneriliyor.";
+        myAdvice = "Kilonuzu korumanız öneriliyor.";
       }
       if (bmi > 25 && bmi <= 30) {
-        stringOneri = "Spora başlamanız öneriliyor.";
+        myAdvice = "Spora başlamanız öneriliyor.";
       }
       if (bmi > 30) {
-        stringOneri =
+        myAdvice =
             "Spora başlamanız gerekiyor.\nDiyet listesi uygulayabilirsiniz.";
       }
       if (bmi >= 50) {
-        stringOneri = "Lütfen doğru değerler giriniz.";
+        myAdvice = "Lütfen doğru değerler giriniz.";
         bmi = 0;
       }
     });
   }
 
-  String _olcuKontrol(String value) {
+  String _checkValues(String value) {
     RegExp regex = RegExp("^-?\\d*(\\.\\d+)?\$");
     if (value != "") {
       if (!regex.hasMatch(value)) {
@@ -140,7 +143,7 @@ class _VucutKitleSayfasiState extends State<VucutKitleSayfasi> {
     }
   }
 
-  bmiGoster(BuildContext ctx, double bmi, String stringOneri) {
+  bmiGoster(BuildContext ctx, double bmi, String myAdvice) {
     showDialog(
         context: ctx,
         barrierDismissible: false,
@@ -162,7 +165,7 @@ class _VucutKitleSayfasiState extends State<VucutKitleSayfasi> {
                       style: TextStyle(color: Colors.white),
                     ),
                     Text(
-                      "$stringOneri",
+                      "$myAdvice",
                       style: TextStyle(color: Colors.white),
                     ),
                   ],

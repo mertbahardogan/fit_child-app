@@ -13,16 +13,17 @@ class HareketKaydediciSayfasi extends StatefulWidget {
 
 class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
   var _formKey = GlobalKey<FormState>();
-  var otomatikKontrol = AutovalidateMode.disabled;
+  var automaticControl = AutovalidateMode.disabled;
   DatabaseHelper _databaseHelper;
   var _controller = TextEditingController();
   var _scaffoldKey = GlobalKey<ScaffoldState>();
   InterstitialAd myInterstitialAd;
 
-  List<Hareket> tumKaydedilenlerListesi;
-  DateTime suan = DateTime.now();
-  DateTime once = DateTime(2021, DateTime.now().month, DateTime.now().day - 3);
-  List<String> tumEgzersizler = [
+  List<Hareket> allSavedExercices;
+  DateTime thisTime = DateTime.now();
+  DateTime beforeThisTime =
+      DateTime(2021, DateTime.now().month, DateTime.now().day - 3);
+  List<String> allExercices = [
     "Şınav",
     "Mekik",
     "Plank",
@@ -35,19 +36,22 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
     "Pilates",
     "Yoga"
   ];
-  String secilenEgzersiz = "Şınav";
-  int tiklanilanCardIndex;
-  int tiklanilanCardID;
-  int boyut = 0;
+  List<String> allExerciceType = ["Set", "Tekrar", "Dakika", "Saat", "Hareket"];
+  String selectedExerciceType = "Set";
+  String selectedExercise = "Şınav";
+  int clickedCardIndex;
+  int clickedCardID;
+  int listSize = 0;
+  int selectedNumber = 1;
 
   @override
   void initState() {
     super.initState();
-    tumKaydedilenlerListesi = List<Hareket>();
+    allSavedExercices = List<Hareket>();
     _databaseHelper = DatabaseHelper();
     _databaseHelper.tumHareketler().then((value) {
       for (Map okunanHareketListesi in value) {
-        tumKaydedilenlerListesi
+        allSavedExercices
             .add(Hareket.fromDbReadingConvertObject(okunanHareketListesi));
       }
       setState(() {});
@@ -68,16 +72,33 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
   @override
   Widget build(BuildContext context) {
     setState(() {
-      boyut = tumKaydedilenlerListesi.length;
+      listSize = allSavedExercices.length;
     });
     double en = MediaQuery.of(context).size.width;
     double boy = MediaQuery.of(context).size.height;
+    final TextStyle _dropTextStyle = TextStyle(
+        color: Colors.blueGrey.shade900,
+        fontWeight: FontWeight.w400,
+        fontSize: en / 22);
+
+    final BoxDecoration _dropdownDecoration = BoxDecoration(
+        border: Border.all(color: Colors.blueAccent.shade100, width: 1.5),
+        borderRadius: BorderRadius.all(Radius.circular(3)));
+
+    final Icon _dropdownIcon = Icon(
+      Icons.keyboard_arrow_down_rounded,
+      color: Colors.blueAccent.shade100,
+      size: en / 15,
+    );
+
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomPadding: true,
       appBar: AppBar(
-        title: Text("Hareket Hatırlatıcı"),
-        centerTitle: true,
+        title: Text(
+          "Hareket Geçmişi",
+          style: Theme.of(context).appBarTheme.textTheme.headline1,
+        ),
       ),
       body: Container(
           padding: EdgeInsets.all(10),
@@ -87,83 +108,76 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 10),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.timer),
-                          labelText: "Set / Tekrar Sayısı veya Dakika Giriniz",
-                          labelStyle: TextStyle(fontSize: 15),
-                          border: OutlineInputBorder(),
-                        ),
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w400),
-                        cursorColor: Colors.grey,
-                        maxLength: 10,
-                        autofocus: false,
-                        controller: _controller,
-                        validator: _alanKontrol,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
-                          width: en / 1.5,
+                          width: en / 2.75,
                           height: boy / 17,
                           alignment: Alignment.center,
                           margin: EdgeInsets.only(bottom: 10, top: 5),
-                          decoration: BoxDecoration(
-                              color: Colors.grey.shade300,
-                              border: Border.all(color: Colors.grey),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(2))),
+                          decoration: _dropdownDecoration,
+                          child: DropdownButtonHideUnderline(
+                              child: DropdownButton(
+                                  icon: _dropdownIcon,
+                                  items: createDropdownNumbers(_dropTextStyle),
+                                  value: selectedNumber,
+                                  onChanged: (val) =>
+                                      setState(() => selectedNumber = val))),
+                        ),
+                        Container(
+                          width: en / 2.75,
+                          height: boy / 17,
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.only(bottom: 10, top: 5),
+                          decoration: _dropdownDecoration,
+                          child: DropdownButtonHideUnderline(
+                              child: DropdownButton(
+                                  icon: _dropdownIcon,
+                                  items: _createDropdownExerciceType(
+                                      _dropTextStyle),
+                                  value: selectedExerciceType,
+                                  onChanged: (val) => setState(
+                                      () => selectedExerciceType = val))),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          width: en / 1.6,
+                          height: boy / 17,
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.only(bottom: 10, top: 5),
+                          decoration: _dropdownDecoration,
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
-                              dropdownColor: Colors.white,
-                              iconSize: 30,
-                              items: tumEgzersizler.map((oankiEgzersiz) {
-                                return DropdownMenuItem<String>(
-                                  child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      oankiEgzersiz,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: en / 20),
-                                    ),
-                                  ),
-                                  value: oankiEgzersiz,
-                                );
-                              }).toList(),
-                              onChanged: (secilen) {
+                              icon: _dropdownIcon,
+                              items: _createDropdownExercices(_dropTextStyle),
+                              onChanged: (selected) {
                                 setState(() {
-                                  secilenEgzersiz = secilen;
+                                  selectedExercise = selected;
                                 });
                               },
-                              value: secilenEgzersiz,
+                              value: selectedExercise,
                             ),
                           ),
                         ),
                         //Farklı tarih seç buton
                         IconButton(
-                          icon: Icon(Icons.date_range),
-                          color: Colors.black,
+                          icon: Icon(Icons.date_range, size: en / 15),
+                          color: Colors.blueGrey.shade900,
                           onPressed: () {
                             showDatePicker(
                                     context: context,
                                     initialDate: DateTime.now(),
-                                    firstDate: once,
+                                    firstDate: beforeThisTime,
                                     lastDate: DateTime.now())
                                 .then(
                               (secilenTarih) {
-                                suan = secilenTarih;
+                                thisTime = secilenTarih;
                               },
                             );
                           },
@@ -181,13 +195,17 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                 children: [
                   RaisedButton(
                     onPressed: () {
-                      if (suan == null) {
-                        suan = DateTime.now();
+                      if (thisTime == null) {
+                        thisTime = DateTime.now();
                       }
                       _hareketEkle(Hareket(
-                          secilenEgzersiz, suan.toString(), _controller.text));
+                          selectedExercise,
+                          thisTime.toString(),
+                          selectedNumber.toString() +
+                              " " +
+                              selectedExerciceType));
                     },
-                    color: Colors.blueGrey.shade900,
+                    color: Theme.of(context).accentColor,
                     child: Text(
                       "Kaydet",
                       style: TextStyle(
@@ -195,32 +213,31 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                     ),
                   ),
                   RaisedButton(
-                      disabledColor: Colors.blueGrey.shade900,
-                      color: Colors.blueGrey.shade900,
+                      color: Theme.of(context).accentColor,
                       child: Text(
                         "Güncelle",
                         style: TextStyle(
                             color: Colors.orangeAccent, fontSize: en / 27),
                       ),
-                      onPressed: tiklanilanCardID == null
+                      onPressed: clickedCardID == null
                           ? null
                           : () {
                               if (_formKey.currentState.validate()) {
                                 _hareketGuncelle(Hareket.withID(
-                                    tiklanilanCardID,
-                                    secilenEgzersiz,
-                                    suan.toString(),
+                                    clickedCardID,
+                                    selectedExercise,
+                                    thisTime.toString(),
                                     _controller.text));
                               }
                             }),
                   RaisedButton(
                     onPressed: () {
-                      if (tumKaydedilenlerListesi.length == 0) {
+                      if (allSavedExercices.length == 0) {
                       } else {
                         alertEminMi(context);
                       }
                     },
-                    color: Colors.blueGrey.shade900,
+                    color: Theme.of(context).accentColor,
                     child: Text(
                       "Tüm Bilgileri Sil",
                       style:
@@ -229,21 +246,20 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                   ),
                 ],
               ),
-              Divider(
-                color: Colors.grey,
-                thickness: 2,
-              ),
+              Divider(color: Colors.blueAccent.shade100, thickness: 2),
               Padding(
                 padding: EdgeInsets.all(15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Kayıtlı Hareket Bilgilerim",
+                      "Hareket Geçmişi Listesi",
                       style: TextStyle(fontSize: en / 25),
                     ),
                     Text(
-                        boyut.toString() == null ? "Boyut: 0" : "Boyut: $boyut",
+                        listSize.toString() == null
+                            ? "Boyut: 0"
+                            : "Boyut: $listSize",
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: en / 30,
@@ -253,42 +269,40 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
               ),
               Expanded(
                 child: ListView.builder(
-                    itemCount: tumKaydedilenlerListesi.length,
+                    itemCount: allSavedExercices.length,
                     itemBuilder: (context, index) {
                       return Card(
                         color: Colors.white,
                         child: ListTile(
                           onTap: () {
                             setState(() {
-                              _controller.text = tumKaydedilenlerListesi[index]
-                                  .hareketTekrarSayisi;
-                              secilenEgzersiz =
-                                  tumKaydedilenlerListesi[index].hareketAd;
-                              tiklanilanCardIndex = index;
-                              tiklanilanCardID =
-                                  tumKaydedilenlerListesi[index].hareketID;
+                              _controller.text =
+                                  allSavedExercices[index].hareketTekrarSayisi;
+                              selectedExercise =
+                                  allSavedExercices[index].hareketAd;
+                              clickedCardIndex = index;
+                              clickedCardID =
+                                  allSavedExercices[index].hareketID;
                             });
                           },
                           title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  tumKaydedilenlerListesi[index].hareketAd,
+                                  allSavedExercices[index].hareketAd,
                                   style: TextStyle(
                                       fontSize: en / 18,
                                       fontWeight: FontWeight.w600),
                                 ),
                                 Text(
-                                  "Not: " +
-                                      tumKaydedilenlerListesi[index]
-                                          .hareketTekrarSayisi,
+                                  allSavedExercices[index].hareketTekrarSayisi,
                                   style: TextStyle(fontSize: en / 27),
                                 )
                               ]),
                           subtitle: Text(
                             formatDate(
-                                DateTime.parse(tumKaydedilenlerListesi[index]
-                                    .hareketTarih),
+                                DateTime.parse(
+                                    allSavedExercices[index].hareketTarih),
                                 [dd, '-', mm, '-', yyyy]),
                           ),
                           trailing: GestureDetector(
@@ -296,8 +310,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                                 size: en / 15, color: Colors.red.shade400),
                             onTap: () {
                               _hareketSil(
-                                  tumKaydedilenlerListesi[index].hareketID,
-                                  index);
+                                  allSavedExercices[index].hareketID, index);
                             },
                           ),
                         ),
@@ -309,17 +322,16 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
     );
   }
 
-  String _alanKontrol(String deger) {
-    RegExp regex = RegExp("[a-zA-Z]");
-    if (!regex.hasMatch(deger))
-      return 'Boş değer veya sadece sayı girmemelisiniz.';
-    else
-      return null;
-  }
+  // String _alanKontrol(String deger) {
+  //   RegExp regex = RegExp("[a-zA-Z]");
+  //   if (!regex.hasMatch(deger))
+  //     return 'Boş değer veya sadece sayı girmemelisiniz.';
+  //   else
+  //     return null;
+  // }
 
   void _hareketEkle(Hareket hareket) async {
-    if (_formKey.currentState.validate() &&
-        tumKaydedilenlerListesi.length < 15) {
+    if (_formKey.currentState.validate() && allSavedExercices.length < 15) {
       var eklenenHareketID = await _databaseHelper.hareketEkle(hareket);
       hareket.hareketID = eklenenHareketID;
       _scaffoldKey.currentState.showSnackBar(SnackBar(
@@ -328,10 +340,10 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
         duration: Duration(seconds: 1),
       ));
       setState(() {
-        tumKaydedilenlerListesi.insert(0, hareket);
+        allSavedExercices.insert(0, hareket);
       });
     } else {
-      if (tumKaydedilenlerListesi.length >= 15) {
+      if (allSavedExercices.length >= 15) {
         _scaffoldKey.currentState.showSnackBar(SnackBar(
           backgroundColor: Colors.black,
           content: Text("Hatırlatıcı boyut sınırına ulaştınız: 15 kayıt."),
@@ -339,7 +351,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
         ));
       }
       if (!_formKey.currentState.validate()) {
-        otomatikKontrol = AutovalidateMode.always;
+        automaticControl = AutovalidateMode.always;
       }
     }
   }
@@ -349,11 +361,11 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
     if (sonuc == 1) {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
         backgroundColor: Colors.orange.shade500,
-        content: Text("${tiklanilanCardIndex + 1}. hareket notu güncellendi."),
+        content: Text("${clickedCardIndex + 1}. hareket notu güncellendi."),
         duration: Duration(seconds: 1),
       ));
       setState(() {
-        tumKaydedilenlerListesi[tiklanilanCardIndex] = hareket;
+        allSavedExercices[clickedCardIndex] = hareket;
       });
     }
   }
@@ -367,7 +379,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
         duration: Duration(seconds: 1),
       ));
       setState(() {
-        tumKaydedilenlerListesi.removeAt(forListtoDeleteIndex);
+        allSavedExercices.removeAt(forListtoDeleteIndex);
       });
     } else {
       _scaffoldKey.currentState.showSnackBar(SnackBar(
@@ -375,7 +387,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
         duration: Duration(seconds: 1),
       ));
     }
-    tiklanilanCardID = null;
+    clickedCardID = null;
   }
 
   void _tumTabloyuTemizle() async {
@@ -388,10 +400,10 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
             silinenElemanSayisi.toString() + " adet hareket notu silindi."),
       ));
       setState(() {
-        tumKaydedilenlerListesi.clear();
+        allSavedExercices.clear();
       });
     }
-    tiklanilanCardID = null;
+    clickedCardID = null;
   }
 
   void alertEminMi(BuildContext ctx) {
@@ -406,7 +418,7 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
                 style: TextStyle(color: Colors.yellow.shade800),
               ),
             ),
-            backgroundColor: Colors.blueGrey.shade900,
+            backgroundColor: Theme.of(context).accentColor,
             content: SingleChildScrollView(
                 child: Center(
               child: Text(
@@ -433,5 +445,45 @@ class _HareketKaydediciSayfasiState extends State<HareketKaydediciSayfasi> {
             ],
           );
         });
+  }
+
+  List<DropdownMenuItem> createDropdownNumbers(textStyle) {
+    List<int> numberList = List<int>.generate(100, (int index) => index + 1);
+    List<DropdownMenuItem> dropdownNumberList = numberList
+        .map((val) => DropdownMenuItem(
+            value: val, child: Text(val.toString(), style: textStyle)))
+        .toList();
+    return dropdownNumberList;
+  }
+
+  List<DropdownMenuItem> _createDropdownExercices(textStyle) {
+    List<DropdownMenuItem> dropdownExerciceList = allExercices.map((val) {
+      return DropdownMenuItem<String>(
+          child: Align(
+            alignment: Alignment.center,
+            child: Text(
+              val,
+              style: textStyle,
+            ),
+          ),
+          value: val);
+    }).toList();
+    return dropdownExerciceList;
+  }
+
+  List<DropdownMenuItem> _createDropdownExerciceType(textStyle) {
+    List<DropdownMenuItem> dropdownExerciceTypeList =
+        allExerciceType.map((val) {
+      return DropdownMenuItem<String>(
+          child: Align(
+            alignment: Alignment.center,
+            child: Text(
+              val,
+              style: textStyle,
+            ),
+          ),
+          value: val);
+    }).toList();
+    return dropdownExerciceTypeList;
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cocuklar_icin_spor_app/ui/ana_sayfa.dart';
 import 'package:cocuklar_icin_spor_app/ui/oneri_detay.dart';
 import 'package:cocuklar_icin_spor_app/ui/program_detay.dart';
@@ -33,61 +35,67 @@ void initOneSignal(oneSignalAppId) async {
   });
 }
 
-// Future<String> initConnectionControl() async {
-//   String deger;
-//   var connectivityResult = await (Connectivity().checkConnectivity());
-//   if (connectivityResult == ConnectivityResult.mobile) {
-//     print("I am connected to a mobile network.");
-//     deger = "aktif";
-//   } else if (connectivityResult == ConnectivityResult.wifi) {
-//     print("I am connected to a wifi network.");
-//     deger = "aktif";
-//   } else if (connectivityResult == ConnectivityResult.none) {
-//     print("HAVE NOT network.");
-//     deger = "pasif";
-//   }
-//   return deger;
-// }
-
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
+double screenWidth;
+
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    screenWidth = window.physicalSize.width;
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Fit Child App',
+      title: 'Fit Child',
       theme: ThemeData(
         fontFamily: "Poppins",
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        accentColor: Colors.black54,
+        accentColor: Colors.blueGrey.shade900,
         primaryColor: Colors.blueAccent.shade100,
+        appBarTheme: AppBarTheme(
+          centerTitle: true,
+          textTheme: TextTheme(
+            headline1: TextStyle(
+                color: Colors.blueGrey.shade900, fontWeight: FontWeight.w800),
+          ),
+        ),
+        textTheme: TextTheme(
+          headline1: TextStyle(
+              color: Colors.blueGrey.shade900,
+              fontSize: screenWidth / 40,
+              fontFamily: "Indie",
+              fontWeight: FontWeight.w800),
+          headline4: TextStyle(
+              fontSize: screenWidth / 65,
+              fontWeight: FontWeight.bold,
+              color: Colors.blueGrey.shade900),
+        ),
       ),
       home: Splash(),
       onGenerateRoute: (RouteSettings settings) {
-        List<String> pathElemanlari = settings.name.split("/");
+        List<String> pathValues = settings.name.split("/");
         //egzersizDetay/$index
-        if (pathElemanlari[1] == "egzersizDetay") {
+        if (pathValues[1] == "egzersizDetay") {
           return MaterialPageRoute(
-              builder: (context) =>
-                  EgzersizDetay(int.parse(pathElemanlari[2])));
+              builder: (context) => EgzersizDetay(int.parse(pathValues[2])));
         }
-        if (pathElemanlari[1] == "programDetay") {
+        if (pathValues[1] == "programDetay") {
           return MaterialPageRoute(
-              builder: (context) => ProgramDetay(int.parse(pathElemanlari[2])));
+              builder: (context) => ProgramDetay(int.parse(pathValues[2])));
         }
-        if (pathElemanlari[1] == "oneriDetay") {
+        if (pathValues[1] == "oneriDetay") {
           return MaterialPageRoute(
-              builder: (context) => OneriDetay(int.parse(pathElemanlari[2])));
+              builder: (context) => OneriDetay(int.parse(pathValues[2])));
         } else
           return null;
       },
@@ -102,16 +110,14 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> {
   DatabaseHelper _databaseHelper;
-  List<Kisisel> tumKisiselVerilerListesi;
-  String connection;
+  List<Kisisel> allKisiselData;
 
   @override
   void initState() {
     super.initState();
-    tumKisiselVerilerListesi = List<Kisisel>();
+    allKisiselData = List<Kisisel>();
     _databaseHelper = DatabaseHelper();
     initOneSignal("183aa663-1626-4f22-83ac-07ebeeecf2a6");
-    // connection = initConnectionControl().toString();
   }
 
   @override
@@ -122,33 +128,26 @@ class _SplashState extends State<Splash> {
           future: _databaseHelper.kisiselListesiniGetir(),
           builder: (context, AsyncSnapshot<List<Kisisel>> snapShot) {
             if (snapShot.connectionState == ConnectionState.done) {
-              tumKisiselVerilerListesi = snapShot.data;
-              return tumKisiselVerilerListesi.length == 0
-                  ? GirisSayfasi()
-                  : MyHomePage();
+              allKisiselData = snapShot.data;
+              return allKisiselData.length == 0 ? GirisSayfasi() : MyHomePage();
             } else {
               return Center(child: CircularProgressIndicator());
             }
           },
         ),
-        title: Text('Fit Child',
-            textAlign: TextAlign.end,
-            textScaleFactor: 3,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontFamily: "Indie",
-              fontSize: MediaQuery.of(context).size.width / 22,
-              color: Colors.blueGrey.shade900,
-            )),
-        // image: Image.asset("assets/images/fitness.png"),
-        // loadingText: Text(
-        //   // tumKisiselVerilerListesi.length == 0? "Hoşgeldiniz": "Hoşgeldiniz " + tumKisiselVerilerListesi[0].adSoyad,style: TextStyle(fontWeight: FontWeight.bold),
-        // ),
+        title: Text(
+          'Fit Child',
+          textAlign: TextAlign.end,
+          textScaleFactor: 3,
+          style: Theme.of(context)
+              .textTheme
+              .headline1
+              .copyWith(fontSize: screenWidth / 40),
+        ),
         loadingText: Text(
-          "1.0.1",
+          "1.0.2",
           style: TextStyle(color: Colors.grey),
         ),
-        // photoSize: 50.0,
         useLoader: false,
         backgroundColor: Colors.white);
   }

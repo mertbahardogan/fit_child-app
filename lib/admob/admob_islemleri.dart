@@ -4,7 +4,7 @@ class AdmobIslemleri {
   static final String appIdCanli = "ca-app-pub-3430256037879691~9194949650";
   static final String bannerIdCanli = "ca-app-pub-3430256037879691/4170047203";
   static final String gecisIdCanli = "ca-app-pub-3430256037879691/1248440203";
-  // static final String odulIdCanli = "ca-app-pub-3430256037879691/1804448757";
+  static final String odulIdCanli = "ca-app-pub-3430256037879691/1804448757";
 
   // static final String appIdTest = FirebaseAdMob.testAppId;
   // static final String odulIdTest = RewardedVideoAd.testAdUnitId;

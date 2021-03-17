@@ -13,7 +13,6 @@ class EgzersizSayfasi extends StatefulWidget {
 
 class _EgzersizSayfasiState extends State<EgzersizSayfasi> {
   InterstitialAd myInterstitialAd;
-
   @override
   void initState() {
     super.initState();
@@ -41,13 +40,11 @@ class _EgzersizSayfasiState extends State<EgzersizSayfasi> {
     return Scaffold(
       body: listeyiHazirla(en, boy),
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text(
           "Tüm Hareketler",
-          style: TextStyle(
-              color: Colors.blueGrey.shade900, fontWeight: FontWeight.w600),
+          style: Theme.of(context).appBarTheme.textTheme.headline1,
         ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
       ),
     );
   }
@@ -98,7 +95,7 @@ class _EgzersizSayfasiState extends State<EgzersizSayfasi> {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Colors.orange,
                           borderRadius: BorderRadius.all(Radius.circular(6))),
                       child: Padding(
                           padding: EdgeInsets.all(4),
@@ -108,7 +105,7 @@ class _EgzersizSayfasiState extends State<EgzersizSayfasi> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: en / 35,
-                                color: Colors.blueGrey.shade900),
+                                color: Colors.white),
                           )),
                     )
                   ],
